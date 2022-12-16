@@ -39,6 +39,9 @@ Here we determine how similar they are to the ESD's for which we have verified A
 library(tidyverse)
 library(sf)
 library(terra)
+library(bipartite)
+
+set.seed(51)
 ```
 
 ```{r Import Quantitative Fractional Cover Benchmarks}
@@ -88,16 +91,48 @@ esg2plots <- data.frame(levels(esg)) %>% # extract lookup table from raster
 ecosites <- as.data.frame(ecosites) %>%
   select(ECO.SITE, PLOT.ID)
 
-ESD2ESG_map <- left_join(esg2plots, ecosites, by = 'PLOT.ID'
-                         )
+ESD2ESG_map <- left_join(esg2plots, ecosites, by = 'PLOT.ID')
   
-rm(mode, esg, f, praw)
+rm(mode, esg, f, praw, esg2plots, ecosites)
 ```
 
 
 ```{r}
 
+ESD2ESG_wide <- ESD2ESG_map %>% 
+  mutate(
+    ESG = str_replace_all(ESG, ' ', "_"),
+    ESG = str_replace(ESG, 'Semiarid_Warm', 'SAW'),
+    ESG = str_replace(ESG, 'Semiarid_Cool', 'SAC'),
+    ESG = str_replace(ESG, 'Arid_Warm_', 'AW')) %>% 
+  select(-PLOT.ID) 
+
+ob <- with(ESD2ESG_wide, table(ESG, ECO.SITE))
+EsdEsg_network <- apply(as.matrix.noquote(ob),2,as.numeric)
+rownames(EsdEsg_network) <- rownames(ob)
+
+mod <- computeModules(EsdEsg_network)
+plotModuleWeb(mod)
+networklevel(EsdEsg_network)
+
+plotweb(mod@moduleWeb)
+
+
+modules <- module2constraints(mod)
+
+module_membership <- data.frame(c(rownames(EsdEsg_network), colnames(EsdEsg_network)), modules) 
+colnames(module_membership) <- c("vertices", "modules")
+
 ```
+
+```{r}
+
+
+
+
+```
+
+
 
 # Results
 
