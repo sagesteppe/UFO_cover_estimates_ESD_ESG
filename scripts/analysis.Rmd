@@ -57,8 +57,7 @@ ESG_cover <- read.csv(file.path(praw, f[grep('FractionalCover', f)] )) %>%
   mutate(GRASS = sum(Sacaton, C3_Perennial_Grass, C4_Perennial_Grass, Grass),
          SHRUB = sum(Saltbush, Shadescale, Shrub)) %>% 
   select(Climate:SoilGeomorphicUnits, GRASS, SHRUB, FORB = Forb, TREE = Tree) %>% 
-  pivot_longer(cols = GRASS:TREE, names_to = 'COVER_TYPE', values_to = 'MEAN') %>% 
-  rename_with(. ,toupper)
+  pivot_longer(cols = GRASS:TREE, names_to = 'COVER_TYPE', values_to = 'MEAN') 
 
 ```
 
@@ -117,17 +116,42 @@ networklevel(EsdEsg_network)
 
 plotweb(mod@moduleWeb)
 
-
 modules <- module2constraints(mod)
-
 module_membership <- data.frame(c(rownames(EsdEsg_network), colnames(EsdEsg_network)), modules) 
-colnames(module_membership) <- c("vertices", "modules")
+colnames(module_membership) <- c("vertices", "modules") 
 
+module_membership <- module_membership %>% 
+  mutate(vertices = str_remove_all(vertices, ','))
+
+rm(ob, mod, EsdEsg_network, modules, ESD2ESG_map)
 ```
 
-```{r}
+```{r Facet wrap density plots of ESD values with geom point ESG value}
 
 
+ESD_quant <- ESD_quant %>% 
+  select('CONCEPT' = ECO.SITE, COVER_TYPE, MEAN) %>% 
+  mutate(MODEL = 'ESD')
+
+ob <- ESG_cover %>% 
+  unite('ESG', Climate:SoilGeomorphicUnits, sep = '_-_') %>% 
+  mutate(
+    ESG = str_replace_all(ESG, ' ', "_"),
+    ESG = str_remove(ESG, 'No_Climate_Group_-_'),
+    ESG = str_replace(ESG, 'Semiarid_warm', 'SAW'),
+    ESG = str_replace(ESG, 'Semiarid_Cool', 'SAC'), # do need to go back to clean up names
+    ESG = str_replace(ESG, 'Arid_Warm_', 'AW')) %>% # of some of these strata
+  mutate(MODEL = 'ESG') %>% 
+  rename(CONCEPT = ESG) %>% 
+  bind_rows(ESD_quant) %>% 
+  right_join(., module_membership, by = c('CONCEPT' = 'vertices')) %>% 
+  mutate(MEAN_X = MEAN, MEAN_Y = MEAN) %>% 
+  filter(COVER_TYPE %in% c('FORB', 'GRASS', 'SHRUB', 'TREE'))
+
+ggplot(ob, aes(MEAN_X, MEAN_Y, color = MODEL)) +
+  geom_jitter() +
+  facet_grid(rows = vars(modules), cols = vars(COVER_TYPE)) +
+  theme_bw()
 
 
 ```
