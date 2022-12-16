@@ -1,0 +1,99 @@
+---
+title: "Compare ESD and ESG Quantitative Benchmarks"
+author: 
+output:
+  pdf_document: default
+  word_document: default
+header-includes:
+ - \usepackage[width=\textwidth]{caption}
+always_allow_html: yes
+csl: ../citations/citations/apa.csl
+bibliography: ../citations/citations/citations.bib
+link-citations: yes
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+knitr::opts_chunk$set(dpi = 300) 
+knitr::opts_chunk$set(message = F)
+knitr::opts_chunk$set(warning = F)
+```
+
+# Introduction
+
+
+
+> "QUOTE WILL GO HERE SUMMARIZING WHAT ESGS ARE ALL ABOOT"
+>  
+> `r tufte::quote_footer('--- Nauman et al. 2022')`
+
+The Ecological Site Groups developed by ... are at a theoretically more coarse resolution than Ecological Site Descriptions. These data are intended to support broader land management decisions. These data were developed in an explicitly quantitative framework, using remote sensing derived products. Due to their intended usage, and process of generation, they have been completed for the entire Colorado Plateau...
+
+# Methods
+Here we determine how similar they are to the ESD's for which we have verified AIM plots in. In order to determine if ESG's may serve as a drop-in-substitute for areas of the field office which do not have completed ESD's...
+
+
+```{r}
+library(tidyverse)
+library(sf)
+library(terra)
+```
+
+```{r Import Quantitative Fractional Cover Benchmarks}
+praw <- '../data/raw'
+f <- list.files(praw, recursive = T)
+
+ESD_quant <- read.csv(file.path(praw, f[grep('ESD_Quantitative',f)] )) %>% 
+  rowwise() %>% 
+  mutate(MEAN = sum(LOWER,  UPPER, na.rm = T)/2) 
+
+ESG_cover <- read.csv(file.path(praw, f[grep('FractionalCover', f)] )) %>% 
+  rowwise() %>% 
+  mutate(GRASS = sum(Sacaton, C3_Perennial_Grass, C4_Perennial_Grass, Grass),
+         SHRUB = sum(Saltbush, Shadescale, Shrub)) %>% 
+  select(Climate:SoilGeomorphicUnits, GRASS, SHRUB, FORB = Forb, TREE = Tree) %>% 
+  pivot_longer(cols = GRASS:TREE, names_to = 'COVER_TYPE', values_to = 'MEAN') %>% 
+  rename_with(. ,toupper)
+
+```
+
+```{r Import AIM plot locations subset to ESD verified and find their ESG via spatial operations}
+
+ecosites <- read.csv(file.path(praw, f[grep('Plot_Tracking',f)] )) %>% 
+  filter(ECO.SITE.MATCHED == T)
+
+esg <- rast(file.path(praw, f[grep('ESGs.*tif$',f)]))
+
+ecosites <- st_read('/media/sagesteppe/ExternalHD/UFO_cartography/AIM_plots_outcomes/plots_outcomes.shp', 
+                 quiet = T) %>% # let us grab the spatial data from this real quick
+  select(PLOT.ID = Plot_ID) %>% 
+  st_transform(26912) %>% 
+  st_buffer(27.5) %>% 
+  right_join(., ecosites, by = 'PLOT.ID')  %>% 
+  vect() %>% 
+  project(., crs(esg))
+
+mode <- function(codes){which.max(tabulate(codes))}
+
+extract(esg, ecosites, method = 'bilinear', weights = T, ID = T) %>% 
+  group_by(ID) %>% 
+  summarise(ESG_s = mode(ESG)) %>% 
+  cbind(PLOT.ID = ecosites$PLOT.ID, .)
+
+
+values(esg)
+
+```
+
+
+# Results
+
+We run multiple tests of correlation coefficients to determine similarity between these two data sets. ...
+
+# Conclusions
+
+The relationship between the novel ESG's and the ESD's...
+
+
