@@ -75,18 +75,29 @@ ecosites <- st_read('/media/sagesteppe/ExternalHD/UFO_cartography/AIM_plots_outc
   vect() %>% 
   project(., crs(esg))
 
-mode <- function(codes){which.max(tabulate(codes))}
+mode <- function(codes){as.numeric(which.max(tabulate(codes)))}
 
-extract(esg, ecosites, method = 'bilinear', weights = T, ID = T) %>% 
+esg2plots <- extract(esg, ecosites, method = 'bilinear', weights = T, ID = T) %>% 
   group_by(ID) %>% 
-  summarise(ESG_s = mode(ESG)) %>% 
+  summarise(Value = mode(ESG)) %>% 
   cbind(PLOT.ID = ecosites$PLOT.ID, .)
 
+esg2plots <- data.frame(levels(esg)) %>% # extract lookup table from raster
+  right_join(., esg2plots, by = 'Value') %>% 
+  select(ESG, PLOT.ID)
+ecosites <- as.data.frame(ecosites) %>%
+  select(ECO.SITE, PLOT.ID)
 
-values(esg)
-
+ESD2ESG_map <- left_join(esg2plots, ecosites, by = 'PLOT.ID'
+                         )
+  
+rm(mode, esg, f, praw)
 ```
 
+
+```{r}
+
+```
 
 # Results
 
