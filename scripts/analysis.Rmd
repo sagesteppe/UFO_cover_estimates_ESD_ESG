@@ -85,69 +85,19 @@ esg2plots <- extract(esg, ecosites, method = 'simple', weights = T, ID = T) %>%
 esg2plots <- data.frame(levels(esg)) %>% # extract lookup table from raster
   right_join(., esg2plots, by = 'Value') %>% 
   select(ESG, PLOT.ID)
-ecosites <- as.data.frame(ecosites) %>%
+ecosites_mapped <- as.data.frame(ecosites) %>%
   select(ECO.SITE, PLOT.ID)
 
-ESD2ESG_map <- left_join(esg2plots, ecosites, by = 'PLOT.ID')
-  
-rm(mode, esg, esg2plots, ecosites)
-```
-
-
-```{r Create Networks to show relationships between pixels and classification.}
-
-ESD2ESG_wide <- ESD2ESG_map %>% 
+ESD2ESG_map <- left_join(esg2plots, ecosites_mapped, by = 'PLOT.ID') %>% 
   mutate(
     ESG = str_replace_all(ESG, ' ', "_"),
     ESG = str_replace(ESG, ',_', '_and_'),
     ESG = str_replace(ESG, 'Semiarid_Warm', 'SAW'),
     ESG = str_replace(ESG, 'Semiarid_Cool', 'SAC'), 
-    ESG = str_replace(ESG, 'Arid_Warm_', 'AW')) %>% 
-  select(-PLOT.ID) 
-
-ob <- with(ESD2ESG_wide, table(ESG, ECO.SITE))
-EsdEsg_network <- apply(as.matrix.noquote(ob),2,as.numeric)
-rownames(EsdEsg_network) <- rownames(ob)
-
-mod <- computeModules(EsdEsg_network)
-plotModuleWeb(mod)
-
-
-NLINteractions <- networklevel(EsdEsg_network, index = c('linkage density', 
-                                       'weighted nestedness', 
-                                       'H2'))
-
-# Higher Level refers to the ESD's , Lower level to the ESGs
-GLInteractions <- grouplevel(EsdEsg_network,
-             index = c(
-               'number of species', # no expectations is what went in
-               'mean number of links', # for ESD expect 1, ESG > 1
-               'mean number of shared partners', # for ESG > 1, for ESD still greater than 1 as many can pool into one ESG
-               'niche overlap', # should be very low for ESG, should be higher for ESD, but still relatively low. 
-               'C score' # should be VERY HIGH for upper, low for lower.  
-               ))
-
-plotweb(mod@moduleWeb)
-
-SLInteractions <- specieslevel(EsdEsg_network, index = c('degree',  # number of links per species, ESD should be 1, ESG > 1
-  'species strength',
-  'effective partners',
-  'nestedrank'), level = 'both')
-
-modules <- module2constraints(mod)
-module_membership <- data.frame(c(rownames(EsdEsg_network), colnames(EsdEsg_network)), modules) 
-colnames(module_membership) <- c("vertices", "modules") 
-
-module_membership <- module_membership %>% 
-  mutate(vertices = str_remove_all(vertices, ','),  
-         vertices = str_replace(vertices, '_Finer_Uplands_and_Clay_Uplands', '_Finer_and_Clay_Uplands'),
-         vertices = str_replace(vertices, 'Sandy_Uplands_and_Loamy_Uplands', 'Sandy_and_Loamy_Uplands')
-         )
-
-rm(ob, mod, EsdEsg_network, modules, ESD2ESG_map)
+    ESG = str_replace(ESG, 'Arid_Warm_', 'AW')) 
+  
+rm(esg2plots, ecosites_mapped)
 ```
-It can be inferred from the above image is that from a per pixel perspective, the mapping between pixels and ESG's is of limited utility. Rather we need to utilize the direct look up tables from the publication... which miss most of our ecosites again... 
-
 
 
 
@@ -155,9 +105,9 @@ The study utilized 18 of the UFO's (NUMBER) ecosites. We can determine how often
 
 ```{r Use ideal lookup table from publication}
 
-reference_lookup <- read.csv(file.path(praw, f[grep('Appendix',f)] )) %>% 
+ref_lookup <- read.csv(file.path(praw, f[grep('Appendix',f)] )) %>% 
   select(Ecological.Site.ID, Final.Soil.Geomorphic.Unit, Climate.Zone) %>% 
-  filter(Ecological.Site.ID %in% module_membership$vertices) %>% 
+  filter(Ecological.Site.ID %in% ESD2ESG_map$ECO.SITE) %>% 
   mutate(
     Climate.Zone = str_replace(Climate.Zone, 'Semiarid_Warm', 'SAW'),
     Climate.Zone = str_replace(Climate.Zone, 'Semiarid_Cool', 'SAC'), 
@@ -173,6 +123,137 @@ reference_lookup <- read.csv(file.path(praw, f[grep('Appendix',f)] )) %>%
 rm(f, praw)
 ```
 
+
+Multiple options for extracting raster values to points were utilized to try and determine the correct ESG. Three parameters (plot buffer, summary statistic, and bilinear interpolation) were altered in two dichotomous ways (Yes/No), and all but one combinations thereof (the combination of a true point geometry and statistical summary methods cannot coexist) were implemented to determine which gave the best results.  
+
+*Bilinear interpolation* would be expected to "smooth" the surface of the raster dataset, and favor the most locally common ESG, whereas *simple interpolation* should be have a higher ability to detect more locally rare ESG's. Unfortunately the less common ESG's are not present in the validated lookup dataset. *Buffering* the center of the plot to match it's real world extent should also detect the more prevalent ESG's at the expense of less locally common ones; theoretical buffering would result in the highest number of mis-classifications, as the soil parameters which existed at plot center where almost the metric exclusively used in matched ESD's. *MODE OF CLASSIFICATION ADDED BACK IN*
+
+
+```{r Which raster extraction methods gave best results}
+
+ecosites <- st_read('/media/sagesteppe/ExternalHD/UFO_cartography/AIM_plots_outcomes/plots_outcomes.shp', 
+                 quiet = T) %>% # let us grab the spatial data from this real quick
+  select(PLOT.ID = Plot_ID) %>% 
+  st_transform(26912) 
+
+ESG4simulation <- filter(ESD2ESG_map, ECO.SITE %in% ref_lookup$Ecological.Site.ID) %>% 
+  select(-ESG) %>% 
+  left_join(., ecosites) %>% 
+  st_as_sf() %>% 
+  vect() %>% 
+  project(., crs(esg))
+
+ESG4simulation_buff <- ESG4simulation %>% 
+  st_as_sf() %>% 
+  st_transform(26912) %>% 
+  st_buffer(27.5) %>% 
+  vect() %>% 
+  project(., crs(esg))
+
+known <- st_as_sf(ESG4simulation) %>% 
+  st_drop_geometry()
+
+## Extract Values for the plot center ##
+bN <- extract(esg, ESG4simulation, method = 'simple') %>% 
+  mutate(test = 'point') %>% 
+  cbind(known)
+
+## Extract Values for the buffer plots
+bY <- extract(esg, ESG4simulation_buff, method = 'simple',  bind = T) 
+bY <- extract(esg, ESG4simulation_buff, method = 'simple') %>% 
+  group_by(ID) %>% 
+  summarise(Value = mode(ESG)) %>% 
+  cbind(known)
+bY <- data.frame(levels(esg)) %>% 
+  right_join(., bY, by = 'Value') %>% 
+  select(-Value) %>% 
+  mutate(test = 'polygon') 
+
+test_results <- rbind(bN, bY) %>% 
+  mutate(
+    ESG = str_replace_all(ESG, ' ', "_"),
+    ESG = str_replace_all(ESG, ',', "_and"),
+    ESG = str_remove(ESG, 'No_Climate_Group_-_'),
+    ESG = str_replace(ESG, 'Semiarid_Warm', 'SAW'),
+    ESG = str_replace(ESG, 'Semiarid_Cool', 'SAC'), 
+    ESG = str_replace(ESG, 'Arid_Warm', 'AW'),
+    ) %>% 
+  select(-ID, -PLOT.ID) %>% 
+  mutate(RESULT = if_else(ESG %in% ref_lookup$ESG & ECO.SITE %in% ref_lookup$Ecological.Site.ID, 1, 0)) 
+
+poly2point <- test_results %>% 
+  group_by(test) %>% 
+  summarize(Prop = sum(RESULT)/n()) # polygon gives slightly better results
+
+ab <- test_results %>% 
+  filter(test == 'polygon') %>% 
+  group_by(ECO.SITE) %>% 
+  mutate(PROP_ES_MAPPED = sum(RESULT)) %>% 
+  distinct(ECO.SITE, RESULT, .keep_all = T)
+
+# Proportion of ESG which is correctly identified
+
+test_results %>% 
+  filter(test == 'polygon') %>% 
+  group_by(ESG) %>% 
+  mutate(Correctly_Assigned = sum(RESULT), ) %>% 
+  distinct(ESG, .keep_all = T)
+
+# Proportion of which ESD is correctly identified
+
+```
+
+
+
+```{r Create Networks to show relationships between pixels and classification.}
+
+ESD2ESG_wide <- ESD2ESG_map %>% 
+  select(-PLOT.ID) 
+
+ob <- with(ESD2ESG_wide, table(ESG, ECO.SITE))
+EsdEsg_network <- apply(as.matrix.noquote(ob),2,as.numeric)
+rownames(EsdEsg_network) <- rownames(ob)
+
+mod <- computeModules(EsdEsg_network)
+plotModuleWeb(mod)
+plotweb(mod@moduleWeb)
+
+
+# Higher Level refers to the ESD's , Lower level to the ESGs
+
+NLINteractions <- networklevel(EsdEsg_network, index = c(
+  'linkage density', 
+  'weighted nestedness', 
+  'H2'))
+
+GLInteractions <- grouplevel(EsdEsg_network, index = c(
+  'number of species', # no expectations is what went in
+  'mean number of links', # for ESD expect 1, ESG > 1
+  'mean number of shared partners', # for ESG > 1, for ESD still greater than 1 as many can pool into one ESG
+  'niche overlap', # should be very low for ESG, should be higher for ESD, but still relatively low. 
+  'C score' # should be VERY HIGH for upper, low for lower.  
+  ))
+
+SLInteractions <- specieslevel(EsdEsg_network, index = c(
+  'degree',  # number of links per species, ESD should be 1, ESG > 1
+  'species strength', 
+  'effective partners',
+  'nestedrank'))
+
+modules <- module2constraints(mod)
+module_membership <- data.frame(c(rownames(EsdEsg_network), colnames(EsdEsg_network)), modules) 
+colnames(module_membership) <- c("vertices", "modules") 
+
+module_membership <- module_membership %>% 
+  mutate(vertices = str_remove_all(vertices, ','),  
+         vertices = str_replace(vertices, '_Finer_Uplands_and_Clay_Uplands', '_Finer_and_Clay_Uplands'),
+         vertices = str_replace(vertices, 'Sandy_Uplands_and_Loamy_Uplands', 'Sandy_and_Loamy_Uplands')
+         )
+
+rm(ob, mod, EsdEsg_network, modules, ESD2ESG_map)
+```
+
+It can be inferred from the above image is that from a per pixel perspective, the mapping between pixels and ESG's is of limited utility. Rather we need to utilize the direct look up tables from the publication... which miss most of our ecosites again... 
 
 
 ```{r Facet wrap density plots of ESD values with geom point ESG value}
