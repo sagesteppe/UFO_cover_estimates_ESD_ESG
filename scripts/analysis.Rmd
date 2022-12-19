@@ -112,7 +112,17 @@ rownames(EsdEsg_network) <- rownames(ob)
 
 mod <- computeModules(EsdEsg_network)
 plotModuleWeb(mod)
-networklevel(EsdEsg_network)
+
+# Higher Level refers to the ESD's , Lower level to the ESGs
+grouplevel(EsdEsg_network,
+             index = c(
+               'number of species', # no expectations is what went in
+               'mean number of links', # for ESD expect 1, ESG > 1
+               'mean number of shared partners', # for ESG > 1, for ESD still greater than 1 as many can pool into one ESG
+               'niche overlap', # should be very low for ESG, should be higher for ESD, but still relatively low. 
+               'weighted nestedness'
+               ))
+
 
 plotweb(mod@moduleWeb)
 
@@ -123,7 +133,7 @@ colnames(module_membership) <- c("vertices", "modules")
 module_membership <- module_membership %>% 
   mutate(vertices = str_remove_all(vertices, ','))
 
-rm(ob, mod, EsdEsg_network, modules, ESD2ESG_map)
+# rm(ob, mod, EsdEsg_network, modules, ESD2ESG_map)
 ```
 
 ```{r Facet wrap density plots of ESD values with geom point ESG value}
