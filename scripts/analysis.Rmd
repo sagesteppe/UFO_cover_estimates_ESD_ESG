@@ -23,15 +23,19 @@ knitr::opts_chunk$set(warning = F)
 
 # Introduction
 
+The development of Ecological Sites (ES) and their descriptions (ESD's) represent an enormous effort on behalf of the Natural Resources Conservation Service (NRCS) (CITE : BESTELMEYER). As mentioned in section XX, they do not yet form a continuous coast to coast, nor even across the field office data set (CITE : TWIDWELL). In order to allay the significant amounts of effort required to develop these, and to make land management decisions in the interim alternative classification systems have been proposed (CITE). One system which incorporates the NRCS ESDs, and which provides continuous coverage across our study area, are the Ecological Site Groups (CITE). 
+
+The Ecological Site Groups developed largely by United States Geological Survey (USGS) researchers at the Southwest Biological Science Center in Moab [Utah], with assistance from BLM Colorado State Office Staff, are meant to both bridge the spatial gap in ESD development, and to provide a framework for  land management decisions at a scale larger than that which generally occurs at a BLM Field Office. The Ecological Site Groups were developed by grouping together similar ESD's, akin to the strictly interpretive approach - which seeks to reduce conceptual fineness - in section XX, and which will respond in a similar fashion to management actions (@duniway2016generalizing). To these initial groups the field data which largely informed the ESD creation, most notably soil physical parameters, and with the use of an objective and quantitative approaches, which make use of simple *Machine Learning (ML)* method *Random Forest* **section XX** were used to identify recurring themes in the dataset into groups, and then project these onto a 'map' which covers the Colorado Plateau. 
+
+While for most land management decisions at the UFO ESD's, when available, represent the best available scientific evidence upon which to inform decisions,  ESG's provide the best alternative for much of the field office, and in the future are likely to maintain influence for large scale decisions at the UFO. Herein we address questions regarding the similarity of estimates arising from ESG's and ESD's. In this report, we are using ESD's for the *reference state benchmarks* which they contain, in other words quantitative goals which we seek to compare land to, and seek to visualize the relationship between the standards of ESD's and ESG's. We also hope to understand which ecological sites are contained in which ES groups, in other words, where do our groups map out to?. 
 
 
 > "QUOTE WILL GO HERE SUMMARIZING WHAT ESGS ARE ALL ABOOT"
 >  
 > `r tufte::quote_footer('--- Nauman et al. 2022')`
 
-The Ecological Site Groups developed by ... are at a theoretically more coarse resolution than Ecological Site Descriptions. These data are intended to support broader land management decisions. These data were developed in an explicitly quantitative framework, using remote sensing derived products. Due to their intended usage, and process of generation, they have been completed for the entire Colorado Plateau...
-
 # Methods
+
 Here we determine how similar they are to the ESD's for which we have verified AIM plots in. In order to determine if ESG's may serve as a drop-in-substitute for areas of the field office which do not have completed ESD's...
 
 
