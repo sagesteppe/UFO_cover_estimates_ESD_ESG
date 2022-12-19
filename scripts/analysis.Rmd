@@ -79,7 +79,7 @@ ecosites <- st_read('/media/sagesteppe/ExternalHD/UFO_cartography/AIM_plots_outc
 
 mode <- function(codes){as.numeric(which.max(tabulate(codes)))}
 
-esg2plots <- extract(esg, ecosites, method = 'bilinear', weights = T, ID = T) %>% 
+esg2plots <- extract(esg, ecosites, method = 'simple', weights = T, ID = T) %>% 
   group_by(ID) %>% 
   summarise(Value = mode(ESG)) %>% 
   cbind(PLOT.ID = ecosites$PLOT.ID, .)
@@ -101,8 +101,9 @@ rm(mode, esg, f, praw, esg2plots, ecosites)
 ESD2ESG_wide <- ESD2ESG_map %>% 
   mutate(
     ESG = str_replace_all(ESG, ' ', "_"),
+    ESG = str_replace(ESG, ',_', '_and_'),
     ESG = str_replace(ESG, 'Semiarid_Warm', 'SAW'),
-    ESG = str_replace(ESG, 'Semiarid_Cool', 'SAC'),
+    ESG = str_replace(ESG, 'Semiarid_Cool', 'SAC'), 
     ESG = str_replace(ESG, 'Arid_Warm_', 'AW')) %>% 
   select(-PLOT.ID) 
 
@@ -113,31 +114,42 @@ rownames(EsdEsg_network) <- rownames(ob)
 mod <- computeModules(EsdEsg_network)
 plotModuleWeb(mod)
 
+
+NLINteractions <- networklevel(EsdEsg_network, index = c('linkage density', 
+                                       'weighted nestedness', 
+                                       'H2'))
+
 # Higher Level refers to the ESD's , Lower level to the ESGs
-grouplevel(EsdEsg_network,
+GLInteractions <- grouplevel(EsdEsg_network,
              index = c(
                'number of species', # no expectations is what went in
                'mean number of links', # for ESD expect 1, ESG > 1
                'mean number of shared partners', # for ESG > 1, for ESD still greater than 1 as many can pool into one ESG
                'niche overlap', # should be very low for ESG, should be higher for ESD, but still relatively low. 
-               'weighted nestedness'
+               'C score' # should be VERY HIGH for upper, low for lower.  
                ))
 
-
 plotweb(mod@moduleWeb)
+
+SLInteractions <- specieslevel(EsdEsg_network, index = c('degree',  # number of links per species, ESD should be 1, ESG > 1
+  'species strength',
+  'effective partners',
+  'nestedrank'), level = 'both')
 
 modules <- module2constraints(mod)
 module_membership <- data.frame(c(rownames(EsdEsg_network), colnames(EsdEsg_network)), modules) 
 colnames(module_membership) <- c("vertices", "modules") 
 
 module_membership <- module_membership %>% 
-  mutate(vertices = str_remove_all(vertices, ','))
+  mutate(vertices = str_remove_all(vertices, ','),  
+         vertices = str_replace(vertices, '_Finer_Uplands_and_Clay_Uplands', '_Finer_and_Clay_Uplands'),
+         vertices = str_replace(vertices, 'Sandy_Uplands_and_Loamy_Uplands', 'Sandy_and_Loamy_Uplands')
+         )
 
-# rm(ob, mod, EsdEsg_network, modules, ESD2ESG_map)
+rm(ob, mod, EsdEsg_network, modules, ESD2ESG_map)
 ```
 
 ```{r Facet wrap density plots of ESD values with geom point ESG value}
-
 
 ESD_quant <- ESD_quant %>% 
   select('CONCEPT' = ECO.SITE, COVER_TYPE, MEAN) %>% 
@@ -150,7 +162,13 @@ ob <- ESG_cover %>%
     ESG = str_remove(ESG, 'No_Climate_Group_-_'),
     ESG = str_replace(ESG, 'Semiarid_warm', 'SAW'),
     ESG = str_replace(ESG, 'Semiarid_Cool', 'SAC'), # do need to go back to clean up names
-    ESG = str_replace(ESG, 'Arid_Warm_', 'AW')) %>% # of some of these strata
+    ESG = str_replace(ESG, 'Arid_Warm_', 'AW'),  # Finer_and_Clay_Uplands
+    ESG = str_replace(ESG, 'Arid_Warm_', 'Finer_and_Clay_Uplands'), 
+
+    
+    
+    
+    ) %>% # of some of these strata
   mutate(MODEL = 'ESG') %>% 
   rename(CONCEPT = ESG) %>% 
   bind_rows(ESD_quant) %>% 
