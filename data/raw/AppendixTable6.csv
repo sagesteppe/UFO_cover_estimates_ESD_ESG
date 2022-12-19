@@ -1,0 +1,354 @@
+Ecological Site Name,Ecological Site ID,Forb,Grass,Shrub,Tree,Total,Artemisia tridentata (includes ssp. wyomingensis),Artemisia tridentata ssp. vaseyana ,Artemisia tridentata ssp. tridentata ,Coleogyne ramosissima,Quercus gambelii,Pinus edulis and Pinus monophyla,Juniperus spp.*,Populus tremuloides,Pinus ponderosa,Sarcobatus vermiculatus,Atriplex spp.**,Atriplex confertifolia,Sporobolus airoides,C3 Perennial Grasses,C4 Perennial Grasses,Strawman Soil Geomorphic Unit,Final Soil Geomorphic Unit,Climate Zone,Ecological Site Group
+"Shallow Loam 10-14\ p.z. Cobbly (JUOS)""",F035XA121AZ,40,145,80,20,285,0,0,0,0,0,14,14,0,0,0,0,0,0,32,170,Shallow,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+"Limy Upland 10-14\ p.z. Gravelly (JUOS)""",F035XA122AZ,19,243,94,19,375,0,0,0,0,0,3,8,0,0,0,0,0,0,22,153,DeepRocky,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+"Sandy Loam Upland 10-14\ p.z. Gravelly (JUOS, PIMO)""",F035XA126AZ,17,210,105,18,350,0,0,0,0,0,0,18,0,0,0,0,0,0,6,174,DeepRocky,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+"Shallow Limy Upland 10-14\ p.z. (JUOS)""",F035XA127AZ,18,228,88,18,350,0,0,0,0,0,9,9,0,0,0,0,0,0,21,153,Shallow,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+"Sandstone Upland 10-14\ p.z.  (JUOS)""",F035XC322AZ,20,240,120,20,400,8,0,0,0,0,3,15,0,0,0,0,0,0,140,60,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+"Clay Loam Upland 13-17\ p.z. (PIED, JUOS) """,F035XF602AZ,50,225,175,275,725,70,0,0,0,18,105,105,0,0,0,0,0,0,207,42,FinerUplands,SalineUplands,Semiarid_Warm,Semiarid_Warm_SalineUplands
+"Limestone Hills 13-17\ p.z. (PIED, JUOS)""",F035XF613AZ,20,160,160,20,360,70,0,0,0,0,0,0,0,0,0,0,0,0,110,83,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Limestone Upland 13-17\ p.z. (JUOS, PIED)""",F035XF619AZ,20,135,270,25,450,14,0,0,0,0,15,15,0,0,0,0,0,0,111,115,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Loamy Upland (PIED, JUOS)  13-17\ p.z. (Provisional)""",F035XF625AZ,60,278,168,58,563,83,0,0,0,6,28,14,0,0,0,0,0,0,267,109,FinerUplands,FinerUplands,Semiarid_Warm,Semiarid_Warm_FinerUplands
+"Sandstone Upland (JUOS, PIED)  13-17\ p.z. (Provisional)""",F035XF627AZ,14,12,502,211,738,100,0,0,0,60,275,275,0,0,0,0,0,0,13,15,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Sandy Loam Upland (JUOS, PIED) 13-17\ p.z.""",F035XF628AZ,50,250,150,50,500,125,0,0,0,0,18,35,0,0,0,0,0,0,198,55,FinerUplands,LoamyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+"Sandstone Hills 13-17\ p.z. (PIED)  """,F035XF629AZ,15,75,195,90,375,0,0,0,0,0,15,15,0,0,0,0,0,0,43,16,Shallow,VeryShallow,Semiarid_Warm,Semiarid_Warm_VeryShallow
+"Clay Loam Upland 13-17\ p.z. (PIED)  """,F035XF630AZ,30,90,165,30,315,63,0,0,0,10,8,8,0,8,0,0,0,0,70,10,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Colluvial Slopes 13-17\ p.z. (PIED)""",F035XF633AZ,23,68,338,23,450,0,0,0,0,16,18,7,0,0,0,0,0,0,48,0,FinerUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+Basalt Hills and Mesas 16-35 inches,F035XG006NM,23,388,23,0,433,0,0,0,0,0,0,0,0,0,0,0,0,0,80,283,VerticUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+south of Gallup 13-16,F036XA001NM,15,273,163,150,600,45,0,0,0,45,90,105,0,0,0,0,0,0,120,135,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+NA,F036XA136NM,100,375,138,188,800,20,0,0,0,20,120,128,0,0,0,0,0,0,140,260,DeepRocky,FinerUplands,Semiarid_Warm,Semiarid_Warm_FinerUplands
+Pinyon-Juniper/Skunkbush Sumac Shallow Sandy,F036XB133NM,28,363,190,320,900,23,0,0,0,23,148,90,0,0,0,0,0,0,208,355,Shallow,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Loamy (Green River Basin),R034AB122WY,38,263,75,0,375,47,0,0,0,0,0,0,0,0,10,10,11,0,224,0,FinerUplands,FinerUplands,Semiarid_Warm,Semiarid_Warm_FinerUplands
+"Loamy, Calcareous (Green River Basin)",R034AB126WY,35,210,105,0,350,61,0,0,0,0,0,0,0,0,10,10,10,0,214,0,FinerUplands,DeepRocky,Semiarid_Cool,Semiarid_Cool_DeepRocky
+Loamy (Pinedale Plateau),R034AC122WY,70,385,245,0,700,158,105,0,0,0,0,0,0,0,17,4,17,0,571,0,FinerUplands,DeepRocky,Semiarid_Cool,Semiarid_Cool_DeepRocky
+Loamy Argillic (Pinedale Plateau),R034AC124WY,43,168,215,0,425,0,0,0,0,0,0,0,0,0,0,16,0,0,348,0,FinerUplands,ClayUplands,Semiarid_Cool,Semiarid_Cool_ClayUplands
+"Loamy, Calcareous (Pinedale Plateau)",R034AC126WY,55,330,165,0,550,100,0,0,0,0,0,0,0,0,13,3,13,0,302,0,FinerUplands,FinerUplands,Semiarid_Cool,Semiarid_Cool_SalineUplands_SandyUplands_LoamyUplands_FinerUplands
+Sandy (Pinedale Plateau),R034AC150WY,80,453,267,0,800,160,107,0,0,0,0,0,0,0,20,4,20,0,512,0,FinerUplands,LoamyUplands,Semiarid_Cool,Semiarid_Cool_SalineUplands_SandyUplands_LoamyUplands_FinerUplands
+Clayey (Green River - Great Divide Basins),R034AY104WY,68,315,68,0,450,46,0,0,0,0,0,0,0,0,0,12,12,0,328,0,VerticUplands,SalineUplands,Semiarid_Warm,Semiarid_Warm_SalineUplands
+Gravelly  (Green River - Great Divide Basins),R034AY112WY,49,228,49,0,325,9,0,0,0,0,0,0,0,0,0,0,0,0,308,0,DeepRocky,DeepRocky,Semiarid_Cool,Semiarid_Cool_DeepRocky
+Impervious Clay  (Green River - Great Divide Basins),R034AY118WY,19,188,169,0,375,0,0,0,0,0,0,0,0,0,0,9,0,0,237,0,SalineUplands,SalineHills,Semiarid_Warm,Semiarid_Warm_SalineHills
+Loamy (Green River - Great Divide Basins),R034AY122WY,50,375,75,0,500,50,0,0,0,0,0,0,0,0,0,0,13,0,345,0,LoamyUplands,FinerUplands,Semiarid_Warm,Semiarid_Warm_FinerUplands
+Saline Lowland (Green River - Great Divide Basins),R034AY138WY,140,840,420,0,1400,0,0,0,0,0,0,0,0,0,180,30,30,210,450,270,SalineBottoms,SalineBottoms,Semiarid_Cool,Semiarid_Cool_SalineBottoms
+"Saline Lowland, Drained (Green River - Great Divide Basins)",R034AY140WY,65,390,195,0,650,0,0,0,0,0,0,0,0,0,105,70,0,18,333,53,SalineBottoms,SalineBottoms,Semiarid_Warm,Semiarid_Warm_SalineBottoms
+Saline Subirrigated (Green River - Great Divide Basins),R034AY142WY,240,1920,240,0,2400,0,0,0,0,0,0,0,0,0,75,0,0,1000,125,1125,SalineBottoms,Bottoms,Semiarid_Cool,Semiarid_Cool_Bottoms
+Saline Upland (Green River - Great Divide Basins),R034AY144WY,20,200,180,0,400,0,0,0,0,0,0,0,0,0,10,140,0,0,210,0,SalineUplands,SalineHills,Semiarid_Warm,Semiarid_Warm_SalineHills
+Sands (Green River - Great Divide Basins),R034AY146WY,90,360,150,0,600,15,0,0,0,0,0,0,0,0,0,0,15,0,430,30,SandyUplands,SandyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+Sandy (Green River - Great Divide Basins),R034AY150WY,55,385,110,0,550,42,0,0,0,0,0,0,0,0,0,0,14,0,456,14,LoamyUplands,LoamyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+Shale (Green River - Great Divide Basins),R034AY154WY,23,124,79,0,225,0,0,0,0,0,0,0,0,0,0,35,0,15,135,15,SalineHills,SalineHills,Semiarid_Warm,Semiarid_Warm_SalineHills
+Shallow Breaks (Green River - Great Divide Basins),R034AY156WY,85,340,43,383,850,20,0,0,0,0,0,280,0,0,0,0,0,0,560,0,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Shallow Clayey (Green River - Great Divide Basins),R034AY158WY,33,163,130,0,325,9,0,0,0,0,0,0,0,0,0,9,0,0,274,0,SalineUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+Shallow Loamy (Green River - Great Divide Basins),R034AY162WY,33,228,65,0,325,9,0,0,0,0,0,0,0,0,0,0,0,0,308,0,Shallow,SalineUplands,Semiarid_Warm,Semiarid_Warm_SalineUplands
+Shallow Sandy (Green River - Great Divide Basins),R034AY166WY,33,228,65,0,325,9,0,0,0,0,0,0,0,0,0,0,9,0,248,0,Shallow,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+Very Shallow  (Green River - Great Divide Basins),R034AY176WY,30,195,75,0,300,8,0,0,0,0,0,17,0,0,0,0,0,0,308,0,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Clayey (Foothills And Basins West),R034AY204WY,150,750,100,0,1000,55,0,0,0,0,0,0,0,0,0,25,0,0,680,0,VerticUplands,FinerUplands,Semiarid_Cool,Semiarid_Cool_SalineUplands_SandyUplands_LoamyUplands_FinerUplands
+Clayey Overflow (Foothills And Basins West),R034AY206WY,255,1190,255,0,1700,45,0,0,0,0,0,0,0,0,0,0,0,0,1053,0,Bottoms,Bottoms,Semiarid_Cool,Semiarid_Cool_Bottoms
+Coarse Upland (Foothills And Basins West),R034AY208WY,100,600,300,0,1000,55,0,0,0,0,0,0,0,0,0,0,0,0,700,0,LoamyUplands,DeepRocky,Semiarid_Cool,Semiarid_Cool_DeepRocky
+Dense Clay (Foothills And Basins West),R034AY210WY,73,508,145,0,725,0,0,0,0,0,0,0,0,0,0,0,0,0,471,0,VerticUplands,ClayUplands,Semiarid_Cool,Semiarid_Cool_ClayUplands
+Gravelly (Foothills And Basins West),R034AY212WY,71,333,72,0,475,12,0,0,0,0,0,0,0,0,0,0,0,0,339,0,DeepRocky,SalineUplands,Semiarid_Cool,Semiarid_Cool_SalineUplands_SandyUplands_LoamyUplands_FinerUplands
+Loamy (Foothills And Basins West),R034AY222WY,110,825,165,0,1100,165,0,0,0,0,0,0,0,0,0,0,0,0,660,0,LoamyUplands,FinerUplands,Semiarid_Cool,Semiarid_Cool_SalineUplands_SandyUplands_LoamyUplands_FinerUplands
+Overflow (Foothills And Basins West),R034AY230WY,255,1105,340,0,1700,99,0,0,0,0,0,0,0,0,0,0,0,0,1260,0,Bottoms,Bottoms,Semiarid_Cool,Semiarid_Cool_Bottoms
+Rocky Hills (Foothills And Basins West),R034AY234WY,95,428,428,0,950,23,0,0,0,0,0,0,0,0,0,0,0,0,608,0,DeepRocky,SalineHills,Semiarid_Cool,Semiarid_Cool_SalineHills
+Saline Lowland (Foothills And Basins West),R034AY238WY,93,1018,740,0,1850,0,0,0,0,0,0,0,0,0,315,45,0,450,450,540,SalineBottoms,SalineBottoms,Semiarid_Cool,Semiarid_Cool_SalineBottoms
+"Saline Lowland, Drained (Foothills And Basins West)",R034AY240WY,120,720,360,0,1200,0,0,0,0,0,0,0,0,0,195,130,0,33,618,98,SalineBottoms,SalineBottoms,Semiarid_Cool,Semiarid_Cool_SalineBottoms
+Saline Subirrigated (Foothills And Basins West),R034AY242WY,295,2360,295,0,2950,0,0,0,0,0,0,0,0,0,225,0,0,1350,450,1800,SalineBottoms,Bottoms,Semiarid_Cool,Semiarid_Cool_Bottoms
+Saline Upland (Foothills And Basins West),R034AY244WY,29,316,230,0,575,0,0,0,0,0,0,0,0,0,15,180,0,15,315,15,SalineUplands,SalineHills,Semiarid_Cool,Semiarid_Cool_SalineHills
+Sands (Foothills And Basins West),R034AY246WY,195,780,325,0,1300,0,0,105,0,0,0,0,0,0,0,0,0,0,910,0,SandyUplands,SandyUplands,Semiarid_Cool,Semiarid_Cool_SalineUplands_SandyUplands_LoamyUplands_FinerUplands
+Sandy (Foothills And Basins West),R034AY250WY,110,770,220,0,1100,120,0,0,0,0,0,0,0,0,0,0,0,0,810,0,LoamyUplands,LoamyUplands,Semiarid_Cool,Semiarid_Cool_SalineUplands_SandyUplands_LoamyUplands_FinerUplands
+Shallow Breaks (Foothills And Basins West),R034AY256WY,115,575,115,345,1150,90,0,0,0,0,0,360,0,0,0,0,0,0,756,0,Shallow,SalineUplands,Semiarid_Cool,Semiarid_Cool_SalineUplands_SandyUplands_LoamyUplands_FinerUplands
+Shallow Clayey (Foothills And Basins West),R034AY258WY,38,563,150,0,750,0,0,0,0,0,0,0,0,0,0,19,0,0,460,0,Shallow,SalineUplands,Semiarid_Cool,Semiarid_Cool_SalineUplands_SandyUplands_LoamyUplands_FinerUplands
+Shallow Loamy (Foothills And Basins West),R034AY262WY,95,713,143,0,950,68,0,0,0,0,0,0,0,0,0,0,0,0,653,0,Shallow,FinerUplands,Semiarid_Cool,Semiarid_Cool_SalineUplands_SandyUplands_LoamyUplands_FinerUplands
+Alkali Bottom (Alkali sacaton),R034BY002UT,86,1276,340,0,1701,0,0,0,0,0,0,0,0,0,134,54,0,490,241,623,SalineBottoms,SalineBottoms,Arid_Warm,Arid_Warm_SalineBottoms_Bottoms
+Alkali Flat (Greasewood),R034BY006UT,76,376,300,0,751,0,0,0,0,0,0,0,0,0,210,53,0,88,168,144,SalineBottoms,SalineBottoms,Arid_Warm,Arid_Warm_SalineBottoms_Bottoms
+Sandy Bottom (Fourwing salbush),R034BY012UT,47,278,139,0,463,0,0,0,0,0,0,0,0,0,0,0,9,0,191,23,SandyBottoms,SandyBottoms,Arid_Warm,Arid_Warm_SandyBottoms
+Wet Saline Meadow (Inland saltgrass),R034BY024UT,145,1233,73,0,1451,0,0,0,0,0,0,0,0,0,23,0,0,300,0,675,SalineBottoms,SalineBottoms,Arid_Warm,Arid_Warm_SalineBottoms_Bottoms
+Desert Alkali Bench (Castlevalley saltbush),R034BY101UT,31,77,200,0,308,0,0,0,0,0,0,0,0,0,8,70,90,6,42,12,SalineHills,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+Desert Clay (Shadscale),R034BY104UT,13,86,147,0,246,0,0,0,0,0,0,0,0,0,0,11,83,0,84,0,SalineHills,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+Desert Loam (Shadscale),R034BY106UT,48,214,214,0,476,0,0,0,0,0,0,0,0,0,0,0,88,0,158,10,SalineUplands,FinerUplands,Arid_Warm,Arid_Warm_FinerUplands_ClayUplands
+Desert Loamy Clay (Shadscale),R034BY109UT,38,88,125,0,250,0,0,0,0,0,0,0,0,0,0,23,90,0,50,12,SalineHills,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+Desert Sandy Loam (Indian Ricegrass),R034BY115UT,75,275,151,0,501,0,0,0,0,0,0,0,0,0,0,0,42,12,161,46,LoamyUplands,FinerUplands,Arid_Warm,Arid_Warm_FinerUplands_ClayUplands
+Desert Shallow Clay (Mat Saltbush),R034BY117UT,23,34,169,0,226,0,0,0,0,0,0,0,0,0,0,138,8,0,12,0,SalineHills,Shallow,Arid_Warm,Arid_Warm_Shallow
+Desert Shallow Loam (Black Sagebrush),R034BY118UT,31,105,165,0,301,0,0,0,0,0,0,0,0,0,0,0,27,0,44,0,Shallow,VeryShallow,Semiarid_Warm,Semiarid_Warm_VeryShallow
+Desert Shallow Loam (Shadscale),R034BY121UT,33,98,195,0,326,0,0,0,0,0,0,0,0,0,0,11,90,0,35,12,SalineUplands,SalineHills,Semiarid_Warm,Semiarid_Warm_SalineHills
+Desert Shaley Shallow Loam (Spiny greasebush),R034BY131UT,7,17,41,0,65,3,0,0,0,0,0,0,0,0,0,0,7,0,10,2,Breaks,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Semidesert Gravelly Sandy Loam (Wyoming Big Sagebrush),R034BY206UT,77,130,254,0,461,128,0,0,0,0,0,0,0,0,16,0,19,0,63,32,FinerUplands,SalineUplands,Semiarid_Warm,Semiarid_Warm_SalineUplands
+Semidesert Loam (Wyoming Big Sagebrush),R034BY212UT,120,344,325,0,789,150,0,0,0,0,0,0,0,0,0,0,15,0,225,30,FinerUplands,LoamyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+Semidesert Sand (Fourwing Saltbush),R034BY214UT,46,248,158,0,451,15,0,0,0,0,0,0,0,0,0,0,0,0,163,30,SandyUplands,SandyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+Semidesert Sandy Loam (Fourwing Saltbush),R034BY216UT,30,360,210,0,600,22,0,0,0,0,0,0,0,0,0,0,10,0,316,19,LoamyUplands,LoamyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+Semidesert Shallow Clay (Utah Juniper),R034BY221UT,105,315,79,27,525,0,0,0,0,0,23,23,0,0,0,0,97,0,76,17,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Semidesert Shallow Loam (Black Sagebrush),R034BY227UT,38,131,206,0,375,0,0,0,0,0,0,0,0,0,0,0,14,0,74,30,Shallow,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Semidesert Shallow Loam (Utah Juniper-Pinyon),R034BY233UT,14,83,138,28,263,9,0,0,0,0,12,12,0,0,0,0,9,0,54,6,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Semidesert Silt Loam (Winterfat),R034BY240UT,61,181,360,0,601,18,0,0,0,0,0,0,0,0,9,0,9,0,150,12,FinerUplands,FinerUplands,Semiarid_Warm,Semiarid_Warm_FinerUplands
+Semidesert Stony Loam (Utah Juniper-Pinyon),R034BY247UT,24,214,214,48,500,17,0,0,0,0,23,23,0,0,0,0,17,0,109,12,DeepRocky,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Semidesert Very Steep Shallow Loam (Utah Juniper-Pinyon),R034BY259UT,9,83,114,9,215,9,0,0,0,0,12,12,0,0,0,0,9,0,54,6,Breaks,Breaks,Semiarid_Warm,Semiarid_Warm_Breaks
+Upland Very Steep Stony Loam (Pinyon-Utah Juniper),R034BY344UT,55,220,275,0,550,0,0,12,0,0,81,24,0,0,0,0,0,0,177,12,Breaks,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Breaks 10-14\ p.z. (Provisional)""",R035XA101AZ,45,360,120,98,623,0,0,0,0,0,43,63,0,0,0,0,0,20,67,368,Shallow,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+"Cinder Hills 10-14\ p.z. (Provisional)""",R035XA102AZ,0,0,40,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,Breaks,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Clay Loam Wash 10-14\ p.z.""",R035XA104AZ,175,1500,325,0,2000,0,0,0,0,0,0,0,0,0,10,0,20,600,513,1447,Bottoms,Bottoms,Semiarid_Warm,Semiarid_Warm_SandyBottoms_Bottoms
+"Clayey Upland 10-14\ p.z.""",R035XA106AZ,25,475,93,8,600,0,0,0,0,0,0,8,0,0,0,0,0,98,164,478,VerticUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+"Clay Loam Upland 10-14\ p.z.""",R035XA107AZ,23,440,70,38,570,0,0,0,0,0,0,38,0,0,0,0,0,58,63,358,VerticUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+"Limy Upland 10-14\ p.z.""",R035XA111AZ,25,425,141,5,596,0,0,0,0,0,0,5,0,0,0,0,0,0,41,346,LoamyUplands,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Loamy Wash 10-14\ p.z.""",R035XA112AZ,45,1088,330,0,1463,0,0,0,0,0,0,0,0,0,0,0,0,0,585,653,Bottoms,Bottoms,Semiarid_Warm,Semiarid_Warm_SandyBottoms_Bottoms
+Loamy,R035XA112NM,53,530,0,0,583,0,0,0,0,0,0,0,0,0,0,0,0,20,199,350,LoamyUplands,FinerUplands,Semiarid_Warm,Semiarid_Warm_FinerUplands
+"Loamy Upland 10-14\ p.z. (Provisional)""",R035XA113AZ,20,390,175,20,605,0,0,0,0,0,0,13,0,0,0,0,0,0,125,348,LoamyUplands,FinerUplands,Semiarid_Warm,Semiarid_Warm_FinerUplands
+Sandy,R035XA113NM,47,470,0,0,517,0,0,0,0,0,0,0,0,0,0,0,0,0,235,403,SandyUplands,LoamyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+"Sandstone Upland 10-14\ p.z.""",R035XA115AZ,40,348,83,30,500,0,0,0,0,0,13,25,0,0,0,0,0,5,63,350,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Deep Sand,R035XA115NM,71,470,0,0,541,0,0,0,0,0,0,0,0,0,0,0,0,0,308,399,SandyUplands,SandyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+"Sandy Loam Upland 10-14\ p.z.""",R035XA117AZ,55,525,113,18,710,0,0,0,0,0,10,10,0,0,0,0,0,50,63,493,LoamyUplands,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+Cinder,R035XA117NM,49,521,0,0,570,0,0,0,0,0,9,9,0,0,0,0,0,0,245,500,LoamyUplands,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Sandy Upland 10-14\ p.z.""",R035XA118AZ,18,368,78,38,500,0,0,0,0,0,13,13,0,0,0,0,0,33,128,183,SandyUplands,SandyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+Bottomland,R035XA118NM,63,1890,0,0,1953,0,0,0,0,0,0,0,0,0,0,0,0,735,588,1817,Bottoms,SandyBottoms,Semiarid_Warm,Semiarid_Warm_SandyBottoms_Bottoms
+"Shallow Loamy 10-14\ p.z.""",R035XA119AZ,50,480,98,23,650,0,0,0,0,0,5,20,0,0,0,0,0,5,88,263,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Clayey Bottomland,R035XA119NM,134,1892,0,0,2025,0,0,0,0,0,0,0,0,0,0,0,0,167,935,1303,Bottoms,SalineBottoms,Semiarid_Warm,Semiarid_Warm_SalineBottoms
+Swale  ,R035XA120NM,98,780,0,0,878,0,0,0,0,0,0,0,0,0,0,0,0,98,478,920,Bottoms,Bottoms,Semiarid_Warm,Semiarid_Warm_SandyBottoms_Bottoms
+"Limy Upland 10-14\ p.z. Shallow""",R035XA125AZ,16,385,103,13,516,0,0,0,0,0,0,9,0,0,0,0,0,0,26,297,Shallow,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+Salt Flats,R035XA126NM,33,875,153,0,1060,0,0,0,0,0,0,0,0,0,57,0,57,513,77,1384,SalineBottoms,SalineBottoms,Semiarid_Warm,Semiarid_Warm_SalineBottoms
+Clayey,R035XA128NM,75,750,100,0,925,0,0,0,0,0,0,0,0,0,0,0,0,225,310,795,VerticUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+"Shale Hills 10-14\p.z. (Provisional)""",R035XA130NM,14,387,23,0,424,0,0,0,0,0,12,12,0,0,0,0,0,183,0,362,Shallow,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+Foothills,R035XA131NM,17,411,0,0,428,0,0,0,0,0,42,42,0,0,0,0,0,0,59,600,LoamyUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+Loamy ,R035XB001NM,83,385,0,0,468,56,0,0,0,0,0,0,0,0,0,0,0,31,188,248,LoamyUplands,SalineUplands,Semiarid_Warm,Semiarid_Warm_SalineUplands
+Sandy,R035XB002NM,60,420,0,0,480,33,0,0,0,0,0,0,0,0,0,0,0,45,204,438,LoamyUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+Limy,R035XB003NM,68,293,0,0,360,19,0,0,0,0,0,0,0,0,0,0,0,57,181,193,LoamyUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+Clayey,R035XB004NM,100,350,0,0,450,20,0,0,0,0,0,0,0,0,0,0,0,63,80,208,VerticUplands,SalineUplands,Semiarid_Warm,Semiarid_Warm_SalineUplands
+Salt Flats,R035XB005NM,70,420,0,0,490,28,0,0,0,0,0,0,0,0,53,0,53,158,151,476,SalineBottoms,SalineBottoms,Arid_Warm,Arid_Warm_SalineBottoms_Bottoms
+Shallow,R035XB006NM,38,282,57,0,376,15,0,0,0,0,0,0,0,0,0,0,0,29,128,119,Shallow,Shallow,Arid_Warm,Arid_Warm_Shallow
+Deep Sand,R035XB007NM,83,330,0,0,413,42,0,0,0,0,0,0,0,0,0,0,0,42,216,404,SandyUplands,SandyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+Sodic Slopes,R035XB008NM,35,210,0,0,245,15,0,0,0,0,0,0,0,0,27,0,15,97,85,199,SalineUplands,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+Shale Hills,R035XB009NM,35,345,0,0,380,29,0,0,0,0,58,58,0,0,0,0,0,72,321,273,VerticUplands,SandyBottoms,Arid_Warm,Arid_Warm_SandyBottoms
+"Clay Loam Terrace (Sodic) 7-10\""	R035XB016NM Clay Loam Terrace (Sodic) 7-10\""""",R035XB016NM,25,270,105,0,400,0,0,0,0,0,0,0,0,0,15,115,0,175,13,213,SalineHills,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+"Cobbly Slopes 6-10\""	R035XB017NM Cobbly Slopes 6-10\""""",R035XB017NM,14,205,131,0,349,0,0,0,0,0,0,0,0,0,0,64,47,13,18,110,SalineUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+"Loamy Bottom 6-10\""	R035XB018NM Loamy Bottom 6-10\""""",R035XB018NM,50,996,254,0,1300,0,0,0,0,0,0,0,0,0,0,0,0,240,419,289,Bottoms,SandyBottoms,Arid_Warm,Arid_Warm_SandyBottoms
+"Loamy  6-10\ terrace""",R035XB020NM,18,368,115,0,500,0,0,0,0,0,0,0,0,0,0,0,0,40,147,168,SandyUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+Loamy Upland  7-10,R035XB021NM,23,360,67,0,450,0,0,0,0,0,0,0,0,0,15,115,0,175,13,213,LoamyUplands,FinerUplands,Arid_Warm,Arid_Warm_FinerUplands_ClayUplands
+"Saline Bottom  6-10\""	R035XB024NM Saline Bottom  6-10\""""",R035XB024NM,68,1346,237,0,1650,0,0,0,0,0,0,0,0,0,13,145,0,785,270,1013,SalineBottoms,SalineBottoms,Arid_Warm,Arid_Warm_SalineBottoms_Bottoms
+"Sandy Bottom  6-10\""	R035XB028NM Sandy Bottom  6-10\""""",R035XB028NM,80,480,240,0,800,0,0,0,0,0,0,0,0,0,0,0,0,107,298,159,SandyBottoms,SandyBottoms,Arid_Warm,Arid_Warm_SandyBottoms
+"Sandy Loam Upland  6-10\""	R035XB030NM Sandy Loam Upland  6-10\""""",R035XB030NM,22,340,64,0,425,0,0,0,0,0,0,0,0,0,0,0,0,0,134,98,LoamyUplands,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Sandy Loam Upland  6-10\ sodic""",R035XB033NM,25,618,58,0,700,0,0,0,0,0,0,0,0,0,0,0,0,395,93,513,SalineBottoms,SalineBottoms,Arid_Warm,Arid_Warm_SalineBottoms_Bottoms
+"Sandy Terrace   6-10\ sodic""",R035XB034NM,19,329,103,0,451,0,0,0,0,0,0,0,0,0,19,75,4,154,116,208,SalineUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+"Sandy Upland  6-10\""	R035XB035NM Sandy Upland  6-10\""""",R035XB035NM,19,263,94,0,375,0,0,0,0,0,0,0,0,0,0,0,0,0,104,90,SandyUplands,SandyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Mudstone/Sandstone Hills 6-10\ p.z.""",R035XB201AZ,23,170,158,0,350,0,0,0,0,0,0,0,0,0,0,0,10,5,58,155,Shallow,ClayUplands,Arid_Warm,Arid_Warm_FinerUplands_ClayUplands
+"Clayey Wash 6-10\ p.z.""",R035XB202AZ,63,575,325,0,963,0,0,0,0,0,0,0,0,0,0,0,25,250,350,719,SalineBottoms,Bottoms,Arid_Warm,Arid_Warm_SalineBottoms_Bottoms
+"Clay Loam Upland 6-10\ p.z. Saline""",R035XB203AZ,18,383,113,0,513,0,0,0,0,0,0,0,0,0,3,5,15,140,43,300,SalineUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+"Loamy Upland 6-10\ p.z. Gypsic""",R035XB205AZ,48,263,165,0,475,0,0,0,0,0,0,0,0,0,0,0,18,50,50,340,Gypsum,Gypsum,Arid_Warm,Arid_Warm_Gypsum
+"Sandy Upland 6-10\ p.z. Warm""",R035XB206AZ,28,120,190,0,338,0,0,0,123,0,0,0,0,0,0,0,0,0,75,72,SandyUplands,SandyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Loamy Wash 6-10\ p.z.""",R035XB209AZ,60,890,250,0,1200,0,0,0,0,0,0,0,0,0,10,0,15,250,463,863,SalineBottoms,Bottoms,Arid_Warm,Arid_Warm_SalineBottoms_Bottoms
+"Loamy Upland 6-10\ p.z. (Provisional)""",R035XB210AZ,20,393,113,0,525,0,0,0,0,0,0,0,0,0,0,0,0,110,78,363,LoamyUplands,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Loamy Wash 6-10\ p.z. Saline-Sodic""",R035XB211AZ,13,650,163,0,825,0,0,0,0,0,0,0,0,0,30,30,30,200,60,542,SalineBottoms,SalineBottoms,Arid_Warm,Arid_Warm_SalineBottoms_Bottoms
+"Sandstone/Shale Upland  6-10\ p.z.""",R035XB215AZ,28,275,65,0,368,0,0,0,0,0,0,0,0,0,0,0,30,23,20,242,Shallow,Shallow,Arid_Warm,Arid_Warm_Shallow
+"Sandy Wash  6-10\ p.z.""",R035XB216AZ,68,675,135,5,883,0,0,0,0,0,0,0,0,0,5,0,5,100,463,188,SandyBottoms,SalineBottoms,Arid_Warm,Arid_Warm_SalineBottoms_Bottoms
+"Sandy Upland 6-10\ p.z.""",R035XB217AZ,25,385,80,0,490,0,0,0,0,0,0,0,0,0,0,0,0,5,130,316,SandyUplands,SandyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Sandy Loam Upland 6-10\ p.z. (Provisional)""",R035XB219AZ,27,495,91,0,613,0,0,0,0,0,0,0,0,0,0,0,10,20,137,498,LoamyUplands,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Shale Upland 6-10\ p.z.""",R035XB220AZ,15,122,38,0,174,0,0,0,0,0,0,0,0,0,0,16,12,49,8,80,SalineHills,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+"Sandy Terrace 6-10\ p.z.""",R035XB222AZ,41,358,110,0,509,0,0,0,0,0,0,0,0,0,0,0,0,9,169,175,SandyUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+"Sandy Upland 6-10\ p.z. Sodic""",R035XB223AZ,28,408,45,0,480,0,0,0,0,0,0,0,0,0,0,0,0,125,63,288,SalineUplands,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+"Clayey Slopes 6-10\ p.z. Bouldery""",R035XB224AZ,8,158,68,0,233,0,0,0,0,0,0,0,0,0,0,7,38,19,27,101,SalineHills,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+"Clay Loam Upland 6-10\ p.z. Sodic""",R035XB225AZ,10,190,100,0,300,0,0,0,0,0,0,0,0,0,0,20,50,50,18,178,SalineUplands,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+"Sandstone/Shale Upland 6-10\ p.z. Warm""",R035XB226AZ,15,35,160,0,210,0,0,0,105,0,0,1,0,0,0,0,5,0,9,24,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+"Sandy Loam Upland 6-10\ p.z. Saline-Sodic""",R035XB227AZ,25,358,60,0,443,0,0,0,0,0,0,0,0,0,3,0,13,158,88,228,SalineUplands,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+"Sandstone Upland 6-10\ p.z. Sodic""",R035XB228AZ,8,118,75,0,200,0,0,0,0,0,0,0,0,0,2,30,20,55,11,105,SalineHills,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+"Cobbly Slopes 6-10\ p.z. Saline""",R035XB229AZ,10,203,70,0,282,0,0,0,0,0,0,0,0,0,0,0,15,3,77,105,SalineUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+"Sandstone Upland 6-10\ p.z. Very Shallow, Warm""",R035XB230AZ,10,70,188,5,273,0,0,0,150,0,0,5,0,0,0,0,0,0,43,25,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+"Basalt Upland 6-10\ p.z.""",R035XB231AZ,63,33,140,0,235,0,0,0,0,0,0,0,0,0,0,0,40,0,10,53,Shallow,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+"Limestone/Sandstone Upland 6-10\ p.z.""",R035XB232AZ,25,225,130,0,380,0,0,0,0,0,0,0,0,0,0,0,0,0,80,164,Shallow,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+"Limestone/Sandstone Upland 6-10\ p.z. Saline""",R035XB233AZ,10,212,154,0,375,0,0,0,1,0,0,0,0,0,0,0,123,0,29,202,SalineUplands,Shallow,Arid_Warm,Arid_Warm_Shallow
+"Sandstone Upland 6-10\ p.z. Warm""",R035XB234AZ,10,75,225,0,310,0,0,0,170,0,0,0,0,0,0,0,0,0,45,34,Shallow,Shallow,Arid_Warm,Arid_Warm_Shallow
+"Sandy Loam Upland 6-10\ p.z. Warm""",R035XB235AZ,13,225,150,0,388,0,0,0,110,0,0,0,0,0,0,0,0,0,102,100,LoamyUplands,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Colluvial Slopes 6-10\ p.z. Warm""",R035XB236AZ,10,80,226,0,315,0,0,0,150,0,0,0,0,0,0,0,25,0,43,23,DeepRocky,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+"Clay Loam Terrace 6-10\ p.z. Sodic """,R035XB237AZ,20,233,225,0,478,0,0,0,0,0,0,0,0,0,18,175,9,150,25,224,SalineBottoms,Bottoms,Arid_Warm,Arid_Warm_SalineBottoms_Bottoms
+"Sandy Terrace 6-10\ p.z. Sodic""",R035XB238AZ,15,205,283,0,503,0,0,0,0,0,0,0,0,0,225,10,5,75,30,163,SalineBottoms,SandyBottoms,Arid_Warm,Arid_Warm_SandyBottoms
+"Clayey Fan 6-10\ p.z. (Provisional)""",R035XB239AZ,14,380,72,0,466,0,0,0,0,0,0,0,0,0,15,8,5,167,53,281,SalineUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+"Limestone/Sandstone Cliffs 6-10\ p.z.""",R035XB240AZ,20,85,150,0,255,0,0,0,8,0,0,0,0,0,0,0,38,0,10,70,Breaks,Breaks,Arid_Warm,Arid_Warm_Breaks
+"Mudstone/Sandstone Hills 6-10\ p.z. Warm""",R035XB251AZ,13,7,131,1,150,0,0,0,50,0,1,1,0,0,0,0,0,0,0,7,Breaks,Breaks,Arid_Warm,Arid_Warm_Breaks
+"Sandy Loam Upland 6-10\ p.z. Limy""",R035XB267AZ,15,270,115,0,400,0,0,0,0,0,0,0,0,0,0,3,75,13,145,108,LoamyUplands,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Shale Hills 6-10\ p.z.""",R035XB268AZ,10,100,100,0,210,0,0,0,0,0,0,0,0,0,0,20,38,40,23,68,SalineHills,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+"Porcelanite Hills 6-10\ p.z.""",R035XB270AZ,13,275,125,0,413,0,0,0,0,0,0,0,0,0,0,15,75,118,53,213,SalineUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+"Loamy Upland 6-10\ p.z. Saline-Sodic""",R035XB271AZ,13,21,117,0,150,0,0,0,0,0,0,0,0,0,0,106,0,12,7,12,SalineHills,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+"Sandy Loam Upland 6-10\ p.z. Saline""",R035XB274AZ,17,305,129,0,450,0,0,0,0,0,0,0,0,0,0,5,68,124,68,190,SalineUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+"Loamy Fan 6-10\ p.z.""",R035XB275AZ,38,325,88,0,450,0,0,0,0,0,0,0,0,0,0,45,8,138,75,233,SalineUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+"Siltstone Upland 6-10\ p.z. Saline""",R035XB276AZ,6,110,60,0,176,0,0,0,0,0,0,0,0,0,0,1,5,55,20,75,SalineHills,Gypsum,Arid_Warm,Arid_Warm_Gypsum
+"Siltstone Upland 6-10\ p.z. Limy""",R035XB277AZ,8,76,138,0,221,0,0,0,0,0,0,0,0,0,0,71,2,7,52,26,SalineHills,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+"Loamy Upland 6-10\ p.z. Saline, Gypsic""",R035XB278AZ,16,313,122,0,450,0,0,0,0,0,0,0,0,0,0,57,12,79,143,132,SalineUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+"Clay Loam Upland 6-10\ p.z. Sodic, Gypsic""",R035XB279AZ,12,180,200,0,392,0,0,0,0,0,0,0,0,0,0,120,10,30,102,62,SalineUplands,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+"Mudstone Slopes 6-10\ p.z.""",R035XB283AZ,6,12,18,0,35,0,0,0,0,0,0,0,0,0,0,10,7,10,2,16,SalineHills,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+"Basalt Upland 10-14\ p.z.""",R035XC301AZ,49,341,196,0,585,65,0,0,0,0,26,52,0,0,0,0,0,0,260,294,Shallow,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Sedimentary Cliffs 10-14\ p.z.""",R035XC302AZ,60,325,170,120,675,30,0,0,0,20,120,120,0,0,0,0,0,0,195,170,Shallow,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+"Cinder Hills 10-14\ p.z.""",R035XC303AZ,23,525,113,0,661,57,0,0,0,0,57,57,0,0,0,0,0,0,161,424,DeepRocky,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+"Loamy Upland  10-14\ p.z. Cindery""",R035XC304AZ,9,98,188,2,296,0,0,0,0,0,0,2,0,0,0,0,0,0,17,63,DeepRocky,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+"Clayey Upland 10-14\ p.z.""",R035XC306AZ,23,600,175,38,835,83,0,0,0,0,38,38,0,0,0,0,0,0,288,502,VerticUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+"Clay Loam Upland 10-14\ p.z.""",R035XC307AZ,35,325,168,38,565,75,0,0,0,0,25,25,0,0,0,0,0,0,185,265,VerticUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+"Limestone/Sandstone Hills 10-14\ p.z.""",R035XC308AZ,13,400,200,0,613,88,0,0,0,0,0,0,0,0,0,0,0,0,251,81,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Clay Loam Terrace 10-14\ p.z.  Saline-Sodic""",R035XC309AZ,75,650,250,0,975,10,0,0,0,0,0,0,0,0,50,0,13,350,325,575,SalineBottoms,Bottoms,Semiarid_Warm,Semiarid_Warm_SandyBottoms_Bottoms
+"Limy Slopes 10-14\ p.z.""",R035XC310AZ,14,282,158,0,453,34,0,0,0,0,0,0,0,0,0,0,0,0,52,137,DeepRocky,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Limy Upland 10-14\ p.z.""",R035XC311AZ,15,265,175,13,468,53,0,0,0,0,0,13,0,0,0,0,0,0,45,194,Shallow,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+"Loamy Wash 10-14\ p.z.""",R035XC312AZ,75,925,238,0,1238,75,0,0,0,0,0,0,0,0,0,0,0,0,675,663,Bottoms,Bottoms,Semiarid_Warm,Semiarid_Warm_SandyBottoms_Bottoms
+"Loamy Upland 10-14\ p.z.""",R035XC313AZ,53,525,175,25,778,88,0,0,0,0,25,25,0,0,0,0,0,0,449,333,LoamyUplands,LoamyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+"Sandstone Upland 10-14\ p.z.""",R035XC314AZ,28,200,180,20,428,3,0,0,0,0,10,15,0,0,0,0,0,0,67,101,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Sandy Upland 10-14\ p.z.""",R035XC315AZ,35,388,150,33,605,50,0,0,0,0,33,33,0,0,0,0,0,0,224,263,SandyUplands,SandyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Sandy Loam Upland 10-14\ p.z.""",R035XC317AZ,45,420,160,10,635,5,0,0,0,0,0,10,0,0,0,0,0,0,20,373,LoamyUplands,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Silty Shallow 10-14\ p.z.""",R035XC318AZ,11,195,90,0,296,0,0,0,0,0,0,0,0,0,0,0,38,44,19,114,Gypsum,SalineHills,Semiarid_Warm,Semiarid_Warm_SalineHills
+"Limestone/Sandstone Upland 10-14\ p.z.""",R035XC319AZ,25,290,205,33,553,118,0,0,8,0,19,71,0,0,0,0,0,0,73,180,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Shale Hills 10-14\ p.z.""",R035XC320AZ,23,228,113,8,370,0,0,0,0,0,5,8,0,0,0,0,63,100,63,171,SalineUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+"Sandstone Hills 10-14\ p.z.""",R035XC321AZ,33,98,163,150,443,13,0,0,0,0,25,125,0,0,0,0,10,5,55,70,Shallow,Shallow,Arid_Warm,Arid_Warm_Shallow
+"Clayey Slopes 10-14\ p.z. Bouldery""",R035XC324AZ,12,260,120,3,395,10,0,0,0,0,0,2,0,0,0,0,30,2,39,53,SalineUplands,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+"Cobbly Slopes 10-14\ p.z. Saline""",R035XC325AZ,13,280,80,5,378,0,0,0,0,0,0,5,0,0,0,0,50,34,41,151,SalineUplands,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+"Sandy Loam Upland 10-14\ p.z. Saline""",R035XC326AZ,8,288,108,0,403,0,0,0,0,0,0,0,0,0,0,0,60,95,106,181,SalineUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+"Clayey Upland 10-14\ p.z. Sodic""",R035XC327AZ,7,128,55,0,189,0,0,0,0,0,0,0,0,0,0,15,15,20,6,81,SalineHills,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+"Cobbly Slopes 10-14\ p.z.""",R035XC328AZ,18,420,45,15,498,15,0,0,0,0,3,15,0,0,0,0,8,5,70,147,DeepRocky,SalineUplands,Semiarid_Warm,Semiarid_Warm_SalineUplands
+"Loamy Upland 10-14\ p.z. Gravelly""",R035XC329AZ,16,447,40,40,542,8,0,0,0,0,0,38,0,0,0,0,5,0,93,93,LoamyUplands,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Sandy Terrace 10-14\ p.z. Stony""",R035XC330AZ,18,412,103,44,576,16,0,0,0,0,10,35,0,0,0,0,0,2,96,120,SandyUplands,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+"Shallow Upland 10-14\ p.z. Warm""",R035XC331AZ,15,88,343,3,448,10,0,0,208,0,0,2,0,0,0,0,0,0,22,51,Shallow,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+"Sandstone Upland 10-14\ p.z. Warm""",R035XC333AZ,15,70,300,5,390,0,0,0,270,0,2,6,0,0,0,0,0,0,12,59,Shallow,Shallow,Arid_Warm,Arid_Warm_Shallow
+"Sandy Loam Upland 10-14\ p.z. Calcareous""",R035XC334AZ,40,458,100,3,601,3,0,0,0,0,0,3,0,0,0,0,0,0,166,253,LoamyUplands,LoamyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+"Sandstone/Shale Hills 10-14\ p.z.""",R035XC335AZ,35,203,185,35,458,5,0,0,0,0,8,25,0,0,0,0,90,68,62,148,SalineUplands,SalineUplands,Semiarid_Warm,Semiarid_Warm_SalineUplands
+"Sandy Loam Upland 10-14\ p.z. Gypsic""",R035XC336AZ,38,425,13,0,475,0,0,0,0,0,0,0,0,0,0,0,0,0,10,413,Gypsum,Gypsum,Semiarid_Warm,Semiarid_Warm_Gypsum
+"Sandstone/Shale Upland 10-14\ p.z.""",R035XC337AZ,28,125,225,15,393,0,0,0,0,0,0,15,0,0,0,0,88,50,35,145,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+"Loamy Upland 10-14\ p.z. Limy""",R035XC338AZ,6,27,555,6,594,0,0,0,528,0,4,4,0,0,0,0,0,0,0,0,DeepRocky,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+"Shallow Sandy Loam 10-14\ p.z. Calcareous""",R035XC339AZ,24,11,329,32,395,0,0,0,192,0,20,12,0,0,0,0,0,0,4,0,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+"Basalt Slopes 10-14\ p.z. Calcareous""",R035XC340AZ,33,60,465,33,591,9,0,0,405,0,43,33,0,0,0,0,0,0,18,53,Shallow,Gypsum,Arid_Warm,Arid_Warm_Gypsum
+"Gypsum Hills 10-14\ p.z. Calcareous""",R035XC341AZ,35,35,273,9,351,8,0,0,53,0,9,9,0,0,0,0,0,0,27,26,Gypsum,Gypsum,Semiarid_Warm,Semiarid_Warm_Gypsum
+"Gypsum Hills 10-14\ p.z.""",R035XC342AZ,12,30,238,6,285,3,0,0,3,0,4,4,0,0,0,0,0,0,9,24,Gypsum,Gypsum,Semiarid_Warm,Semiarid_Warm_Gypsum
+"Limestone/Sandstone Cliffs 10-14\ p.z.""",R035XC343AZ,6,75,194,5,279,2,0,0,128,0,0,5,0,0,0,0,0,0,6,3,Breaks,Breaks,Semiarid_Warm,Semiarid_Warm_Breaks
+"Shallow Sandy Loam 10-14\ p.z.""",R035XC346AZ,11,93,173,55,331,0,0,0,71,0,27,27,0,0,0,0,0,0,22,39,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+"Basalt Hills 10-14\ p.z. Cobbly""",R035XC347AZ,14,197,255,14,479,0,0,0,192,0,7,14,0,0,0,0,0,0,80,77,Shallow,Shallow,Arid_Warm,Arid_Warm_Shallow
+"Limestone Hills 10-14\ p.z.""",R035XC348AZ,15,150,325,3,493,0,0,0,175,0,0,0,0,0,0,0,0,0,10,123,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+"Limestone Upland 10-14\ p.z. Warm""",R035XC350AZ,15,143,333,3,493,0,0,0,262,0,0,0,0,0,0,0,0,0,29,92,Shallow,Shallow,Arid_Warm,Arid_Warm_Shallow
+"Sandy Upland 10-14\ p.z. Warm""",R035XC373AZ,15,100,280,5,400,0,0,0,150,0,0,5,0,0,0,0,0,0,50,64,SandyUplands,SandyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Sandy Slopes 10-14\ p.z.""",R035XC377AZ,45,270,175,55,545,30,0,0,0,0,23,33,0,0,0,0,0,0,225,164,SandyUplands,SandyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Breaks 7-11\ p.z.""",R035XD401AZ,23,50,140,7,220,5,0,0,0,0,6,6,0,0,0,0,0,0,12,17,Breaks,Breaks,Arid_Warm,Arid_Warm_Breaks
+"Gypsum Hills 7-11\ p.z.""",R035XD404AZ,71,132,184,3,389,0,0,0,0,0,0,3,0,0,0,0,10,0,58,78,Gypsum,Gypsum,Arid_Warm,Arid_Warm_Gypsum
+"Gypsum Upland 7-11\ p.z.""",R035XD405AZ,42,358,152,0,551,0,0,0,0,0,0,0,0,0,0,0,45,0,149,231,Gypsum,Gypsum,Arid_Warm,Arid_Warm_Gypsum
+"Loamy Upland 7-11\ p.z.""",R035XD409AZ,23,676,42,0,740,0,0,0,0,0,0,0,0,0,0,0,0,0,157,353,LoamyUplands,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Saline Upland 7-11\ p.z. Loamy""",R035XD410AZ,24,540,200,0,764,0,0,0,0,0,0,0,0,0,60,0,36,12,260,220,SalineBottoms,Bottoms,Semiarid_Warm,Semiarid_Warm_SandyBottoms_Bottoms
+"Sandstone Upland 7-11\ p.z.""",R035XD411AZ,17,294,280,0,591,3,0,0,0,0,0,0,0,0,0,0,0,0,83,279,Shallow,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Sandy Upland 7-11\ p.z.""",R035XD412AZ,57,526,188,0,770,0,0,0,0,0,0,0,0,0,0,0,0,0,213,228,SandyUplands,SandyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Sandy Loam Upland 7-11\ p.z. Calcareous""",R035XD413AZ,16,327,113,0,456,0,0,0,0,0,0,0,0,0,0,0,0,0,38,177,LoamyUplands,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Sandy Loam Upland 7-11\ p.z.""",R035XD414AZ,27,345,96,0,467,0,0,0,0,0,0,0,0,0,0,0,0,0,20,269,LoamyUplands,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+"Shallow Loamy 7-11\ p.z.""",R035XD415AZ,21,503,98,0,621,0,0,0,0,0,0,0,0,0,0,0,0,0,147,263,Shallow,Shallow,Arid_Warm,Arid_Warm_Shallow
+"Silty Upland 7-11\ p.z.""",R035XD416AZ,38,288,150,0,475,0,0,0,0,0,0,0,0,0,8,0,100,18,93,169,SalineUplands,FinerUplands,Arid_Warm,Arid_Warm_FinerUplands_ClayUplands
+"Clay Loam Bottom 7-11\ p.z.""",R035XD418AZ,55,825,150,0,1030,0,0,0,0,0,0,0,0,0,0,0,25,125,305,610,Bottoms,Bottoms,Arid_Warm,Arid_Warm_SalineBottoms_Bottoms
+"Clay Loam Upland 7-11\ p.z.""",R035XD421AZ,28,338,113,0,478,0,0,0,0,0,0,0,0,0,0,0,0,0,38,242,LoamyUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+"Sandy Loam Upland 7-11\ p.z. Gypsic""",R035XD422AZ,20,290,100,0,410,0,0,0,0,0,0,0,0,0,0,0,0,0,2,381,Gypsum,Gypsum,Arid_Warm,Arid_Warm_Gypsum
+"Breaks 7-11\ p.z. Gypsiferous""",R035XD423AZ,14,113,150,2,278,14,0,0,0,0,0,2,0,0,0,0,0,0,23,101,Gypsum,Gypsum,Arid_Warm,Arid_Warm_Gypsum
+"Limy Slopes 6-10\ p.z.""",R035XE507AZ,22,270,110,2,404,0,0,0,23,0,2,2,0,0,0,0,0,0,21,259,DeepRocky,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+"Sandstone Upland  6-10\ p.z.""",R035XE510AZ,29,122,188,2,340,0,0,0,48,0,3,3,0,0,0,0,0,0,13,128,Shallow,Shallow,Arid_Warm,Arid_Warm_Shallow
+"Sedimentary Cliffs 6-10\ p.z.""",R035XE516AZ,50,60,190,0,300,0,0,0,0,0,0,0,0,0,0,0,25,0,0,133,Breaks,Breaks,Arid_Warm,Arid_Warm_Breaks
+"Sedimentary Cliffs 13-17\ p.z.""",R035XF601AZ,47,328,235,47,657,0,0,0,0,0,25,25,0,0,0,0,0,0,81,104,DeepRocky,Breaks,Semiarid_Warm,Semiarid_Warm_Breaks
+"Clay Loam Upland 13-17\ p.z.""",R035XF603AZ,30,425,170,23,648,80,50,0,0,0,0,23,0,0,0,0,0,0,293,105,FinerUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+"Clayey Upland 13-17\ p.z.""",R035XF604AZ,30,450,140,0,620,88,0,0,0,0,0,0,0,0,0,0,0,0,331,119,VerticUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+"Loamy Upland 13-17\ p.z.""",R035XF605AZ,18,333,170,13,533,120,120,0,0,0,8,8,0,0,0,0,0,0,180,153,FinerUplands,FinerUplands,Semiarid_Warm,Semiarid_Warm_FinerUplands
+"Sandy Loam Upland 13-17\ p.z.""",R035XF606AZ,18,375,248,8,648,94,0,0,0,0,0,8,0,0,0,0,0,0,131,238,FinerUplands,LoamyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+"Sandy Upland 13-17\ p.z.""",R035XF607AZ,50,255,473,18,795,0,203,0,0,25,9,9,0,9,0,0,0,0,185,135,SandyUplands,SandyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+"Limestone / Sandstone Upland 13-17\ p.z.""",R035XF608AZ,18,415,230,10,673,114,0,0,0,0,4,7,0,0,0,0,0,0,215,114,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Sandy Upland 13-17\ p.z. Moderately Deep""",R035XF618AZ,66,108,222,702,1098,36,0,0,0,54,330,330,0,30,0,0,0,0,36,84,SandyUplands,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Gravelly,R035XG114NM,19,563,0,0,582,0,0,0,0,0,10,10,0,0,0,0,0,0,188,494,DeepRocky,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Shallow,R035XG116NM,40,489,0,0,529,0,0,0,0,0,18,18,0,0,0,0,0,0,217,393,Shallow,SalineUplands,Semiarid_Warm,Semiarid_Warm_SalineUplands
+Shallow Sandstone,R035XG121NM,40,390,0,0,430,0,0,0,0,0,15,15,0,0,0,0,0,15,368,370,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Hills,R035XG124NM,141,478,53,75,746,0,0,0,0,0,64,64,0,0,0,0,0,0,262,782,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Savanna,R035XG127NM,49,382,105,380,916,0,0,0,0,0,89,89,0,0,0,0,0,0,263,299,LoamyUplands,LoamyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+"Basalt Upland 14-18\ p.z.""",R035XG701AZ,27,193,71,11,301,0,0,0,0,0,29,22,0,0,0,0,0,0,66,231,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Cinder Upland 14-18\ p.z.""",R035XG704AZ,34,665,167,95,960,0,0,0,0,0,95,95,0,95,0,0,0,0,96,557,LoamyUplands,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Clayey Upland 14-18\ p.z.""",R035XG706AZ,30,777,127,67,1000,0,0,0,0,0,23,68,0,0,0,0,0,0,495,626,VerticUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+"Clay Loam Upland 14-18\ p.z.""",R035XG707AZ,90,698,68,90,945,0,0,0,0,0,68,194,0,0,0,0,0,0,360,531,VerticUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+"Loamy Bottom 14-18\ p.z.""",R035XG710AZ,27,608,180,0,815,0,0,0,0,0,0,0,0,0,0,0,0,0,392,393,Bottoms,Bottoms,Semiarid_Warm,Semiarid_Warm_SandyBottoms_Bottoms
+"Loamy Upland 14-18\ p.z.""",R035XG711AZ,20,407,163,101,690,0,0,0,0,0,19,81,0,0,0,0,0,0,24,268,Shallow,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+"Shallow Loamy 14-18\ p.z.""",R035XG717AZ,14,490,140,70,714,0,0,0,0,0,21,42,0,0,0,0,0,0,141,357,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Mountain Grassland,R035XH002NM,68,696,69,47,880,0,0,0,0,0,47,47,0,47,0,0,0,0,176,739,VerticUplands,LoamyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+"Cinder Hills 18-22\p.z. (Provisional)""",R035XH003NM,252,455,203,72,981,0,0,0,0,203,15,30,0,27,0,0,0,0,50,194,DeepRocky,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+"Loamy Upland 17-25\ p.z.""",R035XH807AZ,90,1168,28,43,1328,0,0,0,0,0,13,25,0,30,0,0,0,0,448,368,LoamyUplands,LoamyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+"Silty Upland 17-25\ p.z.""",R035XH813AZ,70,510,335,35,950,50,0,0,0,30,0,0,0,30,0,0,0,0,348,15,FinerUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+"Sandstone Upland 17-25\ p.z. Cobbly""",R035XH814AZ,140,340,200,100,780,0,0,0,0,24,24,0,0,24,0,0,0,0,151,9,Shallow,Shallow,Semiarid_Cool,Semiarid_Cool_Shallow
+"Meadow 17-25\ p.z.""",R035XH821AZ,225,1200,30,15,1470,0,0,0,0,23,0,15,15,15,0,0,0,0,563,0,Bottoms,Bottoms,Semiarid_Cool,Semiarid_Cool_Bottoms
+Alkali Bottom (Greasewood),R035XY003UT,50,375,250,0,675,0,0,25,0,0,0,0,0,0,150,3,13,60,128,315,SalineBottoms,Bottoms,Arid_Warm,Arid_Warm_SalineBottoms_Bottoms
+Alkali Flat (Greasewood),R035XY009UT,45,360,210,0,615,0,0,7,0,0,0,0,0,0,147,0,8,39,130,238,SalineBottoms,SalineBottoms,Arid_Warm,Arid_Warm_SalineBottoms_Bottoms
+Loamy Bottom (Basin Big Sagebrush),R035XY011UT,63,300,375,0,738,0,0,300,0,0,0,0,0,0,30,0,0,13,218,78,Bottoms,SandyBottoms,Semiarid_Warm,Semiarid_Warm_SandyBottoms_Bottoms
+Sandy Bottom,R035XY015UT,30,375,129,0,534,0,0,4,0,0,0,0,0,0,5,0,5,0,243,236,SandyBottoms,SandyBottoms,Arid_Warm,Arid_Warm_SandyBottoms
+Talus Slope (Blackbrush-Shadscale),R035XY018UT,26,75,111,0,213,0,0,0,30,0,14,26,0,0,0,0,0,0,85,30,Breaks,Breaks,Arid_Warm,Arid_Warm_Breaks
+Shallow Sand Rock Pocket (Utah Juniper/Two-Needle Pinyon),R035XY019UT,30,33,165,59,286,0,0,0,50,0,59,60,0,0,0,0,13,0,35,47,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+Desert Alkali Sandy Loam (Alkali Sacaton),R035XY101UT,40,263,118,0,420,0,0,0,0,0,0,0,0,0,54,5,27,164,75,244,SalineUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+Desert Clay (Castle Valley Saltbush),R035XY103UT,22,18,138,0,177,0,0,0,0,0,0,0,0,0,5,85,16,5,10,14,SalineHills,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+Desert Gypsum Loam (Torrey's Jointfir),R035XY106UT,10,65,75,0,150,0,0,0,0,0,0,0,0,0,0,10,23,5,35,53,Gypsum,Gypsum,Arid_Warm,Arid_Warm_Gypsum
+Desert Loam (Shadscale),R035XY109UT,34,82,160,0,276,0,0,0,10,0,0,0,0,0,0,0,56,0,9,43,SalineUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+Desert Sand (Sand Sagebrush),R035XY115UT,66,242,45,0,353,0,0,0,0,0,0,0,0,0,0,0,0,0,108,68,SandyUplands,SandyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+Desert Sandy Loam (Fourwing Saltbush),R035XY118UT,30,154,64,0,248,0,0,0,0,0,0,0,0,0,0,0,0,0,58,70,LoamyUplands,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+Desert Sandy Loam (Blackbrush),R035XY121UT,30,49,185,1,265,0,0,0,129,0,0,0,0,0,0,0,28,0,19,31,LoamyUplands,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+Desert Shallow Loam (Shadscale),R035XY122UT,10,40,100,0,150,0,0,0,0,0,0,0,0,0,0,0,30,0,34,37,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+Desert Shallow Clay (Mat Saltbush),R035XY124UT,17,27,132,0,176,0,0,0,0,0,0,0,0,0,0,120,1,0,16,12,SalineHills,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+Desert Shallow Clay (Shadscale),R035XY125UT,15,50,85,0,150,0,0,0,5,0,0,0,0,0,0,5,38,3,15,14,SalineHills,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+Desert Shallow Gypsum (Torrey's Jointfir),R035XY126UT,13,33,75,0,120,0,0,0,0,0,0,3,0,0,0,2,19,2,18,23,Gypsum,Gypsum,Arid_Warm,Arid_Warm_Gypsum
+Desert Shallow Sandy Loam (Shadscale),R035XY130UT,30,88,150,0,268,0,0,0,25,0,0,0,0,0,0,0,125,0,13,80,Shallow,Shallow,Arid_Warm,Arid_Warm_Shallow
+Desert Shallow Sandy Loam (Blackbrush),R035XY133UT,20,60,174,0,254,0,0,0,115,0,0,0,0,0,0,0,2,0,16,25,Shallow,Shallow,Arid_Warm,Arid_Warm_Shallow
+Desert Stony Loam (Shadscale-Bud Sagebrush),R035XY136UT,20,74,76,0,170,0,0,0,0,0,0,0,0,0,0,4,50,20,18,60,SalineUplands,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+Desert Stony Loam (Blackbrush),R035XY139UT,13,30,188,0,230,0,0,0,188,0,0,0,0,0,0,0,8,0,10,11,DeepRocky,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+Desert Very Shallow Gypsum (Torrey's Jointfir),R035XY142UT,13,29,90,0,131,0,0,0,38,0,0,0,0,0,0,0,23,2,4,24,Gypsum,Gypsum,Arid_Warm,Arid_Warm_Gypsum
+Desert Very Steep Stony Loam (Shadscale),R035XY146UT,23,30,80,0,133,0,0,0,0,0,0,0,0,0,0,0,62,0,7,6,Breaks,Breaks,Arid_Warm,Arid_Warm_Breaks
+Semidesert Bouldery Fan (Blackbrush),R035XY203UT,22,213,192,0,426,0,0,0,68,0,0,0,0,0,0,0,0,0,26,87,DeepRocky,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+Semidesert Gravelly Loam (Utah Juniper-Pinyon),R035XY206UT,15,70,75,138,298,0,0,0,69,0,75,100,0,0,8,0,18,13,65,71,DeepRocky,LoamyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+Semidesert Loam (Wyoming Big Sagebrush),R035XY209UT,32,128,193,40,393,160,0,0,0,0,5,43,0,0,0,0,5,0,70,56,FinerUplands,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+Semidesert Sand (Blackbrush),R035XY210UT,40,45,210,0,295,0,0,0,145,0,0,10,0,0,0,0,0,0,18,34,SandyUplands,SandyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+Semidesert Sand (Dune),R035XY211UT,67,133,160,10,370,0,0,0,0,0,0,10,0,0,0,0,0,0,116,23,SandyUplands,SandyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+Semidesert Sand (Fourwing Saltbush),R035XY212UT,42,228,159,6,434,0,0,0,10,0,0,2,0,0,0,0,0,0,48,99,SandyUplands,SandyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+Semidesert Sandy Loam (4-Wing Saltbush),R035XY215UT,35,358,135,6,534,0,0,0,10,0,0,2,0,0,0,0,0,0,79,168,LoamyUplands,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+Semidesert Sandy Loam (Wyoming Big Sagebrush),R035XY216UT,47,325,317,56,745,588,0,0,0,0,13,44,0,0,7,0,5,7,108,329,LoamyUplands,SandyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+Semidesert Sandy Loam (Spiny Hopsage),R035XY217UT,48,143,285,0,476,0,0,0,37,0,0,0,0,0,0,0,0,0,56,76,SalineUplands,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+Semidesert Sandy Loam (Blackbrush),R035XY218UT,108,132,130,5,375,0,0,0,108,0,0,3,0,0,0,0,7,0,54,68,LoamyUplands,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+Semidesert Sandy Loam (Indian Ricegrass - Galleta),R035XY219UT,24,238,119,0,381,0,0,0,0,0,0,0,0,0,0,0,0,0,145,120,LoamyUplands,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+Semidesert Shallow Loam (Torrey's Jointfir),R035XY220UT,15,70,70,5,160,0,0,0,0,0,0,3,0,0,0,0,10,0,10,31,Gypsum,Shallow,Arid_Warm,Arid_Warm_Shallow
+Semidesert Shallow Loam (Utah Juniper-Pinyon),R035XY221UT,20,45,75,270,410,1,0,0,5,0,35,235,0,0,0,0,1,0,17,42,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+Semidesert Shallow Loam (Utah Juniper- James Galleta),R035XY222UT,48,191,74,151,464,0,0,0,0,0,15,150,0,0,0,0,0,0,18,138,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+Semidesert Shallow Clay (Mat Saltbush),R035XY223UT,23,34,169,0,225,0,0,0,0,0,0,0,0,0,0,170,11,0,18,0,SalineHills,SalineHills,Semiarid_Warm,Semiarid_Warm_SalineHills
+Semidesert Shallow Sand (Blackbrush),R035XY224UT,20,63,200,18,300,0,0,0,200,0,0,18,0,0,0,0,10,0,49,69,Shallow,Shallow,Arid_Warm,Arid_Warm_Shallow
+Semidesert Shallow Sand (Cutler''s Jointfir),R035XY225UT,28,100,153,95,375,0,0,8,8,0,60,15,0,0,0,0,0,0,90,148,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+Semidesert Shallow Loam (Black Sagebrush/Indian Ricegrass),R035XY226UT,20,120,220,40,400,15,0,0,0,0,15,35,0,0,0,0,0,0,133,69,Shallow,VeryShallow,Semiarid_Warm,Semiarid_Warm_VeryShallow
+Semidesert Shallow Sand (Utah Juniper-Pinyon),R035XY227UT,40,50,60,410,560,0,0,0,3,0,113,170,0,0,0,0,5,0,28,68,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+Semidesert Shallow Sandy Loam (Shadscale),R035XY230UT,100,150,175,5,430,0,0,0,4,0,0,5,0,0,0,0,51,0,34,56,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+Semidesert Shallow Sandy Loam (Blackbrush),R035XY233UT,23,40,150,10,223,0,0,0,120,0,0,10,0,0,0,0,31,0,23,29,Shallow,Shallow,Arid_Warm,Arid_Warm_Shallow
+Semidesert Shallow Shale (Utah Juniper-Pinyon),R035XY234UT,10,18,30,210,268,0,0,0,0,0,67,173,0,0,0,0,3,0,8,24,Shallow,Shallow,Arid_Warm,Arid_Warm_Shallow
+Semidesert Very Shallow Gravelly Loam (Utah Juniper),R035XY235UT,13,23,102,40,177,0,0,0,67,0,23,18,0,0,0,0,2,0,6,12,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+"Semidesert Shallow Sandy Loam (Utah Juniper, Blackbrush)",R035XY236UT,25,33,114,61,232,0,0,0,67,0,28,60,0,0,0,0,3,0,48,12,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+Semidesert Shallow Gypsum (Mormontea),R035XY237UT,15,25,100,10,150,3,0,0,8,0,10,10,0,0,0,0,0,0,18,25,Gypsum,Gypsum,Arid_Warm,Arid_Warm_Gypsum
+Semidesert Shallow Clay (Shadscale-Utah Juniper),R035XY239UT,15,110,125,50,300,0,0,0,0,0,4,50,0,0,3,3,55,0,20,115,SalineUplands,SalineHills,Arid_Warm,Arid_Warm_SalineHills
+Semidesert Steep Shallow Loam (Utah Juniper-Two-Needle Pinyon),R035XY240UT,23,49,115,48,234,0,0,0,20,0,23,33,0,0,0,0,8,0,19,8,Shallow,VeryShallow,Arid_Warm,Arid_Warm_VeryShallow
+Semidesert Gravelly Loam (Shadscale),R035XY242UT,23,168,150,0,340,0,0,0,5,0,0,0,0,0,0,5,100,10,53,200,DeepRocky,LoamyUplands,Arid_Warm,Arid_Warm_SandyUplands_LoamyUplands
+Semidesert Stony Loam (Blackbrush),R035XY243UT,55,198,273,0,525,30,0,0,185,0,0,0,0,0,0,0,30,0,163,183,DeepRocky,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+Semidesert Stony Loam (Utah Juniper-Pinyon),R035XY246UT,28,200,53,150,430,0,0,0,3,0,50,113,0,0,0,0,10,0,45,208,DeepRocky,DeepRocky,Arid_Warm,Arid_Warm_DeepRocky
+Semidesert Very Steep Stony Loam (Salina Wildrye),R035XY260UT,20,169,100,20,309,0,0,0,13,0,10,20,0,0,0,0,45,0,59,53,DeepRocky,SalineUplands,Arid_Warm,Arid_Warm_SalineUplands
+"Semidesert Very Steep Stony Loam (Two-Needle Pinyon, Utah Juniper)",R035XY263UT,19,61,83,44,206,0,0,0,12,0,18,28,0,0,0,0,0,0,43,20,Breaks,Breaks,Arid_Warm,Arid_Warm_Breaks
+Semidesert Gypsum (Torrey's Jointfir),R035XY264UT,19,63,125,0,206,0,0,0,0,0,0,3,0,0,0,0,31,6,32,51,Gypsum,Gypsum,Arid_Warm,Arid_Warm_Gypsum
+Upland Loam (Basin Big Sagebrush),R035XY306UT,52,615,359,0,1025,0,0,225,0,0,0,0,0,0,0,0,20,0,455,60,FinerUplands,LoamyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+Upland Sand (Mountain Big Sagebrush),R035XY307UT,49,288,294,0,630,0,242,0,0,38,0,0,0,0,0,0,0,0,149,174,SandyUplands,SandyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+Upland Loam (Mountain Big Sagebrush),R035XY308UT,47,283,246,119,695,75,156,0,0,17,114,28,0,0,0,0,0,0,68,200,FinerUplands,LoamyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+Upland Sand (Mormon Tea),R035XY309UT,75,650,375,0,1100,0,0,100,0,0,0,0,0,0,0,0,0,0,345,155,SandyUplands,SandyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+Upland Shallow Sand (Pinyon-Utah Juniper),R035XY314UT,15,23,100,225,363,0,0,0,0,0,175,100,0,6,0,0,0,0,15,18,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Upland Shallow Loam (Pinyon-Utah Juniper),R035XY315UT,15,35,130,460,640,3,10,0,0,50,365,130,0,20,0,0,0,0,23,24,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Upland Steep Stony Loam (Utah Juniper-Pinyon),R035XY317UT,15,75,100,150,340,0,0,0,0,20,113,75,0,0,0,0,0,0,45,45,DeepRocky,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Upland Stony Loam (Pinyon-Utah Juniper),R035XY321UT,20,100,60,425,605,8,13,0,0,45,263,188,0,0,0,0,0,0,73,68,DeepRocky,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Upland Sand (Utah Juniper-Pinyon),R035XY324UT,30,115,158,513,815,0,65,0,0,75,275,275,0,0,0,0,0,0,54,128,SandyUplands,SandyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+Upland Very Steep Stony Loam (Pinyon-Utah Juniper),R035XY328UT,10,63,55,330,458,0,0,0,0,0,173,115,0,0,0,0,0,0,25,3,DeepRocky,Breaks,Semiarid_Warm,Semiarid_Warm_Breaks
+Clayey,R036XB002NM,63,702,135,0,900,59,0,0,0,0,0,0,0,0,0,0,59,180,464,306,VerticUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+Gravelly Fan,R036XB003NM,67,308,118,20,513,64,0,0,0,0,26,26,0,0,0,0,0,0,286,114,FinerUplands,FinerUplands,Semiarid_Warm,Semiarid_Warm_FinerUplands
+Limy,R036XB005NM,28,264,259,0,550,0,0,0,0,0,0,0,0,0,0,0,0,0,320,79,FinerUplands,FinerUplands,Semiarid_Warm,Semiarid_Warm_FinerUplands
+Loamy,R036XB006NM,68,621,162,0,850,64,0,0,0,0,0,0,0,0,0,0,0,56,555,269,LoamyUplands,FinerUplands,Semiarid_Warm,Semiarid_Warm_FinerUplands
+Malpais,R036XB007NM,40,240,0,70,350,53,0,0,0,0,0,6,0,0,0,0,0,0,169,92,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Salty Bottomland,R036XB010NM,105,683,263,0,1050,43,0,0,0,0,0,0,0,0,43,0,43,342,447,710,SalineBottoms,SalineBottoms,Semiarid_Warm,Semiarid_Warm_SalineBottoms
+Sandy,R036XB011NM,28,525,147,0,700,46,0,0,0,0,0,21,0,0,0,0,0,0,389,186,SandyUplands,SandyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+Sand Plains,R036XB012NM,78,523,150,50,800,61,0,0,0,0,81,81,0,0,0,0,0,81,374,504,SandyUplands,SandyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+Shallow Savanna,R036XB015NM,65,455,130,0,650,27,0,0,0,0,66,131,0,0,0,0,0,0,278,243,Shallow,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+Loamy Savanna,R036XB016NM,50,560,160,30,800,44,0,0,0,0,44,88,0,0,0,0,0,40,352,312,LoamyUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+Swale,R036XB017NM,63,1063,125,0,1250,0,0,53,0,0,0,0,0,0,0,0,0,126,660,377,Bottoms,Bottoms,Semiarid_Warm,Semiarid_Warm_SandyBottoms_Bottoms
+Sandy Slopes,R036XB111NM,90,390,330,0,810,45,0,0,0,0,24,24,0,0,0,0,0,45,255,354,SandyUplands,SandyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+Shallow Clay Loam - (Pinyon-Utah Juniper),R036XY110CO,24,104,79,155,363,30,0,0,0,0,27,143,0,0,0,0,0,0,39,13,Shallow,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Steep Shallow Clay Loam - (Pinyon-Utah Juniper),R036XY111CO,23,121,103,123,369,44,0,0,0,0,24,99,0,0,0,0,0,0,51,20,Shallow,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Semidesert Juniper Loam,R036XY113CO,40,120,50,40,250,20,0,0,0,0,8,35,0,0,0,0,20,0,98,58,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Mountain Pinyon,R036XY114CO,58,227,168,164,617,33,11,0,0,19,175,89,0,0,0,0,0,0,295,49,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Shallow Loamy Mesa Top - (Pinyon-Juniper),R036XY141CO,125,267,100,200,692,0,0,0,0,0,128,150,0,0,0,0,0,0,260,0,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Loamy Mesa Top - (Pinyon-Juniper),R036XY142CO,150,350,117,283,900,0,18,0,0,0,158,183,0,0,0,0,0,0,325,0,FinerUplands,FinerUplands,Semiarid_Warm,Semiarid_Warm_FinerUplands
+Salt Meadow,R036XY266CO,63,1738,200,0,2000,0,0,0,0,0,0,0,0,0,105,0,0,550,345,750,SalineBottoms,SalineBottoms,Semiarid_Warm,Semiarid_Warm_SalineBottoms
+Loamy Foothills,R036XY284CO,125,675,350,0,1150,200,0,0,0,8,0,0,0,0,0,0,0,0,948,15,FinerUplands,FinerUplands,Semiarid_Warm,Semiarid_Warm_FinerUplands
+Stony Foothills,R036XY287CO,65,325,100,110,600,60,0,0,0,25,75,75,0,0,0,0,0,0,270,53,DeepRocky,DeepRocky,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Clayey Foothills,R036XY289CO,68,548,285,0,900,158,0,0,0,0,0,0,0,0,0,0,0,0,536,0,VerticUplands,ClayUplands,Semiarid_Warm,Semiarid_Warm_ClayUplands
+Upland Loam (Big Sagebrush),R036XY306UT,50,650,350,0,1050,125,0,125,0,0,0,0,0,0,0,0,20,0,230,90,FinerUplands,FinerUplands,Semiarid_Warm,Semiarid_Warm_FinerUplands
+Upland Loam (Pinyon/Utah Juniper),R036XY307UT,53,450,225,300,1028,35,0,35,0,0,150,150,0,0,0,0,0,0,278,128,FinerUplands,SandyUplands,Semiarid_Warm,Semiarid_Warm_SandyUplands_LoamyUplands
+Upland Shallow Loam (Pinyon/Utah Juniper),R036XY315UT,25,63,250,150,488,8,0,0,0,0,156,125,0,0,0,0,0,0,30,30,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky
+Upland Shallow Loam (Littleleaf Mountain Mahogany),R036XY316UT,125,100,250,100,575,0,0,0,0,0,55,45,0,0,0,0,0,0,73,35,Shallow,VeryShallow,Semiarid_Warm,Semiarid_Warm_VeryShallow
+Semidesert Loam,R036XY325CO,60,360,180,0,600,150,0,0,0,0,0,0,0,0,0,0,8,0,141,177,FinerUplands,FinerUplands,Semiarid_Warm,Semiarid_Warm_FinerUplands
+Upland Very Steep Stony Loam  (Pinyon/Utah Juniper) ,R036XY328UT,50,250,150,200,650,0,0,0,0,0,108,108,0,0,0,0,0,0,33,8,DeepRocky,Breaks,Semiarid_Warm,Semiarid_Warm_Breaks
+Loamy Bottom,R036XY405CO,203,810,338,0,1350,0,0,213,0,50,0,0,0,0,13,0,0,25,863,88,Bottoms,Bottoms,Semiarid_Warm,Semiarid_Warm_SandyBottoms_Bottoms
+Steep Colluvial Slopes,R036XY445CO,50,150,125,175,500,40,0,0,0,10,113,113,0,0,0,0,0,0,248,60,Shallow,Shallow,Semiarid_Warm,Semiarid_Warm_Shallow_DeepRocky

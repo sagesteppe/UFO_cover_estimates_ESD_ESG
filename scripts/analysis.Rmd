@@ -23,21 +23,15 @@ knitr::opts_chunk$set(warning = F)
 
 # Introduction
 
-The development of Ecological Sites (ES) and their descriptions (ESD's) represent an enormous effort on behalf of the Natural Resources Conservation Service (NRCS) (CITE : BESTELMEYER). As mentioned in section XX, they do not yet form a continuous coast to coast, nor even across the field office data set (CITE : TWIDWELL). In order to allay the significant amounts of effort required to develop these, and to make land management decisions in the interim alternative classification systems have been proposed (CITE). One system which incorporates the NRCS ESDs, and which provides continuous coverage across our study area, are the Ecological Site Groups (CITE). 
+The development of Ecological Sites (ES) and their descriptions (ESD's) represent an enormous effort on behalf of the Natural Resources Conservation Service (NRCS) (@bestelmeyer2015national). As mentioned in section XX, they do not yet form a continuous coast to coast, nor even across the field office data set (@twidwell2013national). In order to allay the significant amounts of effort required to develop these, and to make land management decisions in the interim alternative classification systems have been proposed (CITE). One system which incorporates the NRCS ESDs, and which provides continuous coverage across our study area, are the Ecological Site Groups (@nauman2022quantitative). 
 
-The Ecological Site Groups developed largely by United States Geological Survey (USGS) researchers at the Southwest Biological Science Center in Moab [Utah], with assistance from BLM Colorado State Office Staff, are meant to both bridge the spatial gap in ESD development, and to provide a framework for  land management decisions at a scale larger than that which generally occurs at a BLM Field Office. The Ecological Site Groups were developed by grouping together similar ESD's, akin to the strictly interpretive approach - which seeks to reduce conceptual fineness - in section XX, and which will respond in a similar fashion to management actions (@duniway2016generalizing). To these initial groups the field data which largely informed the ESD creation, most notably soil physical parameters, and with the use of an objective and quantitative approaches, which make use of simple *Machine Learning (ML)* method *Random Forest* **section XX** were used to identify recurring themes in the dataset into groups, and then project these onto a 'map' which covers the Colorado Plateau. 
+The Ecological Site Groups developed largely by United States Geological Survey (USGS) researchers at the Southwest Biological Science Center in Moab [Utah], with assistance from BLM Colorado State Office Staff, are meant to both bridge the spatial gap in ESD development, and to provide a framework for  land management decisions at a scale larger than that which generally occurs at a BLM Field Office. The Ecological Site Groups were developed by grouping together similar ESD's, akin to the strictly interpretive approach - which seeks to reduce conceptual fineness - in section XX, and which will respond in a similar fashion to management actions (@duniway2016generalizing). To these initial groups the field data which largely informed the ESD creation, most notably soil physical parameters, and with the use of an objective and quantitative approaches, which make use of simple *Machine Learning (ML)* method *Random Forest* **section XX** were used to identify recurring themes in the dataset into groups, and then project these onto a 'map' which covers the Upper Colorado River Basin. 
 
-While for most land management decisions at the UFO ESD's, when available, represent the best available scientific evidence upon which to inform decisions,  ESG's provide the best alternative for much of the field office, and in the future are likely to maintain influence for large scale decisions at the UFO. Herein we address questions regarding the similarity of estimates arising from ESG's and ESD's. In this report, we are using ESD's for the *reference state benchmarks* which they contain, in other words quantitative goals which we seek to compare land to, and seek to visualize the relationship between the standards of ESD's and ESG's. We also hope to understand which ecological sites are contained in which ES groups, in other words, where do our groups map out to?. 
-
-
-> "QUOTE WILL GO HERE SUMMARIZING WHAT ESGS ARE ALL ABOOT"
->  
-> `r tufte::quote_footer('--- Nauman et al. 2022')`
+While for most land management decisions at the UFO ESD's, when available, represent the best available scientific evidence upon which to inform decisions,  ESG's provide the best alternative for much of the field office, and in the future are likely to maintain influence for large scale decisions at the UFO. Herein we address questions regarding the similarity of estimates arising from ESG's and ESD's. In this report, we are using ESD's for the *reference state benchmarks* which they contain, in other words quantitative goals which we seek to compare land to, and seek to visualize the relationship between the standards of ESD's and ESG's. We also hope to understand which ecological sites are contained in which ES groups, in other words, where do our groups map out to? 
 
 # Methods
 
-Here we determine how similar they are to the ESD's for which we have verified AIM plots in. In order to determine if ESG's may serve as a drop-in-substitute for areas of the field office which do not have completed ESD's...
-
+The mean fractional cover of vegetation was manually transcribed from Table 3 of Appendix A from Nauman et al. 2022. The spatial data product which the study which was the outcome of the study was accessed from sciencebase.gov catalog on (Dec. 16, 2022). 
 
 ```{r}
 library(tidyverse)
@@ -96,11 +90,11 @@ ecosites <- as.data.frame(ecosites) %>%
 
 ESD2ESG_map <- left_join(esg2plots, ecosites, by = 'PLOT.ID')
   
-rm(mode, esg, f, praw, esg2plots, ecosites)
+rm(mode, esg, esg2plots, ecosites)
 ```
 
 
-```{r}
+```{r Create Networks to show relationships between pixels and classification.}
 
 ESD2ESG_wide <- ESD2ESG_map %>% 
   mutate(
@@ -152,6 +146,34 @@ module_membership <- module_membership %>%
 
 rm(ob, mod, EsdEsg_network, modules, ESD2ESG_map)
 ```
+It can be inferred from the above image is that from a per pixel perspective, the mapping between pixels and ESG's is of limited utility. Rather we need to utilize the direct look up tables from the publication... which miss most of our ecosites again... 
+
+
+
+
+The study utilized 18 of the UFO's (NUMBER) ecosites. We can determine how often the spatial product mapped to the appropriate ESG under multiple circumstances. 1) How often did the PREDOMINANT ESG get returned by the ESD 2) what proportion of all plots were matched correctly to an ESG from the spatial product ? 
+
+```{r Use ideal lookup table from publication}
+
+reference_lookup <- read.csv(file.path(praw, f[grep('Appendix',f)] )) %>% 
+  select(Ecological.Site.ID, Final.Soil.Geomorphic.Unit, Climate.Zone) %>% 
+  filter(Ecological.Site.ID %in% module_membership$vertices) %>% 
+  mutate(
+    Climate.Zone = str_replace(Climate.Zone, 'Semiarid_Warm', 'SAW'),
+    Climate.Zone = str_replace(Climate.Zone, 'Semiarid_Cool', 'SAC'), 
+    Climate.Zone = str_replace(Climate.Zone, 'Arid_Warm', 'AW'),
+    Final.Soil.Geomorphic.Unit = to_parsed_case(Final.Soil.Geomorphic.Unit)
+    ) %>% 
+  mutate(Final.Soil.Geomorphic.Unit = case_when(
+    Climate.Zone == 'SAW' & Final.Soil.Geomorphic.Unit %in% c('Shallow', 'Deep_Rocky') ~ 'Shallow_and_Deep_Rocky',
+    TRUE ~ Final.Soil.Geomorphic.Unit
+  )) %>% 
+  unite('ESG', Climate.Zone:Final.Soil.Geomorphic.Unit, sep = '_-_')
+
+rm(f, praw)
+```
+
+
 
 ```{r Facet wrap density plots of ESD values with geom point ESG value}
 
@@ -165,13 +187,8 @@ ob <- ESG_cover %>%
     ESG = str_replace_all(ESG, ' ', "_"),
     ESG = str_remove(ESG, 'No_Climate_Group_-_'),
     ESG = str_replace(ESG, 'Semiarid_warm', 'SAW'),
-    ESG = str_replace(ESG, 'Semiarid_Cool', 'SAC'), # do need to go back to clean up names
-    ESG = str_replace(ESG, 'Arid_Warm_', 'AW'),  # Finer_and_Clay_Uplands
-    ESG = str_replace(ESG, 'Arid_Warm_', 'Finer_and_Clay_Uplands'), 
-
-    
-    
-    
+    ESG = str_replace(ESG, 'Semiarid_Cool', 'SAC'), 
+    ESG = str_replace(ESG, 'Arid_Warm_', 'AW'), 
     ) %>% # of some of these strata
   mutate(MODEL = 'ESG') %>% 
   rename(CONCEPT = ESG) %>% 
