@@ -187,7 +187,7 @@ p2p <- test_results %>%
   group_by(test) %>% 
   summarize(Prop = sum(RESULT)/n()) # polygon gives slightly better results
 
-rm(bY, bN, ESG4simulation, ESG4simulation_buff)
+rm(bY, bN, ESG4simulation, ESG4simulation_buff, ecosites)
 ```
 
 To determine whether the raster dataset gives a higher or lower performance accuracy in the UFO portion of it's range the AIM plots with ESD's which are known to map directly to ESG's were utilized. These plots were extracted from the ESG gridded surface and the proportion of each ESG which was correctly and incorrectly mapped were calculated.  
@@ -296,33 +296,6 @@ module_membership <- module_membership %>%
 rm(ob, mod, EsdEsg_network, modules, ESD2ESG_map)
 ```
 
-
-The ES which had there ESG associations, as well as those with only a single linkage to ESG were removed from the input dataset, and a second network was created FIGURE XX. These ES were manually mapped to the most probable ESG via the Dichotomous Key in Nauman et al. 2022. 
-
-
-```{r Create subset Network for remaining ESDs which needan ESG}
-
-# ' the dirty network'
-
-dirtyNet <- ESD2ESG_wide %>% 
-  ungroup() %>% 
-  filter(!ECO.SITE %in% ref_lookup$Ecological.Site.ID) %>% # the groups of these ESD's are known #/ 157 plots
-  
-  group_by(ECO.SITE) %>% # these ESD's had only a single plot, and we will just #/ 8 plots
-  filter(n() >= 2) %>% # accept whichever ESG it is mapped to. 
-  
-  add_tally(name = 'NO_ESD') %>% #these ESG's match perfectly between all plots 
-  group_by(ECO.SITE, ESG) %>% # within the ESD ! F048AY918CO 4/4, R034XY403CO 5/5 
-  add_tally(name = 'ESD_in_ESG') %>% 
-  filter(NO_ESD != ESD_in_ESG) %>% 
-  
-  filter(ESD_in_ESG / NO_ESD < 0.65) %>%  # sites with > 65% of plots to an ESG will be assigned as such. 
-  filter(!ECO.SITE %in% c('R048AY238CO', 'R048AY306UT')) # R048AY238CO, R048AY306UT
-
-  # now join the correct ESG to the reference ESD's
-```
-
-
 ```{r Create a clean network of ESDs which map to an ESG}
 
 # ' the clean network '
@@ -352,11 +325,48 @@ cleanNET3 <- ESD2ESG_wide %>%
   
   filter(ESD_in_ESG / NO_ESD > 0.65) %>% 
   distinct() %>% 
-  slice(rep(1:n(), each = NO_ESD)) # now have to remove these from the next
-  
-  
+  slice(rep(1:n(), each = NO_ESD)) %>%  # now have to remove these from the next set
+  select(-NO_ESD, -ESD_in_ESG)
 
-ref_lookup
+cleanNet <- rbind(cleanNET1, cleanNET2, cleanNET3)
+
+ob <- with(cleanNet, table(ESG, ECO.SITE))
+EsdEsg_network <- apply(as.matrix.noquote(ob),2,as.numeric)
+rownames(EsdEsg_network) <- rownames(ob)
+mod <- computeModules(EsdEsg_network)
+plotweb(mod@moduleWeb)
+
+```
+
+
+
+```{r Create subset Network for remaining ESDs which needan ESG}
+
+# ' the dirty network'
+
+dirtyNet <- ESD2ESG_wide %>% 
+  ungroup() %>% 
+  filter(!ECO.SITE %in% ref_lookup$Ecological.Site.ID) %>% # the groups of these ESD's are known #/ 157 plots
+  
+  group_by(ECO.SITE) %>% # these ESD's had only a single plot, and we will just #/ 8 plots
+  filter(n() >= 2) %>% # accept whichever ESG it is mapped to. 
+  
+  add_tally(name = 'NO_ESD') %>% #these ESG's match perfectly between all plots 
+  group_by(ECO.SITE, ESG) %>% # within the ESD ! F048AY918CO 4/4, R034XY403CO 5/5 
+  add_tally(name = 'ESD_in_ESG') %>% 
+  filter(NO_ESD != ESD_in_ESG) %>% 
+  
+  filter(ESD_in_ESG / NO_ESD < 0.65) %>%  # sites with > 65% of plots to an ESG will be assigned as such. 
+  filter(!ECO.SITE %in% c('R048AY238CO', 'R048AY306UT')) # R048AY238CO, R048AY306UT
+
+
+ob <- with(dirtyNet, table(ESG, ECO.SITE))
+EsdEsg_network <- apply(as.matrix.noquote(ob),2,as.numeric)
+rownames(EsdEsg_network) <- rownames(ob)
+mod <- computeModules(EsdEsg_network)
+plotweb(mod@moduleWeb)
+
+rm(ob, EsdEsg_network, mod)
 
 ```
 
@@ -365,6 +375,9 @@ Extract from the the three layers, detect most probable.
 ```{r}
 
 ```
+
+
+The ES which had there ESG associations, as well as those with only a single linkage to ESG were removed from the input dataset, and a second network was created FIGURE XX. These ES were manually mapped to the most probable ESG via the Dichotomous Key in Nauman et al. 2022. 
 
 
 
