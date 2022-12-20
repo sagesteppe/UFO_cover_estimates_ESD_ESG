@@ -85,17 +85,17 @@ esg2plots <- extract(esg, ecosites, method = 'simple', weights = T, ID = T) %>%
 
 esg2plots <- data.frame(levels(esg)) %>% # extract lookup table from raster
   right_join(., esg2plots, by = 'Value') %>% 
-  select(ESG, PLOT.ID)
-ecosites_mapped <- as.data.frame(ecosites) %>%
-  select(ECO.SITE, PLOT.ID)
+  select(ESG, PLOT.ID) 
+ecosites_mapped <- as.data.frame(ecosites) %>% 
+  select(ECO.SITE, PLOT.ID) 
 
 ESD2ESG_map <- left_join(esg2plots, ecosites_mapped, by = 'PLOT.ID') %>% 
   mutate(
-    ESG = str_replace_all(ESG, ' ', "_"),
-    ESG = str_replace(ESG, ',_', '_and_'),
-    ESG = str_replace(ESG, 'Semiarid_Warm', 'SAW'),
-    ESG = str_replace(ESG, 'Semiarid_Cool', 'SAC'), 
-    ESG = str_replace(ESG, 'Arid_Warm_', 'AW')) 
+    ESG = str_replace_all(ESG, ' ', "_"), 
+    ESG = str_replace(ESG, ',_', '_and_'), 
+    ESG = str_replace(ESG, 'Semiarid_Warm', 'SAW'), 
+    ESG = str_replace(ESG, 'Semiarid_Cool', 'SAC'),  
+    ESG = str_replace(ESG, 'Arid_Warm_', 'AW'))  
   
 rm(esg2plots, ecosites_mapped)
 ```
@@ -113,18 +113,18 @@ ref_lookup <- read.csv(file.path(praw, f[grep('Appendix',f)] )) %>%
   select(Ecological.Site.ID, Final.Soil.Geomorphic.Unit, Climate.Zone) %>% 
   filter(Ecological.Site.ID %in% ESD2ESG_map$ECO.SITE) %>% 
   mutate(
-    Climate.Zone = str_replace(Climate.Zone, 'Semiarid_Warm', 'SAW'),
-    Climate.Zone = str_replace(Climate.Zone, 'Semiarid_Cool', 'SAC'), 
-    Climate.Zone = str_replace(Climate.Zone, 'Arid_Warm', 'AW'),
-    Final.Soil.Geomorphic.Unit = snakecase::to_parsed_case(Final.Soil.Geomorphic.Unit)
+    Climate.Zone = str_replace(Climate.Zone, 'Semiarid_Warm', 'SAW'), 
+    Climate.Zone = str_replace(Climate.Zone, 'Semiarid_Cool', 'SAC'),  
+    Climate.Zone = str_replace(Climate.Zone, 'Arid_Warm', 'AW'),  
+    Final.Soil.Geomorphic.Unit = snakecase::to_parsed_case(Final.Soil.Geomorphic.Unit) 
     ) %>% 
-  mutate(Final.Soil.Geomorphic.Unit = case_when(
-    Climate.Zone == 'SAW' & Final.Soil.Geomorphic.Unit %in% c('Shallow', 'Deep_Rocky') ~ 'Shallow_and_Deep_Rocky',
+  mutate(Final.Soil.Geomorphic.Unit = case_when( 
+    Climate.Zone == 'SAW' & Final.Soil.Geomorphic.Unit %in% c('Shallow', 'Deep_Rocky') ~ 'Shallow_and_Deep_Rocky', 
     TRUE ~ Final.Soil.Geomorphic.Unit
   )) %>% 
-  unite('ESG', Climate.Zone:Final.Soil.Geomorphic.Unit, sep = '_-_')
+  unite('ESG', Climate.Zone:Final.Soil.Geomorphic.Unit, sep = '_-_') 
 
-ESG_present <- nrow(ref_lookup)
+ESG_present <- nrow(ref_lookup) 
 
 rm(f, praw)
 ```
@@ -240,10 +240,9 @@ ggplot(esd_correct, aes(y = Response_V, x = ECO.SITE, fill= Response)) +
 prop_D_map2_G <- esd_correct %>% 
   filter(Response == 'Correct') %>% 
   ungroup() %>% 
-  summarize(prop_correct = sum(Response_V)/ sum(Total))
+  summarize(prop_correct = sum(Response_V) / sum(Total))
             
-            
-rm( mode, theme_boxplot,
+rm( theme_boxplot,
    theme_prop_bar, esg, esg_correct, test_results)
 ```
 
@@ -293,7 +292,7 @@ module_membership <- module_membership %>%
          vertices = str_replace(vertices, 'Sandy_Uplands_and_Loamy_Uplands', 'Sandy_and_Loamy_Uplands')
          )
 
-rm(ob, mod, EsdEsg_network, modules, ESD2ESG_map)
+rm(ob, mod, EsdEsg_network, modules)
 ```
 
 ```{r Create a clean network of ESDs which map to an ESG}
@@ -367,22 +366,63 @@ mod <- computeModules(EsdEsg_network)
 plotweb(mod@moduleWeb)
 
 rm(ob, EsdEsg_network, mod)
-
 ```
 
 
-Extract from the the three layers, detect most probable. 
-```{r}
+While the final output classification gridded surface has a classification accuracy of 67% the next two output layers, have slightly different predictions and 86% of the time will contain the correct ESG. Here we will extract all three layers to a site, sum all of the results across them and search for the most probable result.
 
+```{r Classify Remaining ESDs to an ESG based on the most commonly observed one across all Plots }
+praw <- '../data/raw'
+f <- list.files(praw, recursive = T)
+
+sgu1  <- rast( file.path(praw, f[grep('SGU_1st.*tif$',f)]) )
+sgu2  <- rast( file.path(praw, f[grep('SGU_2nd.*tif$',f)]) )
+sgu3  <- rast( file.path(praw, f[grep('SGU_3rd.*tif$',f)]) )
+c_zones <- rast( file.path(praw, f[grep('Zones.*tif$', f)]) )
+
+ecosites <- st_read('/media/sagesteppe/ExternalHD/UFO_cartography/AIM_plots_outcomes/plots_outcomes.shp', 
+                 quiet = T) %>% # let us grab the spatial data from this real quick
+  select(PLOT.ID = Plot_ID) %>% 
+  st_transform(26912) %>% 
+  st_buffer(27.5) %>% 
+  right_join(ESD2ESG_map, ecosites, by = 'PLOT.ID') %>% 
+  filter(ECO.SITE %in% dirtyNet$ECO.SITE) %>% 
+  vect() %>% 
+  project(., crs(sgu1))
+
+extract(c_zones, ecosites, method = 'simple') %>% 
+  group_by(ID) %>% summarise(ClimZone = mode(ClimZone)) 
+
+sgu1_ex <- extract(sgu1, ecosites, method = 'simple') %>% 
+  group_by(ID) %>% summarise(SGU1 = mode(SGU)) 
+sgu2 <- extract(sgu2, ecosites, method = 'simple') %>% 
+  group_by(ID) %>% summarise(SGU2 = mode(SGU)) 
+sgu3 <- extract(sgu3, ecosites, method = 'simple') %>% 
+  group_by(ID) %>%  summarise(SGU3 = mode(SGU)) 
+sgu <- data.frame(sgu1_ex, 'SGU2' =  sgu2$SGU2, 'SGU3' = sgu3$SGU3, 
+                  st_as_sf(ecosites) %>% select(PLOT.ID, ECO.SITE) )
+
+sgu <- sgu %>% 
+  st_drop_geometry() %>% 
+  split(., .$ECO.SITE) %>% 
+  map(., .f = list(. %>% dplyr::select(2:4) %>% 
+                     as.matrix() %>% 
+        table(.) %>% which.max(.) %>% names(.) )) %>% 
+  bind_rows() %>%  t() %>%  data.frame() %>% 
+  rownames_to_column('ECO.SITE') %>% 
+  rename(ESG_Code = '.') 
+
+
+
+data.frame(levels(sgu1))
+
+rm(sgu1_ex, sgu1, sgu2, sgu3, praw, f, ecosites)
 ```
 
 
 The ES which had there ESG associations, as well as those with only a single linkage to ESG were removed from the input dataset, and a second network was created FIGURE XX. These ES were manually mapped to the most probable ESG via the Dichotomous Key in Nauman et al. 2022. 
 
-
-
 ## Compare ESG benchmarks to ESD benchmarks
-
 
 ```{r Facet wrap density plots of ESD values with geom point ESG value}
 
