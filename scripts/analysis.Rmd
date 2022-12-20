@@ -129,7 +129,7 @@ ESG_present <- nrow(ref_lookup)
 rm(f, praw)
 ```
 
-To test whether we were extracting and processing the correct ESG from the gridded surface two comparisons of raster extraction methods were attempted. The first, is typically performed at UFO, is to buffer the point to represent the entire AIM plot and extract to that area, and chose the categorical class with the most cells per value. The other option is to extract from the gridded surface directly to the point geometry. 
+To test whether we were extracting and processing the correct ESG from the gridded surface two comparisons of raster extraction methods were attempted. The first, is typically performed at UFO, is to buffer the point to represent the entire AIM plot and extract to that area, and chose the categorical class with the most cells per value. The other option is to extract from the gridded surface directly to the point geometry. The proportion of correctly classified points from a subset of ESD's for which the ESG's are definitively known is reported, and the higher performing method, buffering, was used for the duration of the analyses. 
   
 ```{r test raster extraction methods}
 
@@ -190,6 +190,7 @@ p2p <- test_results %>%
 rm(bY, bN, ESG4simulation, ESG4simulation_buff)
 ```
 
+To determine whether the raster dataset gives a higher or lower performance accuracy in the UFO portion of it's range the AIM plots with ESD's which are known to map directly to ESG's were utilized. These plots were extracted from the ESG gridded surface and the proportion of each ESG which was correctly and incorrectly mapped were calculated.  
 
 ```{r Proportion of Correct ESG matching}
 
@@ -243,9 +244,10 @@ prop_D_map2_G <- esd_correct %>%
             
             
 rm( mode, theme_boxplot,
-   theme_prop_bar, esg, esg_correct, ref_lookup, test_results)
+   theme_prop_bar, esg, esg_correct, test_results)
 ```
 
+To determine the accuracy of mapping individual ESDs directly to ESG's a bipartite network was created using all AIM Plots with verified ESD's, all statistics were calculated using the package 'bipartite' (@ DORRRRRRRRRRRRMAN). This approach was used to search for patterns in these data, given both the high number of ESG's and ESD's. 
 
 ```{r Create Networks to show relationships between pixels and classification.}
 
@@ -259,7 +261,6 @@ rownames(EsdEsg_network) <- rownames(ob)
 mod <- computeModules(EsdEsg_network)
 plotModuleWeb(mod)
 plotweb(mod@moduleWeb)
-
 
 # Higher Level refers to the ESD's , Lower level to the ESGs
 
@@ -295,10 +296,75 @@ module_membership <- module_membership %>%
 rm(ob, mod, EsdEsg_network, modules, ESD2ESG_map)
 ```
 
-It can be inferred from the above image is that from a per pixel perspective, the mapping between pixels and ESG's is of limited utility. Rather we need to utilize the direct look up tables from the publication... which miss most of our ecosites again... 
 
 The ES which had there ESG associations, as well as those with only a single linkage to ESG were removed from the input dataset, and a second network was created FIGURE XX. These ES were manually mapped to the most probable ESG via the Dichotomous Key in Nauman et al. 2022. 
 
+
+```{r Create subset Network for remaining ESDs which needan ESG}
+
+# ' the dirty network'
+
+dirtyNet <- ESD2ESG_wide %>% 
+  ungroup() %>% 
+  filter(!ECO.SITE %in% ref_lookup$Ecological.Site.ID) %>% # the groups of these ESD's are known #/ 157 plots
+  
+  group_by(ECO.SITE) %>% # these ESD's had only a single plot, and we will just #/ 8 plots
+  filter(n() >= 2) %>% # accept whichever ESG it is mapped to. 
+  
+  add_tally(name = 'NO_ESD') %>% #these ESG's match perfectly between all plots 
+  group_by(ECO.SITE, ESG) %>% # within the ESD ! F048AY918CO 4/4, R034XY403CO 5/5 
+  add_tally(name = 'ESD_in_ESG') %>% 
+  filter(NO_ESD != ESD_in_ESG) %>% 
+  
+  filter(ESD_in_ESG / NO_ESD < 0.65) %>%  # sites with > 65% of plots to an ESG will be assigned as such. 
+  filter(!ECO.SITE %in% c('R048AY238CO', 'R048AY306UT')) # R048AY238CO, R048AY306UT
+
+  # now join the correct ESG to the reference ESD's
+```
+
+
+```{r Create a clean network of ESDs which map to an ESG}
+
+# ' the clean network '
+
+cleanNET1 <- ESD2ESG_wide %>% 
+  ungroup() %>% 
+  filter(ECO.SITE %in% ref_lookup$Ecological.Site.ID) %>% 
+  select(ECO.SITE) %>% 
+  left_join(., ref_lookup, by = c('ECO.SITE' = 'Ecological.Site.ID'))
+
+cleanNET2 <- ESD2ESG_wide %>% 
+  ungroup() %>% 
+  filter(!ECO.SITE %in% ref_lookup$Ecological.Site.ID) %>% 
+  group_by(ECO.SITE) %>% 
+  filter(n()== 1)
+
+cleanNET3 <- ESD2ESG_wide %>% 
+  ungroup() %>% 
+  filter(!ECO.SITE %in% ref_lookup$Ecological.Site.ID) %>% 
+  group_by(ECO.SITE) %>%
+  filter(n() >= 2) %>% 
+  
+  add_tally(name = 'NO_ESD') %>% #these ESG's match perfectly between all plots 
+  group_by(ECO.SITE, ESG) %>% # within the ESD ! F048AY918CO 4/4, R034XY403CO 5/5 
+  add_tally(name = 'ESD_in_ESG') %>% 
+  filter(NO_ESD != ESD_in_ESG) %>% 
+  
+  filter(ESD_in_ESG / NO_ESD > 0.65) %>% 
+  distinct() %>% 
+  slice(rep(1:n(), each = NO_ESD)) # now have to remove these from the next
+  
+  
+
+ref_lookup
+
+```
+
+
+Extract from the the three layers, detect most probable. 
+```{r}
+
+```
 
 
 
@@ -338,7 +404,7 @@ ggplot(ob, aes(MEAN_X, MEAN_Y, color = MODEL)) +
 # Results
 
 
-The method of extracting the ESG from th gridded surface to plot had virtually no influence on the accuracy of the ESG. Regardless the method of buffering the point to the real size of the AIM plot was used as it slightly outperformed plot centers,  `r p2p[(p2p$test == 'point'),]$Prop` to `r p2p[(p2p$test == 'polygon'),]$Prop`.
+The method of extracting the ESG from th gridded surface to plot had virtually no influence on the accuracy of the ESG. Regardless the method of buffering the point to the real size of the AIM plot was used as it slightly outperformed plot centers on the `r nrow(known)` known sites,  `r p2p[(p2p$test == 'point'),]$Prop` to `r p2p[(p2p$test == 'polygon'),]$Prop`.
 
 `r nrow(known)` AIM points were in the look up values for ESG... XX of these ESDs were included directly in the making of XX ESGs . The ESG gridded surface was able to correctly place `r prop_D_map2_G` plots to the appropriate ESG, rather than the 57.4% reported for the entire study area.
 
@@ -346,7 +412,7 @@ Of the `r nrow(known)` AIM plots with classified ESD's, `r ESG_present` which ar
 
 
 ```{r}
-rm(known, prop_D_map2_G, number_correct_esg, number_incorrect)
+rm(known, prop_D_map2_G, number_correct_esg, number_incorrect, p2p)
 ```
 
 
