@@ -31,7 +31,7 @@ While for most land management decisions at the UFO ESD's, when available, repre
 
 # Methods
 
-The mean fractional cover of vegetation was manually transcribed from Table 3 of Appendix A from Nauman et al. 2022. The spatial data product which the study which was the outcome of the study was accessed from sciencebase.gov catalog on (Dec. 16, 2022). 
+The mean fractional cover of vegetation was manually transcribed from Table 3 of Appendix A from Nauman et al. 2022. The spatial data product which the study which was the outcome of the study was accessed from sciencebase.gov catalog on (Dec. 16, 2022). ESD quantitative benchmarks values, and AIM plot locations were cleaned in previous work (Section XX ESD Completion). All anaylses were performed in R version XX using RStudio VERSION on Linux Ubuntu 22.04 LTS. 
 
 ```{r}
 library(tidyverse)
@@ -101,6 +101,10 @@ rm(esg2plots, ecosites_mapped)
 ```
 
 
+Their were two major objectives in this section. The first is to determine which ESD's map to which ESG's. In theory the ESD's had a one to one relationship with the ESG, in other words an ESD has a single ESG to which it is related (but see). However, not all of these relationships were noted in the appendices or supplemental materials. 
+
+The second objective was to reaffirm the accuracy of the predicted surface map in the UFO. In publication the accuracy of the final product was calculated as being 57.4% (@nauman2022quantitative). However, due to certain features which are more difficult to reliably classify, certain products may score higher in certain areas without these harder to identify features.  
+
 The study utilized 18 of the UFO's (NUMBER) ecosites. We can determine how often the spatial product mapped to the appropriate ESG under multiple circumstances. 1) How often did the PREDOMINANT ESG get returned by the ESD 2) what proportion of all plots were matched correctly to an ESG from the spatial product ? 
 
 ```{r Use ideal lookup table from publication}
@@ -119,6 +123,8 @@ ref_lookup <- read.csv(file.path(praw, f[grep('Appendix',f)] )) %>%
     TRUE ~ Final.Soil.Geomorphic.Unit
   )) %>% 
   unite('ESG', Climate.Zone:Final.Soil.Geomorphic.Unit, sep = '_-_')
+
+ESG_present <- nrow(ref_lookup)
 
 rm(f, praw)
 ```
@@ -177,7 +183,7 @@ test_results <- rbind(bN, bY) %>%
   select(-ID, -PLOT.ID) %>% 
   mutate(RESULT = if_else(ESG %in% ref_lookup$ESG & ECO.SITE %in% ref_lookup$Ecological.Site.ID, 1, 0)) 
 
-poly2point <- test_results %>% 
+p2p <- test_results %>% 
   group_by(test) %>% 
   summarize(Prop = sum(RESULT)/n()) # polygon gives slightly better results
 
@@ -215,21 +221,6 @@ esd_correct <- test_results %>%
   distinct(ECO.SITE, Correct, Incorrect, Total, .keep_all = F) %>% 
   pivot_longer(cols = c(Correct, Incorrect), values_to = 'Response_V', names_to = 'Response')
 
-
-ggplot(esg_correct, aes(y = Response_V, x = ESG, fill= Response)) +
-    geom_bar(position="stack", stat="identity") +
-    theme(strip.background = element_blank(), 
-          panel.background = element_blank(),
-          plot.title = element_text(hjust = 0.5)
-          ) +
-    scale_fill_manual('Identification:', 
-                      values = c('Incorrect' = 'darkred', 'Correct' = 'darkslategray3')) +
-  scale_x_discrete(guide = guide_axis(n.dodge=10)) +
-  labs(title = 'ESGs which were mapped to from Raster', y = 'Number', x = 'Ecological Site') 
-
-# Any ESG in red is an inaccurate result. The actual number of ESG's which should be present
-# in this sample are those in light blue. 
-
 ggplot(esd_correct, aes(y = Response_V, x = ECO.SITE, fill= Response)) +
     geom_bar(position="stack", stat="identity") +
     theme(strip.background = element_blank(), 
@@ -237,16 +228,22 @@ ggplot(esd_correct, aes(y = Response_V, x = ECO.SITE, fill= Response)) +
           plot.title = element_text(hjust = 0.5)
           ) +
     scale_fill_manual('Identification:', 
-                      values = c('Incorrect' = 'darkred', 'Correct' = 'darkslategray3')) +
+                      values = c('Correct' = 'darkslategray3', 'Incorrect' = 'darkred')) +
   scale_x_discrete(guide = guide_axis(n.dodge=5)) +
-  labs(title = 'Proportion of Plots mapped to ESG', y = 'Number', x = 'Ecological Site') 
+  labs(title = 'Proportion of Plots mapped to their ESG', y = 'Number', x = 'Ecological Site') 
 
 # ESD's differ in the proportion of plots which may be mapped over to ESG. 
 # In general our results here echo the paper, 1/3 of records will be incorrectly mapped from 
 # the single output prediction. 
 
-rm( mode, theme_boxplot, esd_correct,
-   theme_prop_bar, esg, esg_correct, ref_lookup, test_results, poly2point)
+prop_D_map2_G <- esd_correct %>% 
+  filter(Response == 'Correct') %>% 
+  ungroup() %>% 
+  summarize(prop_correct = sum(Response_V)/ sum(Total))
+            
+            
+rm( mode, theme_boxplot,
+   theme_prop_bar, esg, esg_correct, ref_lookup, test_results)
 ```
 
 
@@ -300,6 +297,13 @@ rm(ob, mod, EsdEsg_network, modules, ESD2ESG_map)
 
 It can be inferred from the above image is that from a per pixel perspective, the mapping between pixels and ESG's is of limited utility. Rather we need to utilize the direct look up tables from the publication... which miss most of our ecosites again... 
 
+The ES which had there ESG associations, as well as those with only a single linkage to ESG were removed from the input dataset, and a second network was created FIGURE XX. These ES were manually mapped to the most probable ESG via the Dichotomous Key in Nauman et al. 2022. 
+
+
+
+
+## Compare ESG benchmarks to ESD benchmarks
+
 
 ```{r Facet wrap density plots of ESD values with geom point ESG value}
 
@@ -333,9 +337,17 @@ ggplot(ob, aes(MEAN_X, MEAN_Y, color = MODEL)) +
 
 # Results
 
-`r nrow(known)` AIM points were in the look up values for ESG... XX of these ESDs were included directly in the making of the ESGs . The ESG gridded surface was able to correctly place XX plots to the appropriate ESG. 
 
-When extracting a data set of X AIM plots with classified ESD's which are included in the ESG reference materials the number of `r number_incorrect`, `r number_correct_esg`
+The method of extracting the ESG from th gridded surface to plot had virtually no influence on the accuracy of the ESG. Regardless the method of buffering the point to the real size of the AIM plot was used as it slightly outperformed plot centers,  `r p2p[(p2p$test == 'point'),]$Prop` to `r p2p[(p2p$test == 'polygon'),]$Prop`.
+
+`r nrow(known)` AIM points were in the look up values for ESG... XX of these ESDs were included directly in the making of XX ESGs . The ESG gridded surface was able to correctly place `r prop_D_map2_G` plots to the appropriate ESG, rather than the 57.4% reported for the entire study area.
+
+Of the `r nrow(known)` AIM plots with classified ESD's, `r ESG_present` which are included in the ESG reference materials, the number of ESG's erroneously included are `r number_incorrect`, while the number of accurately extracted ESG's is `r number_correct_esg`, while `r ESG_present-number_correct_esg` were not returned at all (???). 
+
+
+```{r}
+rm(known, prop_D_map2_G, number_correct_esg, number_incorrect)
+```
 
 
 # Conclusions
