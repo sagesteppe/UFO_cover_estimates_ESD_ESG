@@ -39,6 +39,7 @@ library(sf)
 library(terra)
 library(bipartite)
 
+source('../../UFO_elements_of_style/scripts/ggplot_themes.R')
 set.seed(51)
 ```
 
@@ -100,7 +101,6 @@ rm(esg2plots, ecosites_mapped)
 ```
 
 
-
 The study utilized 18 of the UFO's (NUMBER) ecosites. We can determine how often the spatial product mapped to the appropriate ESG under multiple circumstances. 1) How often did the PREDOMINANT ESG get returned by the ESD 2) what proportion of all plots were matched correctly to an ESG from the spatial product ? 
 
 ```{r Use ideal lookup table from publication}
@@ -112,7 +112,7 @@ ref_lookup <- read.csv(file.path(praw, f[grep('Appendix',f)] )) %>%
     Climate.Zone = str_replace(Climate.Zone, 'Semiarid_Warm', 'SAW'),
     Climate.Zone = str_replace(Climate.Zone, 'Semiarid_Cool', 'SAC'), 
     Climate.Zone = str_replace(Climate.Zone, 'Arid_Warm', 'AW'),
-    Final.Soil.Geomorphic.Unit = to_parsed_case(Final.Soil.Geomorphic.Unit)
+    Final.Soil.Geomorphic.Unit = snakecase::to_parsed_case(Final.Soil.Geomorphic.Unit)
     ) %>% 
   mutate(Final.Soil.Geomorphic.Unit = case_when(
     Climate.Zone == 'SAW' & Final.Soil.Geomorphic.Unit %in% c('Shallow', 'Deep_Rocky') ~ 'Shallow_and_Deep_Rocky',
@@ -123,13 +123,9 @@ ref_lookup <- read.csv(file.path(praw, f[grep('Appendix',f)] )) %>%
 rm(f, praw)
 ```
 
-
-Multiple options for extracting raster values to points were utilized to try and determine the correct ESG. Three parameters (plot buffer, summary statistic, and bilinear interpolation) were altered in two dichotomous ways (Yes/No), and all but one combinations thereof (the combination of a true point geometry and statistical summary methods cannot coexist) were implemented to determine which gave the best results.  
-
-*Bilinear interpolation* would be expected to "smooth" the surface of the raster dataset, and favor the most locally common ESG, whereas *simple interpolation* should be have a higher ability to detect more locally rare ESG's. Unfortunately the less common ESG's are not present in the validated lookup dataset. *Buffering* the center of the plot to match it's real world extent should also detect the more prevalent ESG's at the expense of less locally common ones; theoretical buffering would result in the highest number of mis-classifications, as the soil parameters which existed at plot center where almost the metric exclusively used in matched ESD's. *MODE OF CLASSIFICATION ADDED BACK IN*
-
-
-```{r Which raster extraction methods gave best results}
+To test whether we were extracting and processing the correct ESG from the gridded surface two comparisons of raster extraction methods were attempted. The first, is typically performed at UFO, is to buffer the point to represent the entire AIM plot and extract to that area, and chose the categorical class with the most cells per value. The other option is to extract from the gridded surface directly to the point geometry. 
+  
+```{r test raster extraction methods}
 
 ecosites <- st_read('/media/sagesteppe/ExternalHD/UFO_cartography/AIM_plots_outcomes/plots_outcomes.shp', 
                  quiet = T) %>% # let us grab the spatial data from this real quick
@@ -185,24 +181,73 @@ poly2point <- test_results %>%
   group_by(test) %>% 
   summarize(Prop = sum(RESULT)/n()) # polygon gives slightly better results
 
-ab <- test_results %>% 
-  filter(test == 'polygon') %>% 
-  group_by(ECO.SITE) %>% 
-  mutate(PROP_ES_MAPPED = sum(RESULT)) %>% 
-  distinct(ECO.SITE, RESULT, .keep_all = T)
-
-# Proportion of ESG which is correctly identified
-
-test_results %>% 
-  filter(test == 'polygon') %>% 
-  group_by(ESG) %>% 
-  mutate(Correctly_Assigned = sum(RESULT), ) %>% 
-  distinct(ESG, .keep_all = T)
-
-# Proportion of which ESD is correctly identified
-
+rm(bY, bN, ESG4simulation, ESG4simulation_buff)
 ```
 
+
+```{r Proportion of Correct ESG matching}
+
+# The percent of ESG's which were classified as such, and the percent of those mappings which
+# are accurate. 
+esg_correct <- test_results %>% 
+  filter(test == 'polygon') %>% 
+  group_by(ESG) %>% 
+  mutate(Correct = sum(RESULT), 
+         Total = n(),
+         Incorrect = Total - Correct) %>% 
+  distinct(ESG, Correct, Incorrect, Total, .keep_all = F) %>% 
+  pivot_longer(cols = c(Correct, Incorrect), values_to = 'Response_V', names_to = 'Response')
+
+number_incorrect <- esg_correct %>% 
+  filter(Response == 'Incorrect', Total == Response_V) %>% 
+  nrow()
+number_correct_esg <- esg_correct %>% 
+  filter(Response == 'Correct', Total == Response_V) %>% 
+  nrow()
+
+# Proportion of which plots per ESD are correctly identified by the raster surface. 
+esd_correct <- test_results %>% 
+  filter(test == 'polygon') %>% 
+  group_by(ECO.SITE) %>% 
+  mutate(Correct = sum(RESULT), 
+         Total = n(),
+         Incorrect = Total - Correct) %>% 
+  distinct(ECO.SITE, Correct, Incorrect, Total, .keep_all = F) %>% 
+  pivot_longer(cols = c(Correct, Incorrect), values_to = 'Response_V', names_to = 'Response')
+
+
+ggplot(esg_correct, aes(y = Response_V, x = ESG, fill= Response)) +
+    geom_bar(position="stack", stat="identity") +
+    theme(strip.background = element_blank(), 
+          panel.background = element_blank(),
+          plot.title = element_text(hjust = 0.5)
+          ) +
+    scale_fill_manual('Identification:', 
+                      values = c('Incorrect' = 'darkred', 'Correct' = 'darkslategray3')) +
+  scale_x_discrete(guide = guide_axis(n.dodge=10)) +
+  labs(title = 'ESGs which were mapped to from Raster', y = 'Number', x = 'Ecological Site') 
+
+# Any ESG in red is an inaccurate result. The actual number of ESG's which should be present
+# in this sample are those in light blue. 
+
+ggplot(esd_correct, aes(y = Response_V, x = ECO.SITE, fill= Response)) +
+    geom_bar(position="stack", stat="identity") +
+    theme(strip.background = element_blank(), 
+          panel.background = element_blank(),
+          plot.title = element_text(hjust = 0.5)
+          ) +
+    scale_fill_manual('Identification:', 
+                      values = c('Incorrect' = 'darkred', 'Correct' = 'darkslategray3')) +
+  scale_x_discrete(guide = guide_axis(n.dodge=5)) +
+  labs(title = 'Proportion of Plots mapped to ESG', y = 'Number', x = 'Ecological Site') 
+
+# ESD's differ in the proportion of plots which may be mapped over to ESG. 
+# In general our results here echo the paper, 1/3 of records will be incorrectly mapped from 
+# the single output prediction. 
+
+rm( mode, theme_boxplot, esd_correct,
+   theme_prop_bar, esg, esg_correct, ref_lookup, test_results, poly2point)
+```
 
 
 ```{r Create Networks to show relationships between pixels and classification.}
@@ -283,17 +328,21 @@ ggplot(ob, aes(MEAN_X, MEAN_Y, color = MODEL)) +
   facet_grid(rows = vars(modules), cols = vars(COVER_TYPE)) +
   theme_bw()
 
-
 ```
-
 
 
 # Results
 
-We run multiple tests of correlation coefficients to determine similarity between these two data sets. ...
+`r nrow(known)` AIM points were in the look up values for ESG... XX of these ESDs were included directly in the making of the ESGs . The ESG gridded surface was able to correctly place XX plots to the appropriate ESG. 
+
+When extracting a data set of X AIM plots with classified ESD's which are included in the ESG reference materials the number of `r number_incorrect`, `r number_correct_esg`
+
 
 # Conclusions
 
 The relationship between the novel ESG's and the ESD's...
+
+For best accuracy using the ESG's it is best practice to verify the ESD using traditional methods rather than spatial operations. 
+
 
 
