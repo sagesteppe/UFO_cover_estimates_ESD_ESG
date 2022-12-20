@@ -388,10 +388,25 @@ ecosites <- st_read('/media/sagesteppe/ExternalHD/UFO_cartography/AIM_plots_outc
   right_join(ESD2ESG_map, ecosites, by = 'PLOT.ID') %>% 
   filter(ECO.SITE %in% dirtyNet$ECO.SITE) %>% 
   vect() %>% 
-  project(., crs(sgu1))
+  project(., crs(sgu1)) 
 
-extract(c_zones, ecosites, method = 'simple') %>% 
-  group_by(ID) %>% summarise(ClimZone = mode(ClimZone)) 
+cz_lkp <- data.frame(levels(c_zones)) 
+clim_zones <- extract(c_zones, ecosites, method = 'simple') %>% 
+  group_by(ID) %>% summarise(ClimZone = mode(ClimZone)) %>% # mode of original input dataset
+  left_join(., cz_lkp, by = c('ClimZone' = 'Value')) %>% 
+  select(ID, ClimZone = ClimZone.y)  %>% 
+  cbind(., PLOT.ID = st_as_sf(ecosites)) %>% 
+  select(ID, ClimZone, PLOT.ID = PLOT.ID.PLOT.ID, ECO.SITE = PLOT.ID.ECO.SITE) %>% 
+  ungroup() %>% 
+  mutate(ClimZoneM = as.numeric(factor( # this all convoluted was much better before but then I myselfed. 
+      ClimZone, levels = c("Arid Warm", "Semiarid Warm", "Semiarid Cool"), ordered = TRUE))) %>% 
+  split(., .$ECO.SITE) %>% 
+  map(., .f = list(. %>% mutate(ClimZoneM = mode(ClimZoneM)))) %>% 
+  bind_rows() %>% 
+  mutate(
+    ClimZoneM = str_replace(ClimZoneM, '1', 'AW'), 
+    ClimZoneM = str_replace(ClimZoneM, '2', 'SAW')
+    ) %>% distinct(ECO.SITE, ClimZoneM)
 
 sgu1_ex <- extract(sgu1, ecosites, method = 'simple') %>% 
   group_by(ID) %>% summarise(SGU1 = mode(SGU)) 
@@ -410,13 +425,15 @@ sgu <- sgu %>%
         table(.) %>% which.max(.) %>% names(.) )) %>% 
   bind_rows() %>%  t() %>%  data.frame() %>% 
   rownames_to_column('ECO.SITE') %>% 
-  rename(ESG_Code = '.') 
+  rename(ESG_Code = '.')
+
+sguvals <- data.frame(levels(sgu1)) %>% 
+  mutate(Value = as.character(Value))
+
+sgu <- left_join(sgu, sguvals, by = c('ESG_Code' = 'Value'))
 
 
-
-data.frame(levels(sgu1))
-
-rm(sgu1_ex, sgu1, sgu2, sgu3, praw, f, ecosites)
+rm(sgu1_ex, sgu1, sgu2, sgu3, praw, f, ecosites, cz_lkp)
 ```
 
 
