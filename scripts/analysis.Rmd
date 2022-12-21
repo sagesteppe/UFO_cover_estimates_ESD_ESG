@@ -47,6 +47,8 @@ library(tidyverse)
 library(sf)
 library(terra)
 library(bipartite)
+library(grid)
+library(gridExtra)
 
 source('../../UFO_elements_of_style/scripts/ggplot_themes.R')
 set.seed(51)
@@ -293,7 +295,8 @@ cleanNET1 <- ESD2ESG_wide %>% # these in ESG table
   ungroup() %>% 
   filter(ECO.SITE %in% ref_lookup$Ecological.Site.ID) %>% 
   select(ECO.SITE) %>% 
-  left_join(., ref_lookup, by = c('ECO.SITE' = 'Ecological.Site.ID'))
+  left_join(., ref_lookup, by = c('ECO.SITE' = 'Ecological.Site.ID')) %>% 
+  mutate(ESG = str_replace(ESG, 'SAW_-_Loamy_Uplands', 'SAW_-_Sandy_Uplands_and_Loamy_Uplands'))
 
 cleanNET2 <- ESD2ESG_wide %>% # these ESDs only a single plot, take extracted ESG
   ungroup() %>% 
@@ -454,7 +457,7 @@ finalNET <- ESD2ESG_wide %>%
   mutate(ESG = str_replace(ESG, '-_|_-_', '-'), 
          ESG = str_replace(ESG, '^AW-Finer_Uplands', 'AW-Finer_and_Clay_Uplands'),
          ESG = str_replace(ESG,'AW-Saline_Bottoms', 'AW-Saline_Bottoms_and_Bottoms'),
-         ESG = str_replace(ESG, 'SAW-Loamy_Uplands', 'SAW-Sandy_and_Loamy_Uplands')
+         ESG = str_replace(ESG, 'SAW-Loamy_Uplands', 'SAW-Sandy_Uplands_and_Loamy_Uplands')
          ) %>% 
   arrange(ESG)
 lookuptable <- finalNET %>% select(-ID) %>% distinct() 
@@ -482,8 +485,6 @@ ESD_quant <- read.csv(file.path(praw, f[grep('ESD_Quantitative',f)] ))  %>%
   select('CONCEPT' = ECO.SITE, COVER_TYPE, MEAN, MODEL) %>% 
   filter(COVER_TYPE %in% c('FORB', 'GRASS', 'SHRUB', 'TREE'))
 
-tr <- read.csv(file.path(praw, f[grep('FractionalCover', f)] ))
-
 ob <- read.csv(file.path(praw, f[grep('FractionalCover', f)] )) %>% 
   rowwise() %>% 
   mutate(GRASS = sum(Sacaton, C3_Perennial_Grass, C4_Perennial_Grass, Grass),
@@ -505,18 +506,30 @@ ob <- read.csv(file.path(praw, f[grep('FractionalCover', f)] )) %>%
   right_join(., lookuptablegrps, by = 'CONCEPT') %>% 
   mutate(MEAN_X = MEAN, MEAN_Y = MEAN) %>% 
   filter(COVER_TYPE %in% c('FORB', 'GRASS', 'SHRUB', 'TREE'), 
-         !ESGID  %in% c(7,8))
+         !ESGID  %in% c(7,8)) 
 
-benchcover <- ggplot(ob, aes(MEAN_X, MEAN_Y, color = MODEL), size = 3, alpha = 0.5) +
-  geom_jitter() +
+benchcover <- ggplot(ob, aes(MEAN_X, MEAN_Y, color = MODEL)) +
+  geom_jitter(size = 4.5, alpha = 0.5) +
   facet_grid(rows = vars(ESGID), cols = vars(COVER_TYPE)) +
   theme_bw() +
   theme(aspect.ratio=1,
         plot.title = element_text(hjust = 0.5),
         axis.text=element_text(size=12),
-        axis.title=element_text(size=14,face="bold")) +
+        axis.title=element_text(size=16,face="bold"),
+        legend.key.size = unit(1.5, 'cm'), #change legend key size
+        legend.key.height = unit(1.5, 'cm'), #change legend key height
+        legend.key.width = unit(1.5, 'cm'), #change legend key width
+        legend.title = element_text(size=14, hjust = 0.5), #change legend title font size
+        legend.text = element_text(size=12)
+        ) +
+  scale_color_manual('Reference:',  values = c('ESD' =  '#10A19D', 'ESG' = '#FF7000')) +
   labs(title = 'Comparison of the mean of Benchmarks between ESD & ESG', 
        x = 'mean % fractional cover (any hit)', y = 'mean % fractional cover (any hit)')
+
+a <- ob %>% 
+  filter(MODEL == 'ESG') %>%
+  distinct(ID = ESGID, ESG = CONCEPT)
+gridExtra::grid.table(a)
 
 rm(lt, lookuptablegrps, ob, lookuptable)
 ```
@@ -550,12 +563,15 @@ plotweb(dirt_mod@moduleWeb, labsize = 0.75,  col.high = '#1C315E', col.low = '#2
 par(mfrow=c(1,1))
 ```
 
-The remaining `r nrow(sgu)` ESD's, associated with `r nrow(ecosites2step2)` AIM Plots,  were all mapped to `r length(unique(sgu$ESG))` ESGs via the methods of summarizing both all three SGU layers in conjunction with climate zones. The final lookup table of ESD to ESG mapping is in Figure 4.  
+The remaining `r nrow(sgu)` ESD's, associated with `r nrow(ecosites2step2)` AIM Plots,  were all mapped to `r length(unique(sgu$ESG))` ESGs via the methods of summarizing both all three SGU layers in conjunction with climate zones. The final lookup table of ESD to ESG mapping is in Figure 4. `r nrow(final_mod@moduleWeb)` of the 35 ESGs were present in the UFO, the number of plots per ESG ranged from `r min(rowSums(final_mod@moduleWeb))` (`r str_replace_all(names(which.min(rowSums(final_mod@moduleWeb))), "_|-", " ")`) to `r max(rowSums(final_mod@moduleWeb))` (`r str_replace_all(names(which.max(rowSums(final_mod@moduleWeb))), "_|-", " ")`). 
 
 ```{r Plot Network of cleaned data a lookup table, fig.cap="Relationship between ESDs and ESGs at end of process"}
 plotweb(final_mod@moduleWeb, labsize = 0.75, col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
+
 rm(orig_mod, clean_mod, dirt_mod, final_mod)
 ```
+
+Of the three climate zones defined in Nauman et al. 2022, the UFO does not contain the Semiarid-Cool zone. 
 
 ```{r}
 rm(known, prop_D_map2_G, number_correct_esg, number_incorrect, p2p, cleanNET1, 
@@ -563,13 +579,12 @@ rm(known, prop_D_map2_G, number_correct_esg, number_incorrect, p2p, cleanNET1,
 ```
 
 
-The cover of values...
+The quantitative estimates for the cover of major vegetation types by group are presented in figure 6. Note this figure does not contain 'outcrops or riparian esg' both of which do not have ESD, nor are they target areas for management considerations. Riparian areas fall within the domain of Lotic AIM, and the ecology of outcrops is a management action over the geologic time scale. 
 
 
-```{r Plot final benchmark cover against each other, fig.height = 14, fig.width = 10}
+```{r Plot final benchmark cover against each other, fig.height = 14, fig.width=10, fig.cap="Fractional Cover, Note the provisional ESGS for Outcrops and Riparian which were coded as groups 7 & 8 have been removed."}
 benchcover
 ```
-
 
 
 # Conclusions
