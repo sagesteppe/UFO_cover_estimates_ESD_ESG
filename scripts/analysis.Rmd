@@ -431,7 +431,7 @@ sguvals <- data.frame(levels(sgu1)) %>%
 sgu <- left_join(sgu, sguvals, by = c('ESG_Code' = 'Value')) %>% 
   left_join(., clim_zones, by = 'ECO.SITE') %>% 
   unite('ESG', ClimZoneM, SGU, sep = '_-_') %>% 
-  mutate(ESG = str_replace_all(ESG, ' ', '_'),
+  mutate(ESG = str_replace_all(ESG, ' ', '_'), # SAW-Sandy_Uplands_and_Loamy_Upland - check 212
          ESG = str_replace(ESG, 'SAW_-_Deep_Rocky', 'SAW_-_Shallow_and_Deep_Rocky'),
          ESG = str_replace(ESG, 'SAW_-_Loamy_Uplands', 'SAW_-_Sandy_Uplands_and_Loamy_Uplands')) %>% 
   select(-ESG_Code) 
@@ -450,8 +450,15 @@ lookuptable <- bind_rows(distinct(cleanNet), sgu)
 finalNET <- ESD2ESG_wide %>% 
   select(ECO.SITE) %>% 
   left_join(lookuptable, by = 'ECO.SITE') %>% 
-  mutate(ID = 1:nrow(.))
-write.csv(finalNET, '../data/processed/ESD-ESG-Lookup-Table.csv', row.names = F)
+  mutate(ID = 1:nrow(.)) %>% 
+  mutate(ESG = str_replace(ESG, '-_|_-_', '-'), 
+         ESG = str_replace(ESG, '^AW-Finer_Uplands', 'AW-Finer_and_Clay_Uplands'),
+         ESG = str_replace(ESG,'AW-Saline_Bottoms', 'AW-Saline_Bottoms_and_Bottoms'),
+         ESG = str_replace(ESG, 'SAW-Loamy_Uplands', 'SAW-Sandy_and_Loamy_Uplands')
+         ) %>% 
+  arrange(ESG)
+lookuptable <- finalNET %>% select(-ID) %>% distinct() 
+write.csv(lookuptable, '../data/processed/ESD-ESG-Lookup-Table.csv', row.names = F)
 
 ob <- with(finalNET, table(ESG, ECO.SITE))
 EsdEsg_network <- apply(as.matrix.noquote(ob),2,as.numeric)
@@ -462,18 +469,22 @@ rm(ob, EsdEsg_network, finalNET, cleanNet, ESD2ESG_wide)
 ```
 
 
-```{r Import Quantitative Fractional Cover Benchmarks Compare Quantitative benchmarks, eval = F}
+```{r Facet wrap density plots of ESD values with geom point ESG value}
 
-ESD_cover <- read.csv(file.path(praw, f[grep('ESD_Quantitative',f)] )) %>% 
-  rowwise() %>% 
-  mutate(MEAN = sum(LOWER,  UPPER, na.rm = T)/2)  %>% 
-  filter(!COVER_TYPE %in% c('BAREGROUND', 'LITTER')) %>% 
-  left_join(., lookuptable, by = 'ECO.SITE') %>% 
-  drop_na(ESG) %>% 
-  select(ECO.SITE, COVER_TYPE, MEAN) %>% 
-  mutate( MODEL = 'ESD')
+lt <- lookuptable %>% group_by(ESG) %>% 
+  mutate(ESGID = cur_group_id())
+lookuptablegrps <- data.frame(CONCEPT = c(lt$ECO.SITE, lt$ESG), 
+                              ESGID = c(lt$ESGID, lt$ESGID)) %>% 
+  distinct(CONCEPT, .keep_all = T)
 
-ESG_cover <- read.csv(file.path(praw, f[grep('FractionalCover', f)] )) %>% 
+ESD_quant <- read.csv(file.path(praw, f[grep('ESD_Quantitative',f)] ))  %>% 
+  mutate(MODEL = 'ESD', MEAN = (LOWER + UPPER)/2) %>% 
+  select('CONCEPT' = ECO.SITE, COVER_TYPE, MEAN, MODEL) %>% 
+  filter(COVER_TYPE %in% c('FORB', 'GRASS', 'SHRUB', 'TREE'))
+
+tr <- read.csv(file.path(praw, f[grep('FractionalCover', f)] ))
+
+ob <- read.csv(file.path(praw, f[grep('FractionalCover', f)] )) %>% 
   rowwise() %>% 
   mutate(GRASS = sum(Sacaton, C3_Perennial_Grass, C4_Perennial_Grass, Grass),
          SHRUB = sum(Saltbush, Shadescale, Shrub)) %>% 
@@ -485,27 +496,33 @@ ESG_cover <- read.csv(file.path(praw, f[grep('FractionalCover', f)] )) %>%
     ESG = str_remove(ESG, 'No_Climate_Group_-_'),
     ESG = str_replace(ESG, 'Semiarid_warm', 'SAW'),
     ESG = str_replace(ESG, 'Semiarid_Cool', 'SAC'), 
-    ESG = str_replace(ESG, 'Arid_Warm_', 'AW'), 
-    ) %>% 
-#  left_join(., lookuptable) %>% 
-  drop_na() %>% 
+    ESG = str_replace(ESG, 'Arid_Warm', 'AW'), 
+    ESG = str_replace(ESG, '-_|_-_', '-')
+    ) %>% # of some of these strata
+  mutate(MODEL = 'ESG') %>% 
   rename(CONCEPT = ESG) %>% 
-  mutate(MODEL = 'ESG')
+  bind_rows(ESD_quant) %>% 
+  right_join(., lookuptablegrps, by = 'CONCEPT') %>% 
+  mutate(MEAN_X = MEAN, MEAN_Y = MEAN) %>% 
+  filter(COVER_TYPE %in% c('FORB', 'GRASS', 'SHRUB', 'TREE'), 
+         !ESGID  %in% c(7,8))
 
-# v <- inner_join(ESD_cover, ESG_cover, by = 'ECO.SITE')
-```
-
-```{r Facet wrap density plots of ESD values with geom point ESG value, eval = F}
-
-ggplot(ob, aes(MEAN_X, MEAN_Y, color = MODEL)) +
+benchcover <- ggplot(ob, aes(MEAN_X, MEAN_Y, color = MODEL), size = 3, alpha = 0.5) +
   geom_jitter() +
-  facet_grid(rows = vars(modules), cols = vars(COVER_TYPE)) +
-  theme_bw()
+  facet_grid(rows = vars(ESGID), cols = vars(COVER_TYPE)) +
+  theme_bw() +
+  theme(aspect.ratio=1,
+        plot.title = element_text(hjust = 0.5),
+        axis.text=element_text(size=12),
+        axis.title=element_text(size=14,face="bold")) +
+  labs(title = 'Comparison of the mean of Benchmarks between ESD & ESG', 
+       x = 'mean % fractional cover (any hit)', y = 'mean % fractional cover (any hit)')
 
+rm(lt, lookuptablegrps, ob, lookuptable)
 ```
 
 ```{r Remove variables used in methods}
-rm(f, praw, lookuptable)
+rm(f, praw)
 ```
 
 # Results
@@ -522,11 +539,12 @@ rm(esd_corr_plots)
 plotweb(orig_mod@moduleWeb, labsize = 0.5, col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
 ```
 
+The initial extraction of ESG to AIM points was problematic, Figure 2. Ideally, if ESD's were the entities which defined the ESG's, than each ESD (the upper boxes in the panel) would link to a single ESG (the lower boxes in the panel), an image of this relationship is displayed in Figure 4. As is apparent, this was not the case, however much of the error in these classifications lay with the classification of the gridder surfaces, rather than with the ESG concepts themselves. 
 
-The initial extraction of ESG to AIM points was problematic (Figure 2). 1) `r length(unique(ref_lookup$Ecological.Site.ID))` ESD's, associated with `r nrow(known)` plots, which were used directly in the creation of `r length(unique(ref_lookup$ESG))` ESG's were removed based upon a noted association in Appendix 6 of Naumen et al. 2022. 2) `r nrow(cleanNET2)` ESD's for which only a single AIM plot existed, had the `r length(unique(cleanNET2$ESG))` ESG which values were extracted from it listed as it's ultimate mapped association. These ESDs, `r unique(cleanNET2$ECO.SITE)`, mapped to the ESG's: `r unique(cleanNET2$ESG)`, refer to Figure 4 for exact matching. 3) `r length(unique(cleanNET3$ECO.SITE))` ESD's with greater than 1 AIM plots associated with them, and which had all plots match one of `r length(unique(cleanNET3$ESG))`. These ESD's, `r unique(cleanNET3$ECO.SITE)`,  were associated with `r nrow(cleanNET3)` AIM plots, and mapped to `r unique(cleanNET3$ESG)`.  4) Finally, `r length(unique(cleanNET4$ECO.SITE))` ESD's with over 65%, our local accuracy of the gridded surface, of their AIM plots mapping to a single ESG were recovered. These ESD's , `r unique(cleanNET4$ECO.SITE)`, were associated with `r nrow(cleanNET4)` AIM plots, and mapped to `r unique(cleanNET4$ESG)`. At this point the classified ESD's and non-classified ESD's appeared as Figures 3 and 4 respectively. 
+In order to map these relationships we utilized a step-wise process. 1) `r length(unique(ref_lookup$Ecological.Site.ID))` ESD's, associated with `r nrow(known)` plots, which were used directly in the creation of `r length(unique(ref_lookup$ESG))` ESG's were removed based upon a noted association in Appendix 6 of Naumen et al. 2022. 2) `r nrow(cleanNET2)` ESD's for which only a single AIM plot existed, had the `r length(unique(cleanNET2$ESG))` ESG which values were extracted from it listed as it's ultimate mapped association. 3) There were `r length(unique(cleanNET3$ECO.SITE))` ESD's with greater than 1 AIM plot associated with them, which had all plots match the same ESG `r length(unique(cleanNET3$ESG))`. These ESD's, `r unique(cleanNET3$ECO.SITE)`,  were associated with `r nrow(cleanNET3)` AIM plots, and mapped to: *`r str_replace_all(unique(cleanNET3$ESG), '_|-',' ')`*.  4) Finally, `r length(unique(cleanNET4$ECO.SITE))` ESD's with over 65%, our local accuracy of the gridded surface, of their AIM plots mapping to a single ESG were recovered. These ESD's , `r unique(cleanNET4$ECO.SITE)`, were associated with `r nrow(cleanNET4)` AIM plots, and mapped to: *`r str_replace_all(unique(cleanNET4$ESG), '_|-',' ')`*. At this point the classified ESD's and non-classified ESD's appeared as Figures 3 and 4 respectively. 
 
 ```{r Plot Network of cleaning data, fig.cap="Relationships Between ESDs and ESGs midway through the cleaning process"}
-par(mfrow=c(2,1)) 
+par(mfrow=c(2,1), mar=c(0.0, 0.0, 0.2, 0.2))
 plotweb(clean_mod@moduleWeb, labsize = 0.75,  col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
 plotweb(dirt_mod@moduleWeb, labsize = 0.75,  col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
 par(mfrow=c(1,1))
@@ -543,6 +561,15 @@ rm(orig_mod, clean_mod, dirt_mod, final_mod)
 rm(known, prop_D_map2_G, number_correct_esg, number_incorrect, p2p, cleanNET1, 
    cleanNET2, cleanNET3, cleanNET4, sgu, ESG_present, ref_lookup)
 ```
+
+
+The cover of values...
+
+
+```{r Plot final benchmark cover against each other, fig.height = 14, fig.width = 10}
+benchcover
+```
+
 
 
 # Conclusions
