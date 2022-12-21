@@ -227,7 +227,7 @@ esd_corr_plots <- ggplot(esd_correct, aes(y = Response_V, x = ECO.SITE, fill= Re
           plot.title = element_text(hjust = 0.5)
           ) +
     scale_fill_manual('Identification:', 
-                      values = c('Correct' = 'darkslategray3', 'Incorrect' = 'darkred')) +
+                      values = c('Correct' = '#88A47C', 'Incorrect' = '#E6E2C3')) +
   scale_x_discrete(guide = guide_axis(n.dodge=4)) +
   labs(title = 'Proportion of Plots mapped to their ESG', y = 'Number of Plots', x = 'Ecological Site') 
 
@@ -283,7 +283,7 @@ SLInteractions <- specieslevel(EsdEsg_network, index = c(
 rm(ob, EsdEsg_network, NLINteractions, GLInteractions, SLInteractions)
 ```
 
-All observed ESD's were matched to ESG's in an incremental fashion. ESD's which were used directly in the creation of ESG's were removed based upon a noted association in Appendix 6 of Naumen et al. 2022. ESD's for which only a single AIM plot existed, had the ESG which values were extracted from it listed as it's ultimate mapped association. ESD's with greater than 1 AIM plots associated with them, and which had all plots match an ESG were classified as such. ESD's with over 65%, our local accuracy of the gridded surface, of their AIM plots mapping to a single ESG. 
+All observed ESD's were matched to ESG's in an incremental fashion. 1) ESD's which were used directly in the creation of ESG's were removed based upon a noted association in Appendix 6 of Naumen et al. 2022. 2) ESD's for which only a single AIM plot existed, had the ESG which values were extracted from it listed as it's ultimate mapped association. 3) ESD's with greater than 1 AIM plots associated with them, and which had all plots match an ESG were classified as such. 4) ESD's with over 65%, our local accuracy of the gridded surface, of their AIM plots mapping to a single ESG. 
 
 ```{r Create a clean network of ESDs which map to an ESG}
 
@@ -436,6 +436,7 @@ sgu <- left_join(sgu, sguvals, by = c('ESG_Code' = 'Value')) %>%
          ESG = str_replace(ESG, 'SAW_-_Loamy_Uplands', 'SAW_-_Sandy_Uplands_and_Loamy_Uplands')) %>% 
   select(-ESG_Code) 
 
+ecosites2step2 <- ecosites
 rm(sgu1_ex, sgu1, sgu2, sgu3, ecosites, cz_lkp, sguvals, c_zones, dirtyNet,
    mode, clim_zones, ESD2ESG_map)
 ```
@@ -509,11 +510,7 @@ rm(f, praw, lookuptable)
 
 # Results
 
-`r nrow(known)` AIM points were in the `r nrow(ref_lookup)` ESD's which were directly involved in the creation of `r length(unique(ref_lookup$ESG))` ESG's and could be used for assessing the results from the alternative raster data extraction methods and for assessing the accuracy of the ESG gridded surface in the area of analysis. 
-
-The method of extracting the ESG from the gridded surface to plot had little influence on the accuracy of the ESG. Regardless the method of buffering the point to the real size of the AIM plot was used as it slightly outperformed plot centers on the `r nrow(known)` known sites, `r round(p2p[(p2p$test == 'polygon'),]$Prop, 3)` to `r round(p2p[(p2p$test == 'point'),]$Prop, 3)`.
-
-`r nrow(known)` AIM points were in the `r nrow(ref_lookup)` ESD's which were directly involved in the creation of `r length(unique(ref_lookup$ESG))`. The ESG gridded surface was able to correctly place `r round(as.numeric(prop_D_map2_G[1,1]), 3)` plots to the appropriate ESG, rather than the 57.4% reported for the entire study area (*Figure 1*). A caveat associated with this result is that our value is likely to be biased towards more common ESG classes. We accept this bias as the scale at which we make management decisions is so great. 
+`r nrow(known)` AIM points were in the `r nrow(ref_lookup)` ESD's which were directly involved in the creation of `r length(unique(ref_lookup$ESG))` ESG's and could be used for assessing the results from the alternative raster data extraction methods and for assessing the accuracy of the ESG gridded surface in the area of analysis.  The method of extracting the ESG from the gridded surface to plot had little influence on the accuracy of the ESG. Regardless the method of buffering the point to the real size of the AIM plot was used as it slightly outperformed plot centers on the `r nrow(known)` known sites, `r round(p2p[(p2p$test == 'polygon'),]$Prop, 3)` to `r round(p2p[(p2p$test == 'point'),]$Prop, 3)`. `r nrow(known)` AIM points were in the `r nrow(ref_lookup)` ESD's which were directly involved in the creation of `r length(unique(ref_lookup$ESG))`. The ESG gridded surface was able to correctly place `r round(as.numeric(prop_D_map2_G[1,1]), 3)` plots to the appropriate ESG, rather than the 57.4% reported for the entire study area (*Figure 1*). A caveat associated with this result is that our value is likely to be biased towards more common ESG classes. We accept this bias as the scale at which we make management decisions is so great. 
 
 ```{r Proportion of plots per esd mapped correctly from the gridded data set, fig.cap="Proportion of Plots in ESDs which were included in the ESGS and should map over unequivocally to an ESG", out.width="50%"}
 esd_corr_plots
@@ -525,7 +522,8 @@ rm(esd_corr_plots)
 plotweb(orig_mod@moduleWeb, labsize = 0.5, col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
 ```
 
-The initial extraction of ESG to AIM points was problematic (*Figure 2*). We were able to improve upon these results via multiple steps in sequential order. 1) Look up table values form publication (as mentioned `r nrow(known)` plots, `r length(unique(known$ECO.SITE))` esds, and `r length(unique(ref_lookup$ESG))` ESGs), 2) `r nrow(cleanNET2)` plots/ESD's had a sole representative, 3) `r nrow(cleanNET3)` plots where all ESDs were in one ESG where > 2 plots per ESD `r length(unique(cleanNET3))`, 4)  `r nrow(cleanNET4)` plots where > 65% of the  `r length(unique(cleanNET4))` (*Figure 3*).
+
+The initial extraction of ESG to AIM points was problematic (Figure 2). 1) `r length(unique(ref_lookup$Ecological.Site.ID))` ESD's, associated with `r nrow(known)` plots, which were used directly in the creation of `r length(unique(ref_lookup$ESG))` ESG's were removed based upon a noted association in Appendix 6 of Naumen et al. 2022. 2) `r nrow(cleanNET2)` ESD's for which only a single AIM plot existed, had the `r length(unique(cleanNET2$ESG))` ESG which values were extracted from it listed as it's ultimate mapped association. These ESDs, `r unique(cleanNET2$ECO.SITE)`, mapped to the ESG's: `r unique(cleanNET2$ESG)`, refer to Figure 4 for exact matching. 3) `r length(unique(cleanNET3$ECO.SITE))` ESD's with greater than 1 AIM plots associated with them, and which had all plots match one of `r length(unique(cleanNET3$ESG))`. These ESD's, `r unique(cleanNET3$ECO.SITE)`,  were associated with `r nrow(cleanNET3)` AIM plots, and mapped to `r unique(cleanNET3$ESG)`.  4) Finally, `r length(unique(cleanNET4$ECO.SITE))` ESD's with over 65%, our local accuracy of the gridded surface, of their AIM plots mapping to a single ESG were recovered. These ESD's , `r unique(cleanNET4$ECO.SITE)`, were associated with `r nrow(cleanNET4)` AIM plots, and mapped to `r unique(cleanNET4$ESG)`. At this point the classified ESD's and non-classified ESD's appeared as Figures 3 and 4 respectively. 
 
 ```{r Plot Network of cleaning data, fig.cap="Relationships Between ESDs and ESGs midway through the cleaning process"}
 par(mfrow=c(2,1)) 
@@ -534,7 +532,7 @@ plotweb(dirt_mod@moduleWeb, labsize = 0.75,  col.high = '#1C315E', col.low = '#2
 par(mfrow=c(1,1))
 ```
 
-The remaining `r nrow(sgu)` ESD's were all mapped to `r length(unique(sgu$ESG))` ESG via the methods of summarizing both the SGU and climate zones. The final lookup table of ESD to ESG mapping is in Figure 4.  
+The remaining `r nrow(sgu)` ESD's, associated with `r nrow(ecosites2step2)` AIM Plots,  were all mapped to `r length(unique(sgu$ESG))` ESGs via the methods of summarizing both all three SGU layers in conjunction with climate zones. The final lookup table of ESD to ESG mapping is in Figure 4.  
 
 ```{r Plot Network of cleaned data a lookup table, fig.cap="Relationship between ESDs and ESGs at end of process"}
 plotweb(final_mod@moduleWeb, labsize = 0.75, col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
