@@ -37,7 +37,8 @@ In the publication of Nauman et al. 2022 the accuracy of the final product was c
 # Methods
 
 ```{r}
-url <- urlshorteneR::isgd_LinksShorten(longUrl = "https://www.sciencebase.gov/catalog/item/5f76119e82cef8d1839c681d", showRequestURL = F)
+url <- 'no internet'
+# url <- urlshorteneR::isgd_LinksShorten(longUrl = "https://www.sciencebase.gov/catalog/item/5f76119e82cef8d1839c681d", showRequestURL = F)
 ```
 
 The mean fractional cover of vegetation was manually transcribed from Table 3 of Appendix A from Nauman et al. 2022. The spatial data product, a gridded surface of predicted ESG's, which was the outcome of the study was accessed from sciencebase.gov catalog on (Dec. 16, 2022, `r url`), three additional layers predicting soil geomorphological groups and another predicting climate zone were also downloaded. ESD quantitative benchmarks values, and AIM plot locations were cleaned in previous work (Section XX ESD Completion). All analyses were performed in R version 4.2.2 using RStudio on Linux Ubuntu 22.04 LTS (@r2022language, @sobell2015practical, @rstudio). 
@@ -540,17 +541,17 @@ distributions <- ggplot(ob1, aes(x=MEAN_X, y = dum)) +
   theme(aspect.ratio=1,
         axis.text.y=element_blank(),  #remove y axis labels
         axis.ticks.y=element_blank(),  #remove y axis ticks
-        panel.grid.major.y=element_blank()
+        panel.grid.major.y=element_blank(),
+        panel.grid.minor.x=element_blank()
         ) +
   scale_color_manual('Reference:',  values = c('ESD' =  '#10A19D', 'ESG' = '#FF7000')) +
     labs(title = NULL, 
-       x = 'mean % fractional cover (any hit)', y = NULL) +
-  guides(color = FALSE)
+       x = 'mean % fractional cover (any hit)', y = NULL)
 
-benchcover
-distributions
+# benchcover
+# distributions
 
-rm(lt, lookuptablegrps, ob, lookuptable)
+rm(lt, lookuptablegrps, lookuptable)
 ```
 
 ```{r Remove variables used in methods}
@@ -599,22 +600,50 @@ rm(known, prop_D_map2_G, number_correct_esg, number_incorrect, p2p, cleanNET1,
 
 The quantitative estimates for the cover of major vegetation types by group are presented in figure 6. Note this figure does not contain 'outcrops or riparian esg' both of which do not have ESD, nor are they target areas for management considerations. Riparian areas fall within the domain of Lotic AIM, and the ecology of outcrops is a management action over the geologic time scale. 
 
-```{r Plot final benchmark cover against each other, fig.height = 14, fig.width=10, fig.cap="Fractional Cover, Note the provisional ESGS for Outcrops and Riparian which were coded as groups 7 & 8 have been removed."}
+```{r Plot final benchmark cover against each other, fig.height = 14, fig.width=10, fig.cap="Fractional cover, note the provisional ESGS for Outcrops and Riparian, groups 7 & 8, have been removed."}
 benchcover
+
+# `r  which.max(ob[ob$COVER_TYPE == 'TREE' & ob$MODEL == 'ESG',]$MEAN)`
 ```
 
-The covers of forbs, with both perennial -and to an extent annual- life cycles varies the least across lifeforms, their cover ranges from a of `r nrow()` to `r nrow()`. Given the variability inherent within the concept of an Ecological Site, and the years from which a large amount of the data for which the ESG cover values were calculated a marked majority of this cover should be constituted of perennial rather annual forbs. The cover of trees per Ecological Site Concept has the next least variability (*Figure 5, Column 4*).`r nrow()` of `r nrow()` sites have < 1 % tree cover, with the exception to this being the `r which.max()` FINER??? Uplands, conceptually a very large ESG, which includes nearly all of the Pinyon-Juniper Woodlands, along with high notable amounts of Sagebrush sites (VERIFY). We presume that the inclusion of Sagebrush sites into this ESG is the reason that for this concept alone the tree cover in the ESG exceeds that noted in the ESD. 
+`r obG <- ob[ob$MODEL == 'ESG',] `
 
-Greater divergences are observed between the estimates  of cover for Grass and Shrub. The cover of grasses in XX `r stuff` ESG's, `r more`, are conceptually identical, however in the other `r stuff` ESG's the cover of grass notably exceeds that noted in the ESD's. The reasons for this are perhaps ... The relationships between the shrub cover values are more nuanced, `r more` ESG's have conceptually identical cover values, however for the remaining ESG's the cover of Shrubs is less than noted in the ESD's. That the cover of shrubs would be less than expected is unanticipated, given the noted movement of much of the vegetation in the arid portions of Western North America moving towards a 'shrub state', a condition whereby the cover of shrubs has increased relative to uncommon parcels of undisturbed land (CITE). 
+The covers of forbs, with both perennial -and to an extent annual- life cycles varies the least across lifeforms, their cover ranges from `r min(obG[obG$COVER_TYPE == 'FORB',]$MEAN)` to `r max(obG[obG$COVER_TYPE == 'FORB',]$MEAN)` (*Fig. 5 & 6, Column 1*). Given the variability inherent within the concept of an Ecological Site, and the years from which a large amount of the data for which the ESG cover values were calculated a marked majority of this cover should be constituted of perennial rather annual forbs. The cover of trees per Ecological Site Concept has the next least variability (*Figure 5 & 6, Column 4*).`r nrow(obG[obG$COVER_TYPE == 'TREE' & obG$MEAN < 5,])` of `r nrow(obG[obG$COVER_TYPE == 'TREE',])` sites have < 5 % tree cover, with the exception to this being the FINER??? Uplands, conceptually a very large ESG, which includes nearly all of the Pinyon-Juniper Woodlands, along with high notable amounts of Sagebrush sites (VERIFY). We presume that the inclusion of Sagebrush sites into this ESG is the reason that for this concept alone the tree cover in the ESG exceeds that noted in the ESD. 
+
+Greater divergences are observed between the estimates of cover for Grass and Shrub. The cover of grasses in XX ESG's, XX, are conceptually identical, however in the other XX ESG's the cover of grass notably exceeds that noted in the ESD's (*Fig 5 & 6, Column 2*). The reasons for this are perhaps ... The relationships between the shrub cover values are more nuanced, XX ESG's have conceptually identical cover values, however for the remaining ESG's the cover of Shrubs is less than noted in the ESD's (*Fig 5 & 6, Column 3*). That the cover of shrubs would be less than expected is unanticipated, given the noted movement of much of the vegetation in the arid portions of Western North America moving towards a 'shrub state', a condition whereby the cover of shrubs has increased relative to uncommon parcels of undisturbed land (CITE). 
+
+
+```{r Box Plot of Mean Covers, fig.cap="Fractional cover across all ESG's and the ESD's with quantitative Benchmarks within them."}
+distributions
+```
+
+
+```{r determine relationship between mean values for text write up, eval = F}
+
+ob_covers <- ob %>% 
+  group_by(ESGID) %>%
+  mutate(MEAN_MAX = MEAN + 5, 
+         MEAN_MIN  = MEAN - 5) %>% 
+  mutate(BENCH_RELATION = case_when(
+    MODEL == 'ESG' & MEAN + 5 & MEAN - 5 
+    
+  ))
+
+ob[ob$MODEL == 'ESG' & ob$COVER_TYPE == 'GRASS',]
+ob[ob$MODEL == 'ESD' & ob$COVER_TYPE == 'GRASS', ]
+```
 
 The distributions of covers for each lifeform regardless of ESG are reported in the bottom of (figure 5, Pane B.). 
 
 # Conclusions
 
-The relationship between the novel ESG's and the ESD's...
+The relationship between the novel ESG's and the ESD's are less straightforward then may be offered by simple extraction of values from gridded surfaces. We find that Nauman et al. 2022 were largely hampered by the same issues as ourselves, Section XX, in trying to map ESD's into meaningfully similar groups. We believe that we are the first persons to attempt to operationalize the ESG concepts which they utilize in their publication. 
 
-For best accuracy using the ESG's it is best practice to verify the ESD using traditional methods rather than spatial operations. 
+> "We emphasize the need to corroborate mapped classes with ﬁeld conﬁrmation for site-speciﬁc management."
+>
+> `r tufte::quote_footer('--- Nauman et al. 2022, P. 24')`
 
+In regards to using ESG's we feel that the best option is to continue verifying the ESD at all sites, and then using a spatial approach as above to determine which ESG an ESD is allied to. The additional use of the Dichotomous Key (Figure 3 of Nauman et al. 2022), with ocular estimates of Electrical Conductivity via 'sparkling' parameters of the soil may be used by crews in the future to develop a larger ground truthed data set for the UFO.  
 
 \newpage
 
