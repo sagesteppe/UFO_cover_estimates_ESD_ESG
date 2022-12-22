@@ -578,14 +578,17 @@ rm(known, prop_D_map2_G, number_correct_esg, number_incorrect, p2p, cleanNET1,
    cleanNET2, cleanNET3, cleanNET4, sgu, ESG_present, ref_lookup)
 ```
 
-
 The quantitative estimates for the cover of major vegetation types by group are presented in figure 6. Note this figure does not contain 'outcrops or riparian esg' both of which do not have ESD, nor are they target areas for management considerations. Riparian areas fall within the domain of Lotic AIM, and the ecology of outcrops is a management action over the geologic time scale. 
-
 
 ```{r Plot final benchmark cover against each other, fig.height = 14, fig.width=10, fig.cap="Fractional Cover, Note the provisional ESGS for Outcrops and Riparian which were coded as groups 7 & 8 have been removed."}
 benchcover
 ```
 
+The covers of forbs, with both perennial -and to an extent annual- life cycles varies the least across lifeforms, their cover ranges from a of `r nrow()` to `r nrow()`. Given the variability inherent within the concept of an Ecological Site, and the years from which a large amount of the data for which the ESG cover values were calculated a marked majority of this cover should be constituted of perennial rather annual forbs. The cover of trees per Ecological Site Concept has the next least variability (*Figure 5, Column 4*).`r nrow()` of `r nrow()` sites have < 1 % tree cover, with the exception to this being the `r which.max()` FINER??? Uplands, conceptually a very large ESG, which includes nearly all of the Pinyon-Juniper Woodlands, along with high notable amounts of Sagebrush sites (VERIFY). We presume that the inclusion of Sagebrush sites into this ESG is the reason that for this concept alone the tree cover in the ESG exceeds that noted in the ESD. 
+
+Greater divergences are observed between the estimates  of cover for Grass and Shrub. The cover of grasses in XX `r stuff` ESG's, `r more`, are conceptually identical, however in the other `r stuff` ESG's the cover of grass notably exceeds that noted in the ESD's. The reasons for this are perhaps ... The relationships between the shrub cover values are more nuanced, `r more` ESG's have conceptually identical cover values, however for the remaining ESG's the cover of Shrubs is less than noted in the ESD's. That the cover of shrubs would be less than expected is unanticipated, given the noted movement of much of the vegetation in the arid portions of Western North America moving towards a 'shrub state', a condition whereby the cover of shrubs has increased relative to uncommon parcels of undisturbed land (CITE). 
+
+The distributions of covers for each lifeform regardless of ESG are reported in the bottom of (figure 5, Pane B.). 
 
 # Conclusions
 
