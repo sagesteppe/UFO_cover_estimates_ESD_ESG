@@ -522,7 +522,8 @@ benchcover <- ggplot(ob, aes(MEAN_X, MEAN_Y, color = MODEL)) +
         legend.key.width = unit(1.5, 'cm'), #change legend key width
         legend.title = element_text(size=14, hjust = 0.5), #change legend title font size
         legend.text = element_text(size=12),
-        panel.grid.minor=element_blank()
+        panel.grid.minor=element_blank(),
+        plot.margin = unit(c(0,0,0,0), "cm")
         ) +
   scale_color_manual('Reference:',  values = c('ESD' =  '#10A19D', 'ESG' = '#FF7000')) +
   labs(title = 'Comparison of the mean of Benchmarks between ESD & ESG', 
@@ -542,14 +543,15 @@ distributions <- ggplot(ob1, aes(x=MEAN_X, y = dum)) +
         axis.text.y=element_blank(),  #remove y axis labels
         axis.ticks.y=element_blank(),  #remove y axis ticks
         panel.grid.major.y=element_blank(),
-        panel.grid.minor.x=element_blank()
+        panel.grid.minor.x=element_blank(),
+        plot.margin = unit(c(0,0.5,0.0,0.5), "cm")
         ) +
   scale_color_manual('Reference:',  values = c('ESD' =  '#10A19D', 'ESG' = '#FF7000')) +
     labs(title = NULL, 
        x = 'mean % fractional cover (any hit)', y = NULL)
 
 # benchcover
-# distributions
+distributions
 
 rm(lt, lookuptablegrps, lookuptable)
 ```
@@ -569,7 +571,8 @@ rm(esd_corr_plots)
 
 
 ```{r Plot network of original Input data, fig.cap="Initial Relationship Between Field Verified ESD and ESG extracted from the gridded surface"}
-plotweb(orig_mod@moduleWeb, labsize = 0.5, col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
+plotweb(orig_mod@moduleWeb, labsize = 0.5, 
+        col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
 ```
 
 The initial extraction of ESG to AIM points was problematic, Figure 2. Ideally, if ESD's were the entities which defined the ESG's, than each ESD (the upper boxes in the panel) would link to a single ESG (the lower boxes in the panel), an image of this relationship is displayed in Figure 4. As is apparent, this was not the case, however much of the error in these classifications lay with the classification of the gridder surfaces, rather than with the ESG concepts themselves. 
@@ -577,16 +580,19 @@ The initial extraction of ESG to AIM points was problematic, Figure 2. Ideally, 
 In order to map these relationships we utilized a step-wise process. 1) `r length(unique(ref_lookup$Ecological.Site.ID))` ESD's, associated with `r nrow(known)` plots, which were used directly in the creation of `r length(unique(ref_lookup$ESG))` ESG's were removed based upon a noted association in Appendix 6 of Naumen et al. 2022. 2) `r nrow(cleanNET2)` ESD's for which only a single AIM plot existed, had the `r length(unique(cleanNET2$ESG))` ESG which values were extracted from it listed as it's ultimate mapped association. 3) There were `r length(unique(cleanNET3$ECO.SITE))` ESD's with greater than 1 AIM plot associated with them, which had all plots match the same ESG `r length(unique(cleanNET3$ESG))`. These ESD's, `r unique(cleanNET3$ECO.SITE)`,  were associated with `r nrow(cleanNET3)` AIM plots, and mapped to: *`r str_replace_all(unique(cleanNET3$ESG), '_|-',' ')`*.  4) Finally, `r length(unique(cleanNET4$ECO.SITE))` ESD's with over 65%, our local accuracy of the gridded surface, of their AIM plots mapping to a single ESG were recovered. These ESD's , `r unique(cleanNET4$ECO.SITE)`, were associated with `r nrow(cleanNET4)` AIM plots, and mapped to: *`r str_replace_all(unique(cleanNET4$ESG), '_|-',' ')`*. At this point the classified ESD's and non-classified ESD's appeared as Figures 3 and 4 respectively. 
 
 ```{r Plot Network of cleaning data, fig.cap="Relationships Between ESDs and ESGs midway through the cleaning process"}
-par(mfrow=c(2,1), mar=c(0.0, 0.0, 0.2, 0.2))
-plotweb(clean_mod@moduleWeb, labsize = 0.75,  col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
-plotweb(dirt_mod@moduleWeb, labsize = 0.75,  col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
+par(mfrow=c(2,1), mar=c(0.0, 0.0, 0.0, 0.0))
+plotweb(clean_mod@moduleWeb, labsize = 0.75,  
+        col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
+plotweb(dirt_mod@moduleWeb, labsize = 0.75,  
+        col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
 par(mfrow=c(1,1))
 ```
 
 The remaining `r nrow(sgu)` ESD's, associated with `r nrow(ecosites2step2)` AIM Plots,  were all mapped to `r length(unique(sgu$ESG))` ESGs via the methods of summarizing both all three SGU layers in conjunction with climate zones. The final lookup table of ESD to ESG mapping is in Figure 4. `r nrow(final_mod@moduleWeb)` of the 35 ESGs were present in the UFO, the number of plots per ESG ranged from `r min(rowSums(final_mod@moduleWeb))` (`r str_replace_all(names(which.min(rowSums(final_mod@moduleWeb))), "_|-", " ")`) to `r max(rowSums(final_mod@moduleWeb))` (`r str_replace_all(names(which.max(rowSums(final_mod@moduleWeb))), "_|-", " ")`). 
 
 ```{r Plot Network of cleaned data a lookup table, fig.cap="Relationship between ESDs and ESGs at end of process"}
-plotweb(final_mod@moduleWeb, labsize = 0.75, col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
+plotweb(final_mod@moduleWeb, labsize = 0.75,
+        col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
 
 rm(orig_mod, clean_mod, dirt_mod, final_mod)
 ```
@@ -600,37 +606,18 @@ rm(known, prop_D_map2_G, number_correct_esg, number_incorrect, p2p, cleanNET1,
 
 The quantitative estimates for the cover of major vegetation types by group are presented in figure 6. Note this figure does not contain 'outcrops or riparian esg' both of which do not have ESD, nor are they target areas for management considerations. Riparian areas fall within the domain of Lotic AIM, and the ecology of outcrops is a management action over the geologic time scale. 
 
-```{r Plot final benchmark cover against each other, fig.height = 14, fig.width=10, fig.cap="Fractional cover, note the provisional ESGS for Outcrops and Riparian, groups 7 & 8, have been removed."}
+```{r Plot final benchmark cover against each other, fig.height = 11.2, fig.width=8.4, fig.cap="Fractional cover, note the provisional ESGS for Outcrops and Riparian, groups 7 & 8, have been removed."}
 benchcover
-
-# `r  which.max(ob[ob$COVER_TYPE == 'TREE' & ob$MODEL == 'ESG',]$MEAN)`
 ```
 
 `r obG <- ob[ob$MODEL == 'ESG',] `
 
 The covers of forbs, with both perennial -and to an extent annual- life cycles varies the least across lifeforms, their cover ranges from `r min(obG[obG$COVER_TYPE == 'FORB',]$MEAN)` to `r max(obG[obG$COVER_TYPE == 'FORB',]$MEAN)` (*Fig. 5 & 6, Column 1*). Given the variability inherent within the concept of an Ecological Site, and the years from which a large amount of the data for which the ESG cover values were calculated a marked majority of this cover should be constituted of perennial rather annual forbs. The cover of trees per Ecological Site Concept has the next least variability (*Figure 5 & 6, Column 4*).`r nrow(obG[obG$COVER_TYPE == 'TREE' & obG$MEAN < 5,])` of `r nrow(obG[obG$COVER_TYPE == 'TREE',])` sites have < 5 % tree cover, with the exception to this being the FINER??? Uplands, conceptually a very large ESG, which includes nearly all of the Pinyon-Juniper Woodlands, along with high notable amounts of Sagebrush sites (VERIFY). We presume that the inclusion of Sagebrush sites into this ESG is the reason that for this concept alone the tree cover in the ESG exceeds that noted in the ESD. 
 
-Greater divergences are observed between the estimates of cover for Grass and Shrub. The cover of grasses in XX ESG's, XX, are conceptually identical, however in the other XX ESG's the cover of grass notably exceeds that noted in the ESD's (*Fig 5 & 6, Column 2*). The reasons for this are perhaps ... The relationships between the shrub cover values are more nuanced, XX ESG's have conceptually identical cover values, however for the remaining ESG's the cover of Shrubs is less than noted in the ESD's (*Fig 5 & 6, Column 3*). That the cover of shrubs would be less than expected is unanticipated, given the noted movement of much of the vegetation in the arid portions of Western North America moving towards a 'shrub state', a condition whereby the cover of shrubs has increased relative to uncommon parcels of undisturbed land (CITE). 
+Greater divergences are observed between the estimates of cover for Grass and Shrub. The cover of grasses in two ESG's, XX, are conceptually identical, however in the other seven ESG's the cover of grass notably exceeds that noted in the ESD's (*Fig 5 & 6, Column 2*). *The reasons for this are perhaps ...* The relationships between the shrub cover values are more nuanced, 2 ESG's have conceptually identical cover values, three have very similar values, however for the remaining four ESG's the cover of Shrubs is less than noted in the ESD's (*Fig 5 & 6, Column 3*). 
 
-
-```{r Box Plot of Mean Covers, fig.cap="Fractional cover across all ESG's and the ESD's with quantitative Benchmarks within them."}
+```{r Box Plot of Mean Covers, fig.cap="Fractional cover across all ESG's and the ESD's with quantitative Benchmarks within them.", out.width="75%"}
 distributions
-```
-
-
-```{r determine relationship between mean values for text write up, eval = F}
-
-ob_covers <- ob %>% 
-  group_by(ESGID) %>%
-  mutate(MEAN_MAX = MEAN + 5, 
-         MEAN_MIN  = MEAN - 5) %>% 
-  mutate(BENCH_RELATION = case_when(
-    MODEL == 'ESG' & MEAN + 5 & MEAN - 5 
-    
-  ))
-
-ob[ob$MODEL == 'ESG' & ob$COVER_TYPE == 'GRASS',]
-ob[ob$MODEL == 'ESD' & ob$COVER_TYPE == 'GRASS', ]
 ```
 
 The distributions of covers for each lifeform regardless of ESG are reported in the bottom of (figure 5, Pane B.). 
@@ -643,7 +630,7 @@ The relationship between the novel ESG's and the ESD's are less straightforward 
 >
 > `r tufte::quote_footer('--- Nauman et al. 2022, P. 24')`
 
-In regards to using ESG's we feel that the best option is to continue verifying the ESD at all sites, and then using a spatial approach as above to determine which ESG an ESD is allied to. The additional use of the Dichotomous Key (Figure 3 of Nauman et al. 2022), with ocular estimates of Electrical Conductivity via 'sparkling' parameters of the soil may be used by crews in the future to develop a larger ground truthed data set for the UFO.  
+In regards to using ESG's we feel that the best option is to continue verifying the ESD at all sites, and then using a spatial approach as above to determine which ESG an ESD is allied to. The additional use of the Dichotomous Key (Figure 3 of Nauman et al. 2022), with ocular estimates of Electrical Conductivity via 'sparkling' parameters of the soil may be used by crews in the future to develop a larger ground truthed data set for the UFO.  Alternatively probes which may measure EC are readily acquired, easy to calibrate, and may operate with only small amounts of soil which has been collected in the field. 
 
 \newpage
 
