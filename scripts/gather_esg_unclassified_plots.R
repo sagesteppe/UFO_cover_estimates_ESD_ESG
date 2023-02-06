@@ -44,7 +44,7 @@ sgu <- data.frame(sgu1_ex, 'SGU2' =  sgu2$SGU2, 'SGU3' = sgu3$SGU3,
                   st_as_sf(plots) %>% select(PLOT.ID)) %>% 
   st_drop_geometry() %>% select(-geometry, -ID)
 
-rm(sgu1_ex, sgu2, sgu3, f)
+rm(sgu1_ex, sgu2, sgu3, f, praw)
 
 sgu <- sgu %>% 
   pivot_longer(!PLOT.ID, names_to = 'SGU', values_to = 'layer') %>% 
@@ -88,6 +88,10 @@ sgu <- left_join(sgu, sguvals, by = 'Value') %>%
     ESG = str_replace_all(ESG, ' ', '_'), 
     ESG = str_replace(ESG, 'SAW_-_Deep_Rocky', 'SAW_-_Shallow_and_Deep_Rocky'),
     ESG = str_replace(ESG, 'SAW_-_Loamy_Uplands', 'SAW_-_Sandy_Uplands_and_Loamy_Uplands')
-    )
+    ) %>%
+  st_drop_geometry() %>% 
+  select(-Value, -ID, -geometry) 
 
-rm(clim_zones, sguvals)
+write.csv(sgu, '../data/processed/ESG_unverified_plots.csv', row.names = F)
+
+rm(clim_zones, sguvals, sgu)
