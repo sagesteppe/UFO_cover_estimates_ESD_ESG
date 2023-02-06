@@ -342,7 +342,7 @@ clean_mod <- computeModules(EsdEsg_network)
 ```
 
 
-```{r Create subset Network for remaining ESDs which needan ESG}
+```{r Create subset Network for remaining ESDs which need an ESG}
 
 # ' the dirty network'
 
