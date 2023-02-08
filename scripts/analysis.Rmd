@@ -630,6 +630,8 @@ The relationship between the novel ESG's and the ESD's are less straightforward 
 >
 > `r tufte::quote_footer('--- Nauman et al. 2022, P. 24')`
 
+Based upon the relatively high 50% mean value of forb cover (after data exploration in Section X.X), and the relatively narrow estimates of forb covers, we choose to use the median of all lower benchmarks as a benchmark for all ESG sites... 
+
 In regards to using ESG's we feel that the best option is to continue verifying the ESD at all sites, and then using a spatial approach as above to determine which ESG an ESD is allied to. The additional use of the Dichotomous Key (Figure 3 of Nauman et al. 2022), with ocular estimates of Electrical Conductivity via 'sparkling' parameters of the soil may be used by crews in the future to develop a larger ground truthed data set for the UFO.  Alternatively probes which may measure EC are readily acquired, easy to calibrate, and may operate with only small amounts of soil which has been collected in the field. 
 
 \newpage
