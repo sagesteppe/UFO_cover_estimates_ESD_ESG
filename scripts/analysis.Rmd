@@ -8,6 +8,8 @@ header-includes:
  - \usepackage[width=\textwidth]{caption}
  - \usepackage{float}
  - \floatplacement{figure}{H}
+ - \usepackage[width=\textwidth]{caption}
+ - \usepackage{wrapfig}
 always_allow_html: yes
 csl: ../citations/citations/apa.csl
 bibliography: ../citations/citations/citations.bib
@@ -37,8 +39,8 @@ In the publication of Nauman et al. 2022 the accuracy of the final product was c
 # Methods
 
 ```{r}
-url <- 'no internet'
-# url <- urlshorteneR::isgd_LinksShorten(longUrl = "https://www.sciencebase.gov/catalog/item/5f76119e82cef8d1839c681d", showRequestURL = F)
+#url <- 'no internet'
+url <- urlshorteneR::isgd_LinksShorten(longUrl = "https://www.sciencebase.gov/catalog/item/5f76119e82cef8d1839c681d", showRequestURL = F)
 ```
 
 The mean fractional cover of vegetation was manually transcribed from Table 3 of Appendix A from Nauman et al. 2022. The spatial data product, a gridded surface of predicted ESG's, which was the outcome of the study was accessed from sciencebase.gov catalog on (Dec. 16, 2022, `r url`), three additional layers predicting soil geomorphological groups and another predicting climate zone were also downloaded. ESD quantitative benchmarks values, and AIM plot locations were cleaned in previous work (Section XX ESD Completion). All analyses were performed in R version 4.2.2 using RStudio on Linux Ubuntu 22.04 LTS (@r2022language, @sobell2015practical, @rstudio). 
@@ -50,7 +52,6 @@ library(terra)
 library(bipartite)
 library(grid)
 library(gridExtra)
-
 source('../../UFO_elements_of_style/scripts/ggplot_themes.R')
 set.seed(51)
 
@@ -85,7 +86,7 @@ esg2plots <- extract(esg, ecosites, method = 'simple', weights = T, ID = T) %>%
   cbind(PLOT.ID = ecosites$PLOT.ID, .)
 
 esg2plots <- data.frame(levels(esg)) %>% # extract lookup table from raster
-  right_join(., esg2plots, by = 'Value') %>% 
+  right_join(., esg2plots, by = 'Value', multiple = "all") %>% 
   select(ESG, PLOT.ID) 
 ecosites_mapped <- as.data.frame(ecosites) %>% 
   select(ECO.SITE, PLOT.ID) 
@@ -126,7 +127,6 @@ rm(f, praw)
 
 ### Test Raster Extraction Methods 
 
-
 ```{r test raster extraction methods}
 
 ecosites <- st_read('/media/sagesteppe/ExternalHD/UFO_cartography/AIM_plots_outcomes/plots_outcomes.shp', 
@@ -163,7 +163,7 @@ bY <- extract(esg, ESG4simulation_buff, method = 'simple') %>%
   summarise(Value = mode(ESG)) %>% 
   cbind(known)
 bY <- data.frame(levels(esg)) %>% 
-  right_join(., bY, by = 'Value') %>% 
+  right_join(., bY, by = 'Value', multiple = "all") %>% 
   select(-Value) %>% 
   mutate(test = 'polygon') 
 
@@ -185,7 +185,6 @@ p2p <- test_results %>%
 
 rm(bY, bN, ESG4simulation, ESG4simulation_buff, ecosites)
 ```
-
 
 To test whether we were extracting and processing the correct ESG from the gridded surface two comparisons of raster extraction methods were attempted. The first (hereafter: 'polygon'), which is typically performed at UFO, is to buffer the point to represent the actual area of the entire AIM plot and extract to that area, and choose the categorical class with the most cells per value (in other words the statistical mode). The second (herafter: 'point') option is to extract values from the gridded surface directly to the point geometry. The idea behind this is that the pixels from the gridded surface featured a 'splotchy' characteristic, a byproduct of not performing spatial operations to clean up the predictions (e.g. 'Focal Statistics'); oftentimes these central isolated cells are not artifacts of analysis, but rather true points which are swamped by the adjacent cells. The slightly higher performing method, 'polygon', was used for the duration of the analyses. 
 
@@ -223,17 +222,6 @@ esd_correct <- test_results %>%
   distinct(ECO.SITE, Correct, Incorrect, Total, .keep_all = F) %>% 
   pivot_longer(cols = c(Correct, Incorrect), values_to = 'Response_V', names_to = 'Response')
 
-esd_corr_plots <- ggplot(esd_correct, aes(y = Response_V, x = ECO.SITE, fill= Response)) +
-    geom_bar(position="stack", stat="identity") +
-    theme(strip.background = element_blank(), 
-          panel.background = element_blank(),
-          plot.title = element_text(hjust = 0.5)
-          ) +
-    scale_fill_manual('Identification:', 
-                      values = c('Correct' = '#88A47C', 'Incorrect' = '#E6E2C3')) +
-  scale_x_discrete(guide = guide_axis(n.dodge=4)) +
-  labs(title = 'Proportion of Plots mapped to their ESG', y = 'Number of Plots', x = 'Ecological Site') 
-
 # ESD's differ in the proportion of plots which may be mapped over to ESG. 
 # In general our results here echo the paper, 1/3 of records will be incorrectly mapped from 
 # the single output prediction. 
@@ -242,7 +230,26 @@ prop_D_map2_G <- esd_correct %>%
   filter(Response == 'Correct') %>% 
   ungroup() %>% 
   summarize(prop_correct = sum(Response_V) / sum(Total))
-            
+```
+
+```{r Proportion of Correct ESG matching Plot, eval = F}
+
+esd_corr_plots <- ggplot(esd_correct, aes(y = Response_V, x = ECO.SITE, fill= Response)) +
+    geom_bar(position="stack", stat="identity") +
+    theme(strip.background = element_blank(), 
+          panel.background = element_blank(),
+          plot.title = element_text(hjust = 0.5),
+          legend.position = 'bottom'
+          ) +
+    scale_fill_manual('Identification:', 
+                      values = c('Correct' = '#88A47C', 'Incorrect' = '#E6E2C3')) +
+  scale_x_discrete(guide = guide_axis(n.dodge=4)) +
+  labs(title = 'Proportion of Plots mapped to their ESG', y = 'Number of Plots', x = 'Ecological Site') 
+
+ggsave('../graphics/ESD_Correlation_plots.png')
+```
+
+```{r}
 rm(theme_boxplot, theme_prop_bar, esg, esg_correct, test_results, esd_correct)
 ```
 
@@ -508,26 +515,30 @@ ob <- read.csv(file.path(praw, f[grep('FractionalCover', f)] )) %>%
   mutate(MEAN_X = MEAN, MEAN_Y = MEAN) %>% 
   filter(COVER_TYPE %in% c('FORB', 'GRASS', 'SHRUB', 'TREE'), 
          !ESGID  %in% c(7,8)) 
+```
 
+```{r plot results, eval = F}
 benchcover <- ggplot(ob, aes(MEAN_X, MEAN_Y, color = MODEL)) +
-  geom_jitter(size = 4.5, alpha = 0.5) +
+  geom_jitter(alpha = 0.5) +
   facet_grid(rows = vars(ESGID), cols = vars(COVER_TYPE)) +
   theme_bw() +
+  scale_x_continuous(breaks = c(10,40)) +
   theme(aspect.ratio=1,
         plot.title = element_text(hjust = 0.5),
-        axis.text=element_text(size=12),
-        axis.title=element_text(size=16,face="bold"),
-        legend.key.size = unit(1.5, 'cm'), #change legend key size
-        legend.key.height = unit(1.5, 'cm'), #change legend key height
-        legend.key.width = unit(1.5, 'cm'), #change legend key width
-        legend.title = element_text(size=14, hjust = 0.5), #change legend title font size
-        legend.text = element_text(size=12),
+        axis.text=element_text(size=6),
+        axis.title=element_text(size=10,face="bold"),
+     #   legend.title = element_text(size=10, hjust = 0.5), #change legend title font size
+        legend.text = element_text(size=10),
+        panel.spacing = unit(0,'lines'),
         panel.grid.minor=element_blank(),
-        plot.margin = unit(c(0,0,0,0), "cm")
+        plot.margin = unit(c(0,0,0,0), "cm"), 
+        legend.position = 'bottom'
         ) +
   scale_color_manual('Reference:',  values = c('ESD' =  '#10A19D', 'ESG' = '#FF7000')) +
-  labs(title = 'Comparison of the mean of Benchmarks between ESD & ESG', 
-       x = 'mean % fractional cover (any hit)', y = 'mean % fractional cover (any hit)')
+  labs(title = 'Mean Benchmarks ESD & ESG', 
+       x = 'mean % percent cover', y = 'mean % percent cover')
+
+ggsave('../graphics/benchcover_means_ESD-ESG.png')
 
 a <- ob %>% 
   filter(MODEL == 'ESG') %>%
@@ -544,31 +555,31 @@ distributions <- ggplot(ob1, aes(x=MEAN_X, y = dum)) +
         axis.ticks.y=element_blank(),  #remove y axis ticks
         panel.grid.major.y=element_blank(),
         panel.grid.minor.x=element_blank(),
+        legend.position = 'bottom',
         plot.margin = unit(c(0,0.5,0.0,0.5), "cm")
         ) +
   scale_color_manual('Reference:',  values = c('ESD' =  '#10A19D', 'ESG' = '#FF7000')) +
-    labs(title = NULL, 
-       x = 'mean % fractional cover (any hit)', y = NULL)
+    labs(title = 'Distribution of % Cover', 
+       x = 'mean % percent cover (any hit)', y = NULL)
 
-# benchcover
-distributions
-
-rm(lt, lookuptablegrps, lookuptable)
+ggsave('../graphics/boxplots_ESD-ESG.png')
 ```
 
 ```{r Remove variables used in methods}
-rm(f, praw)
+rm(f, praw, lt, lookuptablegrps, lookuptable)
 ```
+
+\newpage
+
+\begin{wrapfigure}{l}{0.4\textwidth}
+  \centering
+    \includegraphics[width=0.4\textwidth]{../graphics/ESD_Correlation_plots.png}
+  \caption{Proportion of Plots in ESDs which were included in the ESGS and should map over unequivocally to an ESG}
+\end{wrapfigure}
 
 # Results
 
 `r nrow(known)` AIM points were in the `r nrow(ref_lookup)` ESD's which were directly involved in the creation of `r length(unique(ref_lookup$ESG))` ESG's and could be used for assessing the results from the alternative raster data extraction methods and for assessing the accuracy of the ESG gridded surface in the area of analysis.  The method of extracting the ESG from the gridded surface to plot had little influence on the accuracy of the ESG. Regardless the method of buffering the point to the real size of the AIM plot was used as it slightly outperformed plot centers on the `r nrow(known)` known sites, `r round(p2p[(p2p$test == 'polygon'),]$Prop, 3)` to `r round(p2p[(p2p$test == 'point'),]$Prop, 3)`. `r nrow(known)` AIM points were in the `r nrow(ref_lookup)` ESD's which were directly involved in the creation of `r length(unique(ref_lookup$ESG))`. The ESG gridded surface was able to correctly place `r round(as.numeric(prop_D_map2_G[1,1]), 3)` plots to the appropriate ESG, rather than the 57.4% reported for the entire study area (*Figure 1*). A caveat associated with this result is that our value is likely to be biased towards more common ESG classes. We accept this bias as the scale at which we make management decisions is so great. 
-
-```{r Proportion of plots per esd mapped correctly from the gridded data set, fig.cap="Proportion of Plots in ESDs which were included in the ESGS and should map over unequivocally to an ESG", out.width="50%"}
-esd_corr_plots
-rm(esd_corr_plots)
-```
-
 
 ```{r Plot network of original Input data, fig.cap="Initial Relationship Between Field Verified ESD and ESG extracted from the gridded surface"}
 plotweb(orig_mod@moduleWeb, labsize = 0.5, 
@@ -600,27 +611,31 @@ rm(orig_mod, clean_mod, dirt_mod, final_mod)
 Of the three climate zones defined in Nauman et al. 2022, the UFO does not contain the Semiarid-Cool zone. 
 
 ```{r}
+obG <- ob[ob$MODEL == 'ESG',]
+
 rm(known, prop_D_map2_G, number_correct_esg, number_incorrect, p2p, cleanNET1, 
    cleanNET2, cleanNET3, cleanNET4, sgu, ESG_present, ref_lookup)
 ```
 
+\begin{wrapfigure}{l}{0.6\textwidth}
+  \centering
+    \includegraphics[width=0.6\textwidth]{../graphics/benchcover_means_ESD-ESG.png}
+  \caption{Fractional cover, note the provisional ESGS for Outcrops and Riparian, groups 7 and 8, have been removed}
+\end{wrapfigure}
+
 The quantitative estimates for the cover of major vegetation types by group are presented in figure 6. Note this figure does not contain 'outcrops or riparian esg' both of which do not have ESD, nor are they target areas for management considerations. Riparian areas fall within the domain of Lotic AIM, and the ecology of outcrops is a management action over the geologic time scale. 
-
-```{r Plot final benchmark cover against each other, fig.height = 11.2, fig.width=8.4, fig.cap="Fractional cover, note the provisional ESGS for Outcrops and Riparian, groups 7 & 8, have been removed."}
-benchcover
-```
-
-`r obG <- ob[ob$MODEL == 'ESG',] `
 
 The covers of forbs, with both perennial -and to an extent annual- life cycles varies the least across lifeforms, their cover ranges from `r min(obG[obG$COVER_TYPE == 'FORB',]$MEAN)` to `r max(obG[obG$COVER_TYPE == 'FORB',]$MEAN)` (*Fig. 5 & 6, Column 1*). Given the variability inherent within the concept of an Ecological Site, and the years from which a large amount of the data for which the ESG cover values were calculated a marked majority of this cover should be constituted of perennial rather annual forbs. The cover of trees per Ecological Site Concept has the next least variability (*Figure 5 & 6, Column 4*).`r nrow(obG[obG$COVER_TYPE == 'TREE' & obG$MEAN < 5,])` of `r nrow(obG[obG$COVER_TYPE == 'TREE',])` sites have < 5 % tree cover, with the exception to this being the FINER??? Uplands, conceptually a very large ESG, which includes nearly all of the Pinyon-Juniper Woodlands, along with high notable amounts of Sagebrush sites (VERIFY). We presume that the inclusion of Sagebrush sites into this ESG is the reason that for this concept alone the tree cover in the ESG exceeds that noted in the ESD. 
 
-Greater divergences are observed between the estimates of cover for Grass and Shrub. The cover of grasses in two ESG's, XX, are conceptually identical, however in the other seven ESG's the cover of grass notably exceeds that noted in the ESD's (*Fig 5 & 6, Column 2*). *The reasons for this are perhaps ...* The relationships between the shrub cover values are more nuanced, 2 ESG's have conceptually identical cover values, three have very similar values, however for the remaining four ESG's the cover of Shrubs is less than noted in the ESD's (*Fig 5 & 6, Column 3*). 
+Greater divergences are observed between the estimates of cover for Grass and Shrub. The cover of grasses in two ESG's, are conceptually identical, however in the other seven ESG's the cover of grass notably exceeds that noted in the ESD's (*Fig 5 & 6, Column 2*). The relationships between the shrub cover values are more nuanced, 2 ESG's have conceptually identical cover values, three have very similar values, however for the remaining four ESG's the cover of Shrubs is less than noted in the ESD's (*Fig 5 & 6, Column 3*). 
 
-```{r Box Plot of Mean Covers, fig.cap="Fractional cover across all ESG's and the ESD's with quantitative Benchmarks within them.", out.width="75%"}
-distributions
-```
+\begin{wrapfigure}{l}{0.4\textwidth}
+  \centering
+    \includegraphics[width=0.4\textwidth]{../graphics/boxplots_ESD-ESG.png}
+  \caption{Percent cover across all ESG's and the ESD's with quantitative Benchmarks within them.}
+\end{wrapfigure}
 
-The distributions of covers for each lifeform regardless of ESG are reported in the bottom of (figure 5, Pane B.). 
+The distributions of covers for each life-form regardless of ESG are reported in the bottom of (figure 5, Pane B.). 
 
 # Conclusions
 
