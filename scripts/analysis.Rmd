@@ -1,5 +1,5 @@
 ---
-title: "Compare ESD and ESG Quantitative Benchmarks"
+title: "Ecological Site Description (ESD) and Ecological Site Group (ESG) Comparision of Vegetation Benchmarks"
 author: 
 output:
   pdf_document: default
@@ -16,6 +16,8 @@ bibliography: ../citations/citations/citations.bib
 link-citations: yes
 ---
 
+\vspace{-1cm}
+
 ```{r global options, include=FALSE}
 knitr::opts_chunk$set(echo = F)
 knitr::opts_chunk$set(dpi = 300) 
@@ -24,17 +26,15 @@ knitr::opts_chunk$set(warning = F)
 knitr::opts_chunk$set(fig.pos = 'H')
 ```
 
-# Introduction
+The development of Ecological Sites (ES) and their descriptions (ESD's) represent an enormous effort on behalf of the Natural Resources Conservation Service (NRCS) (@bestelmeyer2015national). As discussed in Section 3, they do not yet form a continuous coast to coast, or across the field office data set (@twidwell2013national). In order to allay the significant amounts of effort required to develop these, and to make land management decisions in the interim, alternative classification systems have been proposed (@nauman2022quantitative). One system which incorporates the NRCS ESDs, and which provides continuous coverage across our study area, are the Ecological Site Groups (@nauman2022quantitative). 
 
-The development of Ecological Sites (ES) and their descriptions (ESD's) represent an enormous effort on behalf of the Natural Resources Conservation Service (NRCS) (@bestelmeyer2015national). As mentioned in section XX, they do not yet form a continuous coast to coast, nor even across the field office data set (@twidwell2013national). In order to allay the significant amounts of effort required to develop these, and to make land management decisions in the interim alternative classification systems have been proposed (@nauman2022quantitative). One system which incorporates the NRCS ESDs, and which provides continuous coverage across our study area, are the Ecological Site Groups (@nauman2022quantitative). 
+The Ecological Site Groups developed largely by United States Geological Survey (USGS) researchers at the Southwest Biological Science Center in Moab Utah, with assistance from Bureau of Land Management Colorado State Office Staff, are meant to both bridge the spatial gap in ESD development, and to provide a framework for  land management decisions at a larger scale than that which generally occurs at a BLM Field Office. The Ecological Site Groups were developed by grouping together similar ESD's, and which will respond in a similar manner to management actions (@duniway2016generalizing). To these initial groups of Ecological Sites, the field data which largely informed the ESD creation, most notably soil physical parameters, with the use of objective quantitative approaches, which make use of a simple *Machine Learning (ML)* method *random forest* were used to identify recurring environmental parameters in the data set into groups, and then project these onto a 'map' which covers the Upper Colorado River Basin. 
 
-The Ecological Site Groups developed largely by United States Geological Survey (USGS) researchers at the Southwest Biological Science Center in Moab Utah, with assistance from BLM Colorado State Office Staff, are meant to both bridge the spatial gap in ESD development, and to provide a framework for  land management decisions at a larger scale than that which generally occurs at a BLM Field Office. The Ecological Site Groups were developed by grouping together similar ESD's, akin to the strictly interpretive approach - which seeks to reduce conceptual fineness - in section XX, and which will respond in a similar fashion to management actions (@duniway2016generalizing). To these initial groups the field data which largely informed the ESD creation, most notably soil physical parameters, and with the use of an objective and quantitative approaches, which make use of simple *Machine Learning (ML)* method *Random Forest* **section XX** were used to identify recurring themes in the dataset into groups, and then project these onto a 'map' which covers the Upper Colorado River Basin. 
+While for most land management decisions at the Uncompahgre Field Office ESD's, when available, represent the best available scientific evidence to inform decisions, ESG's provide the best alternative, and in the future are likely to be influential for large scale decisions at the UFO. Herein we address questions regarding the similarity of estimates arising from ESG's and ESD's. In this report, we are using ESD's for the *reference state benchmarks* which they contain, the quantitative goals which we seek to compare land to, and seek to visualize the relationship between the benchmarks of ESD's to ESG's. 
 
-While for most land management decisions at the UFO ESD's, when available, represent the best available scientific evidence upon which to inform decisions,  ESG's provide the best alternative for much of the field office, and in the future are likely to be influential for large scale decisions at the UFO. Herein we address questions regarding the similarity of estimates arising from ESG's and ESD's. In this report, we are using ESD's for the *reference state benchmarks* which they contain, in other words quantitative goals which we seek to compare land to, and seek to visualize the relationship between the standards of ESD's and ESG's. 
+The goals of this section are to 1) determine which ESD's constitute the ESG's across the UFO? And 2) visualize the similarity in benchmarks within an ESG and the ESD's which it contains. A short investigation of how different methods of extracting the spatial data set to the ground truthed data, as well as a comparison of the accuracy of the predicted ESG's limited to the UFO area and ground truthed plots, is also included. 
 
-The goals of this section are to 1) determine which ESD's constitute the ESG's across the UFO? And 2) visualize the similarity in benchmarks within an ESG and the ESD's which it contains. A short investigation of how different methods of extracting the spatial dataset to the ground truthed data, as well as a comparision of the accuracy of the predicted ESG's limited to the UFO area and ground truthed plots, is also included. 
-
-In the publication of Nauman et al. 2022 the accuracy of the final product was calculated as being 57.4% (@nauman2022quantitative). However, In our expereince certain groups are often more difficult to reliably predict, and without sufficient testing sample sizes many spatial products will score higher, or lower, than these averages in areas with/without these features. 
+In the publication of Nauman et al. 2022 the accuracy of the final product was calculated as being 57.4% (@nauman2022quantitative). However, In our experience certain predicted groups are often more difficult to reliably predict, and without sufficient testing sample sizes many spatial products will score higher, or lower, than these averages in areas with/without these features. 
 
 # Methods
 
@@ -43,7 +43,7 @@ In the publication of Nauman et al. 2022 the accuracy of the final product was c
 url <- urlshorteneR::isgd_LinksShorten(longUrl = "https://www.sciencebase.gov/catalog/item/5f76119e82cef8d1839c681d", showRequestURL = F)
 ```
 
-The mean fractional cover of vegetation was manually transcribed from Table 3 of Appendix A from Nauman et al. 2022. The spatial data product, a gridded surface of predicted ESG's, which was the outcome of the study was accessed from sciencebase.gov catalog on (Dec. 16, 2022, `r url`), three additional layers predicting soil geomorphological groups and another predicting climate zone were also downloaded. ESD quantitative benchmarks values, and AIM plot locations were cleaned in previous work (Section XX ESD Completion). All analyses were performed in R version 4.2.2 using RStudio on Linux Ubuntu 22.04 LTS (@r2022language, @sobell2015practical, @rstudio). 
+The mean fractional cover of vegetation was manually transcribed from Table 3 of Appendix A from Nauman et al. 2022. The spatial data product, a gridded surface of predicted ESG's, which was the outcome of the study was accessed from sciencebase.gov catalog on (Dec. 16, 2022, `r url`), three additional layers predicting soil geomorphological groups and another predicting climate zone were also downloaded. ESD quantitative benchmarks values, and AIM plot locations were cleaned in previous work (Section's 2 & 3). All analyses were performed in R version 4.2.2 using RStudio on Linux Ubuntu 22.04 LTS (@r2022language, @sobell2015practical, @rstudio). 
 
 ```{r}
 library(tidyverse)
@@ -124,8 +124,15 @@ ESG_present <- nrow(ref_lookup)
 rm(f, praw)
 ```
 
-
 ### Test Raster Extraction Methods 
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+  \centering
+    \includegraphics[width=0.4\textwidth]{../graphics/ESD_Correlation_plots.png}
+  \caption{Proportion of Plots in ESDs which were included in the ESGS and should map over unequivocally to an ESG}
+\end{wrapfigure}
+
+To test whether we were extracting and processing the correct ESG from the gridded surface two comparisons of raster extraction methods were attempted. The first (hereafter: 'polygon'), which is typically performed at UFO, is to buffer the point to represent the actual area of an AIM plot and extract to that area, and choose the categorical class with the most cells per value (the statistical mode). The second (hereafter: 'point') option is to extract from the raster surface values from the gridded surface directly to the point geometry. The idea behind this is that the pixels from the gridded surface featured a 'splotchy' characteristic, a byproduct of not performing spatial operations to clean up the predictions (e.g. 'Focal Statistics'); oftentimes these central isolated cells are not artifacts of analysis, but rather true points which are swamped by the adjacent cells. The slightly higher performing method, 'polygon', was used for the duration of the analyses. 
 
 ```{r test raster extraction methods}
 
@@ -186,11 +193,8 @@ p2p <- test_results %>%
 rm(bY, bN, ESG4simulation, ESG4simulation_buff, ecosites)
 ```
 
-To test whether we were extracting and processing the correct ESG from the gridded surface two comparisons of raster extraction methods were attempted. The first (hereafter: 'polygon'), which is typically performed at UFO, is to buffer the point to represent the actual area of the entire AIM plot and extract to that area, and choose the categorical class with the most cells per value (in other words the statistical mode). The second (herafter: 'point') option is to extract values from the gridded surface directly to the point geometry. The idea behind this is that the pixels from the gridded surface featured a 'splotchy' characteristic, a byproduct of not performing spatial operations to clean up the predictions (e.g. 'Focal Statistics'); oftentimes these central isolated cells are not artifacts of analysis, but rather true points which are swamped by the adjacent cells. The slightly higher performing method, 'polygon', was used for the duration of the analyses. 
-
 ### Test Local Accuracy of Raster Dataset 
-
-To determine whether the raster dataset gives a higher or lower performance accuracy in the UFO portion of it's range the `r nrow(known)` AIM plots in  `r nrow(ref_lookup)` ESD's which are known to map directly to `r length(unique(ref_lookup$ESG))` ESG's were utilized. These plots were extracted from the ESG gridded surface and the proportion of each ESG which was correctly and incorrectly mapped were calculated.  
+To determine whether the raster dataset gives a higher or lower performance accuracy in the UFO portion of it's range the `r nrow(known)` AIM plots in  `r nrow(ref_lookup)` ESD's which are known to map directly to `r length(unique(ref_lookup$ESG))` ESG's were utilized. These plots were extracted from the ESG gridded surface and the proportion of each ESG which was correctly and incorrectly mapped were calculated (Figure 1).  
 
 ```{r Proportion of Correct ESG matching}
 
@@ -256,7 +260,13 @@ rm(theme_boxplot, theme_prop_bar, esg, esg_correct, test_results, esd_correct)
 
 ### Determine ESD and ESG Groupings 
 
-To inform a strategy for mapping individual ESDs directly to ESG's a bipartite network was created using all AIM plots with verified ESD's,  all statistics (**not reported in text**) were calculated using the package 'bipartite' (@dormann2008bipartite). This approach was deemed neccessary given how many erroneous relationships were returned by the ESG extraction method. 
+\begin{wrapfigure}{r}{0.4\textwidth}
+  \centering
+    \includegraphics[width=0.4\textwidth]{../graphics/original_relationships.png}
+  \caption{Initial Relationship Between Field Verified ESD and ESG extracted from the gridded surface}
+\end{wrapfigure}
+
+To inform a strategy for mapping individual ESDs directly to ESG's a bipartite network was created using all AIM plots with verified ESD's,  all statistics (*see oneline supplement*) were calculated using the package 'bipartite' (@dormann2008bipartite). This approach was deemed necessary given how many erroneous relationships were returned by the ESG extraction method (Figure 2).
 
 ```{r Create Networks to show relationships between pixels and classification.}
 
@@ -293,7 +303,7 @@ SLInteractions <- specieslevel(EsdEsg_network, index = c(
 rm(ob, EsdEsg_network, NLINteractions, GLInteractions, SLInteractions)
 ```
 
-All observed ESD's were matched to ESG's in an incremental fashion. 1) ESD's which were used directly in the creation of ESG's were removed based upon a noted association in Appendix 6 of Naumen et al. 2022. 2) ESD's for which only a single AIM plot existed, had the ESG which values were extracted from it listed as it's ultimate mapped association. 3) ESD's with greater than 1 AIM plots associated with them, and which had all plots match an ESG were classified as such. 4) ESD's with over 65%, our local accuracy of the gridded surface, of their AIM plots mapping to a single ESG. 
+All observed ESD's were matched to ESG's in an incremental fashion. 1) ESD's which were used directly in the creation of ESG's were removed based upon a noted association in Appendix 6 of Naumen et al. 2022. 2) ESD's for which only a single AIM plot existed, had the ESG which values were extracted from it listed as it's ultimate mapped association. 3) ESD's with greater than 1 AIM plots associated with them, and which had all plots match an ESG were classified as such. 4) ESD's with over 65%, our local accuracy of the gridded surface, of their AIM plots mapping to a single ESG (Figure 3).
 
 ```{r Create a clean network of ESDs which map to an ESG}
 
@@ -452,6 +462,13 @@ rm(sgu1_ex, sgu1, sgu2, sgu3, ecosites, cz_lkp, sguvals, c_zones, dirtyNet,
    mode, clim_zones, ESD2ESG_map)
 ```
 
+\begin{wrapfigure}{r}{0.4\textwidth}
+  \centering
+    \includegraphics[width=0.4\textwidth]{../graphics/intermediate_cleaning.png}
+  \caption{Relationships Between ESDs and ESGs midway through the cleaning process}
+\end{wrapfigure}
+
+
 The results of these analyses led to the development of a draft ESD-ESG lookup table for the Uncompahgre Field Office for this project.
 
 ```{r ESD ESG Lookup table}
@@ -569,46 +586,53 @@ ggsave('../graphics/boxplots_ESD-ESG.png')
 rm(f, praw, lt, lookuptablegrps, lookuptable)
 ```
 
-\newpage
+## Results & Discussion
+
+`r nrow(known)` AIM points were in the `r nrow(ref_lookup)` ESD's which were directly involved in the creation of `r length(unique(ref_lookup$ESG))` ESG's and could be used for assessing the results from the alternative raster data extraction methods and for assessing the accuracy of the ESG gridded surface in the area of analysis.  The method of extracting the ESG from the gridded surface to plot had little influence on the accuracy of the ESG. Regardless the method of buffering the point to the real size of the AIM plot was used as it slightly outperformed plot centers on the `r nrow(known)` known sites, `r round(p2p[(p2p$test == 'polygon'),]$Prop, 3)` to `r round(p2p[(p2p$test == 'point'),]$Prop, 3)`. `r nrow(known)`. The ESG gridded surface was able to correctly place `r round(as.numeric(prop_D_map2_G[1,1]), 3)` plots to the appropriate ESG, rather than the 57.4% reported for the entire study area (*Figure 1*). A caveat associated with this result is that our value is likely to be biased towards more common ESG classes. We accept this bias as the scale at which we make management decisions is so great. 
+
+```{r Plot network of original Input data, eval = F}
+
+png('../graphics/original_relationships.png')
+plotweb(orig_mod@moduleWeb, labsize = 0.5, 
+        col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
+dev.off()
+```
 
 \begin{wrapfigure}{l}{0.4\textwidth}
   \centering
-    \includegraphics[width=0.4\textwidth]{../graphics/ESD_Correlation_plots.png}
-  \caption{Proportion of Plots in ESDs which were included in the ESGS and should map over unequivocally to an ESG}
+    \includegraphics[width=0.4\textwidth]{../graphics/final_relationships.png}
+  \caption{Relationship between ESDs and ESGs at end of process}
 \end{wrapfigure}
 
-# Results
+The initial extraction of ESG to AIM points was problematic (Figure 2). Ideally, if ESD's were the entities which defined the ESG's, than each ESD (the upper boxes in the panel) would link to a single ESG (the lower boxes in the panel), an image of this relationship is displayed in Figure 4. As is apparent in Figure 1, this was not the case, however much of the error in these classifications lay with the classification of the gridded surfaces, rather than with the ESG concepts themselves. 
 
-`r nrow(known)` AIM points were in the `r nrow(ref_lookup)` ESD's which were directly involved in the creation of `r length(unique(ref_lookup$ESG))` ESG's and could be used for assessing the results from the alternative raster data extraction methods and for assessing the accuracy of the ESG gridded surface in the area of analysis.  The method of extracting the ESG from the gridded surface to plot had little influence on the accuracy of the ESG. Regardless the method of buffering the point to the real size of the AIM plot was used as it slightly outperformed plot centers on the `r nrow(known)` known sites, `r round(p2p[(p2p$test == 'polygon'),]$Prop, 3)` to `r round(p2p[(p2p$test == 'point'),]$Prop, 3)`. `r nrow(known)` AIM points were in the `r nrow(ref_lookup)` ESD's which were directly involved in the creation of `r length(unique(ref_lookup$ESG))`. The ESG gridded surface was able to correctly place `r round(as.numeric(prop_D_map2_G[1,1]), 3)` plots to the appropriate ESG, rather than the 57.4% reported for the entire study area (*Figure 1*). A caveat associated with this result is that our value is likely to be biased towards more common ESG classes. We accept this bias as the scale at which we make management decisions is so great. 
+In order to map these relationships we utilized a step-wise process. 1) `r length(unique(ref_lookup$Ecological.Site.ID))` ESD's, associated with `r nrow(known)` plots, which were used directly in the creation of `r length(unique(ref_lookup$ESG))` ESG's were removed based upon a noted association in Appendix 6 of Naumen et al. 2022. 2) `r nrow(cleanNET2)` ESD's for which only a single AIM plot existed, had the `r length(unique(cleanNET2$ESG))` ESG which values were extracted from them listed as there ultimate mapped associations. 3) There were `r length(unique(cleanNET3$ECO.SITE))` ESD's with greater than 1 AIM plot associated with them, which had all plots match the same `r length(unique(cleanNET3$ESG))` ESG's. These ESD's, `r unique(cleanNET3$ECO.SITE)`,  were associated with `r nrow(cleanNET3)` AIM plots, and mapped to: *`r str_replace_all(unique(cleanNET3$ESG), '_|-',' ')`*.  4) Finally, `r length(unique(cleanNET4$ECO.SITE))` ESD's with over 65%, our local accuracy of the gridded surface, of there AIM plots mapping to a single ESG were recovered. These ESD's, `r unique(cleanNET4$ECO.SITE)`, were associated with `r nrow(cleanNET4)` AIM plots, and mapped to: *`r str_replace_all(unique(cleanNET4$ESG), '_|-',' ')`*. At this point the classified ESD's and non-classified ESD's appeared as Figures 3 respectively. 
 
-```{r Plot network of original Input data, fig.cap="Initial Relationship Between Field Verified ESD and ESG extracted from the gridded surface"}
-plotweb(orig_mod@moduleWeb, labsize = 0.5, 
-        col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
-```
+```{r Plot Network of cleaning data, fig.cap="Relationships Between ESDs and ESGs midway through the cleaning process", eval = F}
 
-The initial extraction of ESG to AIM points was problematic, Figure 2. Ideally, if ESD's were the entities which defined the ESG's, than each ESD (the upper boxes in the panel) would link to a single ESG (the lower boxes in the panel), an image of this relationship is displayed in Figure 4. As is apparent, this was not the case, however much of the error in these classifications lay with the classification of the gridder surfaces, rather than with the ESG concepts themselves. 
-
-In order to map these relationships we utilized a step-wise process. 1) `r length(unique(ref_lookup$Ecological.Site.ID))` ESD's, associated with `r nrow(known)` plots, which were used directly in the creation of `r length(unique(ref_lookup$ESG))` ESG's were removed based upon a noted association in Appendix 6 of Naumen et al. 2022. 2) `r nrow(cleanNET2)` ESD's for which only a single AIM plot existed, had the `r length(unique(cleanNET2$ESG))` ESG which values were extracted from it listed as it's ultimate mapped association. 3) There were `r length(unique(cleanNET3$ECO.SITE))` ESD's with greater than 1 AIM plot associated with them, which had all plots match the same ESG `r length(unique(cleanNET3$ESG))`. These ESD's, `r unique(cleanNET3$ECO.SITE)`,  were associated with `r nrow(cleanNET3)` AIM plots, and mapped to: *`r str_replace_all(unique(cleanNET3$ESG), '_|-',' ')`*.  4) Finally, `r length(unique(cleanNET4$ECO.SITE))` ESD's with over 65%, our local accuracy of the gridded surface, of their AIM plots mapping to a single ESG were recovered. These ESD's , `r unique(cleanNET4$ECO.SITE)`, were associated with `r nrow(cleanNET4)` AIM plots, and mapped to: *`r str_replace_all(unique(cleanNET4$ESG), '_|-',' ')`*. At this point the classified ESD's and non-classified ESD's appeared as Figures 3 and 4 respectively. 
-
-```{r Plot Network of cleaning data, fig.cap="Relationships Between ESDs and ESGs midway through the cleaning process"}
-par(mfrow=c(2,1), mar=c(0.0, 0.0, 0.0, 0.0))
+png('../graphics/intermediate_cleaning.png')
+par(mfrow=c(2,1), mar=c(0, 0, 0, 0), oma=c(0.0, 0.0, 0.0, 0.0))
 plotweb(clean_mod@moduleWeb, labsize = 0.75,  
         col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
 plotweb(dirt_mod@moduleWeb, labsize = 0.75,  
         col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
-par(mfrow=c(1,1))
+dev.off()
+
 ```
 
-The remaining `r nrow(sgu)` ESD's, associated with `r nrow(ecosites2step2)` AIM Plots,  were all mapped to `r length(unique(sgu$ESG))` ESGs via the methods of summarizing both all three SGU layers in conjunction with climate zones. The final lookup table of ESD to ESG mapping is in Figure 4. `r nrow(final_mod@moduleWeb)` of the 35 ESGs were present in the UFO, the number of plots per ESG ranged from `r min(rowSums(final_mod@moduleWeb))` (`r str_replace_all(names(which.min(rowSums(final_mod@moduleWeb))), "_|-", " ")`) to `r max(rowSums(final_mod@moduleWeb))` (`r str_replace_all(names(which.max(rowSums(final_mod@moduleWeb))), "_|-", " ")`). 
+The remaining `r nrow(sgu)` ESD's, associated with `r nrow(ecosites2step2)` AIM Plots,  were all mapped to `r length(unique(sgu$ESG))` ESGs via the methods of summarizing both all three SGU layers in conjunction with climate zones, from Nauman et al. 2022. The final lookup table of ESD to ESG mapping is in Figure 4. `r nrow(final_mod@moduleWeb)` of the 35 ESGs were present in the UFO, the number of plots per ESG ranged from `r min(rowSums(final_mod@moduleWeb))` (`r str_replace_all(names(which.min(rowSums(final_mod@moduleWeb))), "_|-", " ")`) to `r max(rowSums(final_mod@moduleWeb))` (`r str_replace_all(names(which.max(rowSums(final_mod@moduleWeb))), "_|-", " ")`). 
 
-```{r Plot Network of cleaned data a lookup table, fig.cap="Relationship between ESDs and ESGs at end of process"}
+```{r Plot Network of cleaned data a lookup table, fig.cap="Relationship between ESDs and ESGs at end of process", eval = F}
+
+png('../graphics/final_relationships.png')
 plotweb(final_mod@moduleWeb, labsize = 0.75,
         col.high = '#1C315E', col.low = '#227C70', col.interaction = '#E6E2C3')
+dev.off()
 
 rm(orig_mod, clean_mod, dirt_mod, final_mod)
 ```
 
-Of the three climate zones defined in Nauman et al. 2022, the UFO does not contain the Semiarid-Cool zone. 
+Of the three major climate zones defined in Nauman et al. 2022, the UFO does not contain the Semiarid-Cool zone. 
 
 ```{r}
 obG <- ob[ob$MODEL == 'ESG',]
@@ -617,39 +641,32 @@ rm(known, prop_D_map2_G, number_correct_esg, number_incorrect, p2p, cleanNET1,
    cleanNET2, cleanNET3, cleanNET4, sgu, ESG_present, ref_lookup)
 ```
 
-\begin{wrapfigure}{l}{0.6\textwidth}
+\begin{wrapfigure}{r}{0.2\textwidth}
   \centering
-    \includegraphics[width=0.6\textwidth]{../graphics/benchcover_means_ESD-ESG.png}
-  \caption{Fractional cover, note the provisional ESGS for Outcrops and Riparian, groups 7 and 8, have been removed}
+    \includegraphics[width=0.2\textwidth]{../graphics/benchcover_means_ESD-ESG.png}
+  \caption{Fractional cover, note Outcrops and Riparian, have been removed}
 \end{wrapfigure}
 
-The quantitative estimates for the cover of major vegetation types by group are presented in figure 6. Note this figure does not contain 'outcrops or riparian esg' both of which do not have ESD, nor are they target areas for management considerations. Riparian areas fall within the domain of Lotic AIM, and the ecology of outcrops is a management action over the geologic time scale. 
+The quantitative estimates for the cover of major vegetation types by group are presented in Figure 6. Note this figure does not contain 'Outcrops or Riparian ESG' both of which do not have ESD, nor are they target areas for management considerations. Riparian areas fall within the domain of Lotic AIM, and the ecology of outcrops is a management action over the geologic time scale. 
 
-The covers of forbs, with both perennial -and to an extent annual- life cycles varies the least across lifeforms, their cover ranges from `r min(obG[obG$COVER_TYPE == 'FORB',]$MEAN)` to `r max(obG[obG$COVER_TYPE == 'FORB',]$MEAN)` (*Fig. 5 & 6, Column 1*). Given the variability inherent within the concept of an Ecological Site, and the years from which a large amount of the data for which the ESG cover values were calculated a marked majority of this cover should be constituted of perennial rather annual forbs. The cover of trees per Ecological Site Concept has the next least variability (*Figure 5 & 6, Column 4*).`r nrow(obG[obG$COVER_TYPE == 'TREE' & obG$MEAN < 5,])` of `r nrow(obG[obG$COVER_TYPE == 'TREE',])` sites have < 5 % tree cover, with the exception to this being the FINER??? Uplands, conceptually a very large ESG, which includes nearly all of the Pinyon-Juniper Woodlands, along with high notable amounts of Sagebrush sites (VERIFY). We presume that the inclusion of Sagebrush sites into this ESG is the reason that for this concept alone the tree cover in the ESG exceeds that noted in the ESD. 
+The covers of forbs, with both perennial -and to an extent annual- life cycles varies the least across lifeforms, their cover ranges from `r min(obG[obG$COVER_TYPE == 'FORB',]$MEAN)` to `r max(obG[obG$COVER_TYPE == 'FORB',]$MEAN)` (Fig. 5, Column 1). Given the variability inherent within the concept of an Ecological Site, and the years from which a large amount of the data for which the ESG cover values were calculated a marked majority of this cover should be constituted of perennial rather annual forbs. The cover of trees per Ecological Site Concept has the next least variability (Figure 5, Column 4).`r nrow(obG[obG$COVER_TYPE == 'TREE' & obG$MEAN < 5,])` of `r nrow(obG[obG$COVER_TYPE == 'TREE',])` sites have < 5 % tree cover, with the exception to this being the Finer Uplands, conceptually a very large ESG, which includes nearly all of the Pinyon-Juniper Woodlands, along with high notable amounts of Sagebrush sites. We presume that the inclusion of Sagebrush sites into this ESG is the reason that for this concept alone the tree cover in the ESG exceeds that noted in the ESD. 
 
-Greater divergences are observed between the estimates of cover for Grass and Shrub. The cover of grasses in two ESG's, are conceptually identical, however in the other seven ESG's the cover of grass notably exceeds that noted in the ESD's (*Fig 5 & 6, Column 2*). The relationships between the shrub cover values are more nuanced, 2 ESG's have conceptually identical cover values, three have very similar values, however for the remaining four ESG's the cover of Shrubs is less than noted in the ESD's (*Fig 5 & 6, Column 3*). 
+Greater divergences are observed between the estimates of cover for Grass and Shrub. The cover of grasses in two ESG's, are conceptually identical, however in the other seven ESG's the cover of grass notably exceeds that noted in the ESD's (Fig 5, Column 2). The relationships between the shrub cover values are more nuanced, 2 ESG's have conceptually identical cover values, three have very similar values, however for the remaining four ESG's the cover of Shrubs is less than noted in the ESD's (Fig 5, Column 3). 
 
-\begin{wrapfigure}{l}{0.4\textwidth}
-  \centering
-    \includegraphics[width=0.4\textwidth]{../graphics/boxplots_ESD-ESG.png}
-  \caption{Percent cover across all ESG's and the ESD's with quantitative Benchmarks within them.}
-\end{wrapfigure}
+## Conclusions
 
-The distributions of covers for each life-form regardless of ESG are reported in the bottom of (figure 5, Pane B.). 
+The relationship between the novel ESG's and the ESD's are less straightforward then may be offered by simple extraction of values from gridded surfaces. We find that Nauman et al. 2022 were largely hampered by the same issues as ourselves (supplemental online materials; 'cluster_ESD') in trying to map ESD's into meaningfully similar groups. We believe that we are the first persons to attempt to operationalize the ESG concepts which they utilize in their publication. 
 
-# Conclusions
-
-The relationship between the novel ESG's and the ESD's are less straightforward then may be offered by simple extraction of values from gridded surfaces. We find that Nauman et al. 2022 were largely hampered by the same issues as ourselves, Section XX, in trying to map ESD's into meaningfully similar groups. We believe that we are the first persons to attempt to operationalize the ESG concepts which they utilize in their publication. 
-
-> "We emphasize the need to corroborate mapped classes with ﬁeld conﬁrmation for site-speciﬁc management."
+> "_We emphasize the need to corroborate mapped classes with ﬁeld conﬁrmation for site-speciﬁc management._"
 >
 > `r tufte::quote_footer('--- Nauman et al. 2022, P. 24')`
 
-Based upon the relatively high 50% mean value of forb cover (after data exploration in Section X.X), and the relatively narrow estimates of forb covers, we choose to use the median of all lower benchmarks as a benchmark for all ESG sites... 
+In regards to using ESG's we feel that the best option is to continue verifying the NRCS Ecological Site at all sites, and then using a spatial approach as above to determine which ESG an ESD is allied to. The additional use of the Dichotomous Key (Figure 3 of Nauman et al. 2022), with ocular estimates of Electrical Conductivity via 'sparkling' parameters of the soil may be used by crews in the future to develop a larger ground truthed data set for the UFO.  Alternatively probes which may measure EC are readily acquired, easy to calibrate, and may operate with only small amounts of soil which has been collected in the field. 
 
-In regards to using ESG's we feel that the best option is to continue verifying the ESD at all sites, and then using a spatial approach as above to determine which ESG an ESD is allied to. The additional use of the Dichotomous Key (Figure 3 of Nauman et al. 2022), with ocular estimates of Electrical Conductivity via 'sparkling' parameters of the soil may be used by crews in the future to develop a larger ground truthed data set for the UFO.  Alternatively probes which may measure EC are readily acquired, easy to calibrate, and may operate with only small amounts of soil which has been collected in the field. 
+For vegetation, the cover of ESG's will be used as benchmarks. 
 
 \newpage
 
 # References
 
+\small
