@@ -70,7 +70,7 @@ ecosites <- read.csv(file.path(praw, f[grep('Plot_Tracking',f)] )) %>%
 
 esg <- rast(file.path(praw, f[grep('ESGs.*tif$',f)]))
 
-ecosites <- st_read('/media/sagesteppe/ExternalHD/UFO_cartography/AIM_plots_outcomes/plots_outcomes.shp', 
+ecosites <- st_read('../../UFO_cartography/AIM_plots_outcomes/plots_outcomes.shp', 
                  quiet = T) %>% # let us grab the spatial data from this real quick
   select(PLOT.ID = Plot_ID) %>% 
   st_transform(26912) %>% 
@@ -139,7 +139,7 @@ To test whether we were extracting and processing the correct ESG from the gridd
 
 ```{r test raster extraction methods}
 
-ecosites <- st_read('/media/sagesteppe/ExternalHD/UFO_cartography/AIM_plots_outcomes/plots_outcomes.shp', 
+ecosites <- st_read('../../UFO_cartography/AIM_plots_outcomes/plots_outcomes.shp', 
                  quiet = T) %>% # let us grab the spatial data from this real quick
   select(PLOT.ID = Plot_ID) %>% 
   st_transform(26912) 
@@ -401,7 +401,7 @@ sgu2  <- rast( file.path(praw, f[grep('SGU_2nd.*tif$',f)]) )
 sgu3  <- rast( file.path(praw, f[grep('SGU_3rd.*tif$',f)]) )
 c_zones <- rast( file.path(praw, f[grep('Zones.*tif$', f)]) )
 
-ecosites <- st_read('/media/sagesteppe/ExternalHD/UFO_cartography/AIM_plots_outcomes/plots_outcomes.shp', 
+ecosites <- st_read('../../UFO_cartography/AIM_plots_outcomes/plots_outcomes.shp', 
                  quiet = T) %>% # let us grab the spatial data from this real quick
   select(PLOT.ID = Plot_ID) %>% 
   st_transform(26912) %>% 
