@@ -16,6 +16,7 @@ bibliography: ../citations/citations/citations.bib
 link-citations: yes
 ---
 
+\pagenumbering{gobble}
 \vspace{-1cm}
 
 ```{r global options, include=FALSE}
@@ -123,6 +124,8 @@ ESG_present <- nrow(ref_lookup)
 
 rm(f, praw)
 ```
+
+\newpage
 
 ### Test Raster Extraction Methods 
 
@@ -649,7 +652,7 @@ rm(known, prop_D_map2_G, number_correct_esg, number_incorrect, p2p, cleanNET1,
 
 The quantitative estimates for the cover of major vegetation types by group are presented in Figure 6. Note this figure does not contain 'Outcrops or Riparian ESG' both of which do not have ESD, nor are they target areas for management considerations. Riparian areas fall within the domain of Lotic AIM, and the ecology of outcrops is a management action over the geologic time scale. 
 
-The covers of forbs, with both perennial -and to an extent annual- life cycles varies the least across lifeforms, their cover ranges from `r min(obG[obG$COVER_TYPE == 'FORB',]$MEAN)` to `r max(obG[obG$COVER_TYPE == 'FORB',]$MEAN)` (Fig. 5, Column 1). Given the variability inherent within the concept of an Ecological Site, and the years from which a large amount of the data for which the ESG cover values were calculated a marked majority of this cover should be constituted of perennial rather annual forbs. The cover of trees per Ecological Site Concept has the next least variability (Figure 5, Column 4).`r nrow(obG[obG$COVER_TYPE == 'TREE' & obG$MEAN < 5,])` of `r nrow(obG[obG$COVER_TYPE == 'TREE',])` sites have < 5 % tree cover, with the exception to this being the Finer Uplands, conceptually a very large ESG, which includes nearly all of the Pinyon-Juniper Woodlands, along with high notable amounts of Sagebrush sites. We presume that the inclusion of Sagebrush sites into this ESG is the reason that for this concept alone the tree cover in the ESG exceeds that noted in the ESD. 
+The covers of forbs, with both perennial -and to an extent annual- life cycles varies the least across lifeforms, their cover ranges from `r min(obG[obG$COVER_TYPE == 'FORB',]$MEAN)` to `r max(obG[obG$COVER_TYPE == 'FORB',]$MEAN)` (Fig. 5, Column 1). Given the variability inherent within the concept of an Ecological Site, and the years from which a large amount of the data for which the ESG cover values were calculated a marked majority of this cover should be constituted of perennial rather annual forbs. The cover of trees per Ecological Site Concept has the next least variability (Figure 5, Column 4).`r nrow(obG[obG$COVER_TYPE == 'TREE' & obG$MEAN < 5,])` of `r nrow(obG[obG$COVER_TYPE == 'TREE',])` sites have < 5% tree cover, with the exception to this being the Finer Uplands, conceptually a very large ESG, which includes nearly all of the Pinyon-Juniper Woodlands, along with high notable amounts of Sagebrush sites. We presume that the inclusion of Sagebrush sites into this ESG is the reason that for this concept alone the tree cover in the ESG exceeds that noted in the ESD. 
 
 Greater divergences are observed between the estimates of cover for Grass and Shrub. The cover of grasses in two ESG's, are conceptually identical, however in the other seven ESG's the cover of grass notably exceeds that noted in the ESD's (Fig 5, Column 2). The relationships between the shrub cover values are more nuanced, 2 ESG's have conceptually identical cover values, three have very similar values, however for the remaining four ESG's the cover of Shrubs is less than noted in the ESD's (Fig 5, Column 3). 
 
@@ -667,6 +670,6 @@ For vegetation, the cover of ESG's will be used as benchmarks.
 
 \newpage
 
-# References
+## References
 
 \small
